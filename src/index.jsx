@@ -2,12 +2,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
-import { store } from './_helpers';
-import { App } from './App';
-
-// setup fake backend
-import { configureFakeBackend } from './_helpers';
-configureFakeBackend();
+import { store } from './helpers';
+import { App } from './containers/App';
 
 render(
     <Provider store={store}>

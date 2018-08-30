@@ -1,0 +1,55 @@
+.topbar_right {
+    float: right;
+    display: inline-block;
+    padding: 10px;
+}
+
+.topbar_left {
+    float: left;
+    display: inline-block;
+    padding: 10px;
+}
+
+.topbar_inner {
+    /* width: 1260px; */
+    margin: 0 auto;
+    position: relative;
+}
+
+.topbar_inner * {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.topbar_element {
+
+    border: 0px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 4px;
+    -webkit-font-smoothing: antialiased;
+    padding: 0px;
+    outline: none;
+    box-shadow: none;
+    cursor: pointer;
+    margin-top: 0px;
+    vertical-align: middle;
+    text-align: center;
+    background-color: rgb(235, 235, 235);
+    color: rgb(68, 68, 68);
+    width: 128px;
+    padding: 10px;
+    margin-right: 10px;
+    box-sizing: border-box;
+    font-size: 1.15385em;
+    font-weight: 600;
+}
+
+.topbar_optionsdivider {
+    /* border: 2px solid #e6e6e8; */
+    border-left: 2px solid #4c4c4c;
+    /* display: none; */
+    margin-left: 3.7em;
+    width: 1px;
+    height: 100%;
+}
