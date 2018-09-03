@@ -12,75 +12,78 @@ export const userActions = {
 };
 
 function login(email, password) {
-
-    return dispatch => {
-        dispatch(request({
-            email
-        }));
-
-        userService.login(email, password)
-            .then(
-                user => {
-                    dispatch(success(user));
-                    history.push('/');
-                },
-                error => {
-                    dispatch(failure(error));
-                    // dispatch(alertActions.error(error));
-                }
-            );
+    return function (dispatch) {
+        let user = {
+            email: email,
+            password: password
+        }
+        dispatch(loginUserRequest(user));
+        return userService.login(email, password)
+        .then(
+            user => {
+                debugger
+                dispatch(loginUserSuccess(user));
+                history.push('/');
+            },
+            error => {
+                // debugger
+                dispatch(loginUserFailure(error));
+                // dispatch(failure(error));
+                // dispatch(alertActions.error(error));
+            }
+        );
     };
 
-    function request(user) {
-        return {
-            type: userConstants.LOGIN_REQUEST,
-            user
-        }
-    }
 
-    function success(user) {
-        return {
-            type: userConstants.LOGIN_SUCCESS,
-            user
-        }
-    }
-
-    function failure(error) {
-        return {
-            type: userConstants.LOGIN_FAILURE,
-            error
-        }
-    }
 }
 
+export function loginUserRequest(user) {
+    return {
+        type: userConstants.LOGIN_USER_REQUEST,
+        payload: {
+            user,
+        },
+    };
+}
 
+export function loginUserSuccess(token) {
+    // localStorage.setItem('token', token);
+    return {
+        type: userConstants.LOGIN_USER_SUCCESS,
+        payload: {
+            token,
+        },
+    };
+}
 
-
+export function loginUserFailure(error) {
+    // localStorage.removeItem('token');
+    return {
+        type: userConstants.LOGIN_USER_FAILURE, payload: error, error
+        // payload: {
+        //     status: error.response.status,
+        //     statusText: error.response.statusText,
+        // },
+    };
+}
 
 function register(email, username, password) {
     return function (dispatch) {
-        // debugger
         let user = {
             email: email,
             username: username, 
             password: password
         }
         dispatch(registerUserRequest(user));
-        // debugger
         return userService.register(email, username, password)
             .then(
                 user => {
                     debugger
                     dispatch(registerUserSuccess(user));
-                    // dispatch(success(user));
                     history.push('/');
                 },
                 error => {
-                    // debugger
-                    // debugger
                     dispatch(registerUserFailure(error));
-                    // dispatch(failure(error));
-                    // dispatch(alertActions.error(error));
                 }
             );
     };

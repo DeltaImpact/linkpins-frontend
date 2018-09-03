@@ -11,6 +11,7 @@ import { Layout } from '../../components/Layout';
 import { MainPage } from '../../components/MainPage';
 import { RegisterPage } from '../../components/RegisterPage';
 import { RegisterView } from '../../components/RegisterView';
+import { LoginView } from '../../components/LoginView';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -41,7 +42,8 @@ class App extends React.Component {
                             <Layout>
                                 <Route exact path="/" component={MainPage} />
                                 <PrivateRoute path="/profile" component={ProfilePage} />
-                                <Route path="/login" component={LoginPage} />
+                                {/* <Route path="/login" component={LoginPage} /> */}
+                                <Route path="/login" component={LoginView} />
                                 <Route path="/register" component={RegisterView} />
                                 {/* <Route path="/register" component={RegisterPage} /> */}
                                 {/* <Route path="/logout" component={Logout} /> */}
