@@ -25,7 +25,7 @@ class NavMenu extends Component {
     }
 
     render() {
-        const { user, users } = this.props;
+        const { user, data } = this.props;
 
         let state = "not logged";
         if (user) {

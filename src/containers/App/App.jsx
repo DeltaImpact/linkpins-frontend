@@ -37,17 +37,16 @@ class App extends React.Component {
                 }
                 <Router history={history}>
                     <div>
-
-                        <Layout>
-                            <MuiThemeProvider muiTheme={getMuiTheme()}>
+                        <MuiThemeProvider muiTheme={getMuiTheme()}>
+                            <Layout>
                                 <Route exact path="/" component={MainPage} />
                                 <PrivateRoute path="/profile" component={ProfilePage} />
                                 <Route path="/login" component={LoginPage} />
                                 <Route path="/register" component={RegisterView} />
                                 {/* <Route path="/register" component={RegisterPage} /> */}
                                 {/* <Route path="/logout" component={Logout} /> */}
-                            </MuiThemeProvider>
-                        </Layout>
+                            </Layout>
+                        </MuiThemeProvider>
                     </div>
                 </Router>
             </div>

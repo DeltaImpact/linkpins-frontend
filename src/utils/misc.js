@@ -8,10 +8,10 @@ export function createConstants(...constants) {
 }
 
 export function createReducer(initialState, reducerMap) {
+    // debugger
     return (state = initialState, action) => {
         const reducer = reducerMap[action.type];
-
-
+        // debugger
         return reducer
             ? reducer(state, action.payload)
             : state;
@@ -20,6 +20,7 @@ export function createReducer(initialState, reducerMap) {
 
 
 export function parseJSON(response) {
+    // debugger
     return response.data;
 }
 

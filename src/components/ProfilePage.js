@@ -33,18 +33,18 @@ class ProfilePage extends React.Component {
 
 
     render() {
-        const { user, users } = this.props;
+        const { user, data } = this.props;
         return (
             <div className="col-md-6 col-md-offset-3">
                 <h2>Profile info</h2>
-                {users.loading && <em>Loading profile...</em>}
-                {users.error && <span className="text-danger">ERROR: {users.error}</span>}
-                {users.items &&
-                    // <NumberList values={users.items} />
-                    <NumberList values={users.items} />
+                {data.loading && <em>Loading profile...</em>}
+                {data.error && <span className="text-danger">ERROR: {data.error}</span>}
+                {data.items &&
+                    // <NumberList values={data.items} />
+                    <NumberList values={data.items} />
                     // <div>
-                    //     {JSON.stringify(users.items)}
-                    //     {/* { users.items.map(station => <div> {station} </div>) } */}
+                    //     {JSON.stringify(data.items)}
+                    //     {/* { data.items.map(station => <div> {station} </div>) } */}
                     // </div>
                 }
 
@@ -54,11 +54,11 @@ class ProfilePage extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { users, authentication } = state;
+    const { data, authentication } = state;
     const { user } = authentication;
     return {
         user,
-        users
+        data
     };
 }
 

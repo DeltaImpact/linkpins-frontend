@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 class MainPage extends React.Component {
    
     render() {
-        const { user, users } = this.props;
+        const { user, data } = this.props;
         return (
             <div>
                 something
@@ -17,11 +17,11 @@ class MainPage extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { users, authentication } = state;
+    const { data, authentication } = state;
     const { user } = authentication;
     return {
         user,
-        users
+        data
     };
 }
 

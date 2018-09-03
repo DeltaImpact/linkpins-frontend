@@ -2,6 +2,7 @@ import { userConstants } from '../constants';
 import { userService } from '../services';
 import { alertActions } from './';
 import { history } from '../helpers';
+import { parseJSON } from '../utils/misc';
 
 export const userActions = {
     login,
@@ -52,53 +53,81 @@ function login(email, password) {
     }
 }
 
-function register(email, password, username) {
 
-    return dispatch => {
-        dispatch(request({
-            email
-        }));
 
-        userService.register(email, password, username)
+
+
+function register(email, username, password) {
+    return function (dispatch) {
+        // debugger
+        let user = {
+            email: email,
+            username: username, 
+            password: password
+        }
+        dispatch(registerUserRequest(user));
+        // debugger
+        return userService.register(email, username, password)
             .then(
                 user => {
-                    dispatch(success(user));
+                    debugger
+                    dispatch(registerUserSuccess(user));
+                    // dispatch(success(user));
                     history.push('/');
                 },
                 error => {
-                    dispatch(failure(error));
+                    // debugger
+                    // debugger
+                    dispatch(registerUserFailure(error));
+                    // dispatch(failure(error));
                     // dispatch(alertActions.error(error));
                 }
             );
     };
-
-    function request(user) {
-        return {
-            type: userConstants.REGISTER_USER_REQUEST,
-            user
-        }
-    }
-
-    function success(user) {
-        return {
-            type: userConstants.REGISTER_USER_SUCCESS,
-            user
-        }
-    }
-
-    function failure(error) {
-        return {
-            type: userConstants.REGISTER_USER_FAILURE({
-                response: {
-                    status: 403,
-                    statusText: 'Ata ata',
-                },
-            }
-            ),
-            error
-        }
-    }
 }
+
+export function registerUserRequest(user) {
+    return {
+        type: userConstants.REGISTER_USER_REQUEST,
+        payload: {
+            user,
+        },
+    };
+}
+
+export function registerUserSuccess(token) {
+    // localStorage.setItem('token', token);
+    return {
+        type: userConstants.REGISTER_USER_SUCCESS,
+        payload: {
+            token,
+        },
+    };
+}
+
+export function registerUserFailure(error) {
+    // localStorage.removeItem('token');
+    return {
+        type: userConstants.REGISTER_USER_FAILURE, payload: error, error
+        // payload: {
+        //     status: error.response.status,
+        //     statusText: error.response.statusText,
+        // },
+    };
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function logout() {
     userService.logout();
@@ -128,10 +157,10 @@ function data_about_user() {
         }
     }
 
-    function success(users) {
+    function success(data) {
         return {
             type: userConstants.PROFILE_SUCCESS,
-            users
+            data
         }
     }
 
