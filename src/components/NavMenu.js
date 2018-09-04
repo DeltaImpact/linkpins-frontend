@@ -6,8 +6,20 @@ import './../styles/NavMenu.css';
 import { connect } from 'react-redux';
 import { userActions } from '../actions';
 
+import * as actionCreators from '../actions/user.actions';
+import { bindActionCreators } from 'redux';
 
-// export 
+function mapDispatchToProps(dispatch) {
+    let asd = dispatch;
+    // debugger
+    return bindActionCreators(actionCreators, dispatch);
+    // return bindActionCreators(actionCreators, dispatch);
+}
+
+// const mapDispatchToProps = dispatch => bindActionCreators({
+//     return bindActionCreators(actionCreators, dispatch);
+//   }, dispatch)
+
 class NavMenu extends Component {
     constructor(props) {
         super(props);
@@ -21,24 +33,27 @@ class NavMenu extends Component {
 
     handleLogout(e) {
         e.preventDefault();
+
+        // let sd = this.props;
+        // sd = React.PropTypes.func;
+
+        // debugger
         this.props.dispatch(userActions.logout());
+        // this.props.userActions.logout();
     }
 
     render() {
-        const { user, data } = this.props;
-
-        let state = "not logged";
-        if (user) {
-            state = user.username;
-
-        }
+        // debugger;
+        const user = this.props.auth.user;
+        // debugger
         let topbarRight;
         if (user) {
             topbarRight = <div>
                 <Link to={'/profile'} className="topbar_element">
                     {/* profile */}
+                    {/* {user.username} */}
                     {user.username}
-                        </Link>
+                </Link>
 
                 <button onClick={this.handleLogout} className="topbar_element">
                     logout
@@ -56,10 +71,8 @@ class NavMenu extends Component {
 
             </div>
         }
-
-
         console.log(this.props);
-
+        // debugger
         return (
             <div>
                 <div className="topbar_inner">
@@ -72,11 +85,11 @@ class NavMenu extends Component {
                         </Link>
 
                         <div className="topbar_optionsdivider">
-                            
+
                         </div>
 
                         {topbarRight}
-
+                        {/* {user && <p>asd</p>} */}
                     </div>
                 </div>
             </div>
@@ -84,13 +97,20 @@ class NavMenu extends Component {
     }
 }
 
+NavMenu.propTypes = {
+    // // logout: React.PropTypes.func,
+    // registerStatusText: React.PropTypes.string,
+};
+
 function mapStateToProps(state) {
-    const { authentication } = state;
-    const { user } = authentication;
+    const { auth } = state;
     return {
-        user,
+        auth
     };
 }
 
-const connectedNavMenuComponent = connect(mapStateToProps)(NavMenu);
+const connectedNavMenuComponent = connect(
+    mapStateToProps,
+    // mapDispatchToProps
+)(NavMenu);
 export { connectedNavMenuComponent as NavMenu };

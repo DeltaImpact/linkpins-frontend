@@ -27,7 +27,7 @@ function login(email, password) {
     })
         .then(parseJSON)
         .then(response => {
-            debugger
+            // debugger
             if (response.token) {
                 let tpm = jwtDecode(response.token);
                 let user = {
@@ -36,12 +36,13 @@ function login(email, password) {
                     token: response.token
                 }
                 localStorage.setItem('user', JSON.stringify(user));
-                debugger
                 // axios.defaults.headers.common['Authorization'] =
                 //     'Bearer ' + response.token;
                 return user;
             }
-            return error;
+            let err = {};
+            err.Message = "Incorrect response.";
+            return Promise.reject(err);
         },
             error => {
                 let err = {};
@@ -87,7 +88,7 @@ function register(email, username, password) {
     })
         .then(parseJSON)
         .then(response => {
-            debugger
+            // debugger
             if (response.token) {
                 let tpm = jwtDecode(response.token);
                 let user = {
@@ -96,12 +97,15 @@ function register(email, username, password) {
                     token: response.token
                 }
                 localStorage.setItem('user', JSON.stringify(user));
-                debugger
+                // debugger
                 // axios.defaults.headers.common['Authorization'] =
                 //     'Bearer ' + response.token;
-                return user;
+                return response;
+
             }
-            return error;
+            let err = {};
+            err.Message = "Incorrect response.";
+            return Promise.reject(err);
         },
             error => {
                 let err = {};
@@ -141,11 +145,13 @@ function logout() {
 }
 
 function data_about_user() {
-
+    let userInStorage = JSON.parse(localStorage.getItem('user'));
+    // let sad = authHeader();
     return axios.get('https://localhost:5001/account/user', {
-        // let tmp = axios.get('http://httpbin.org/get', {
+    // return axios.get('http://httpbin.org/get', {
         headers: {
-            Authorization: authHeader()
+            // Authorization: authHeader()
+            Authorization: 'Bearer ' + userInStorage.token
         }
     })
         .then(parseJSON)

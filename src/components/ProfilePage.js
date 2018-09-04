@@ -11,7 +11,7 @@ function NumberList(props) {
         return <li key={index}>
             {value} : {values[value]}
         </li>
-      
+
     })
 
     return (
@@ -33,7 +33,8 @@ class ProfilePage extends React.Component {
 
 
     render() {
-        const { user, data } = this.props;
+        const { user, data, auth } = this.props;
+        // debugger
         return (
             <div className="col-md-6 col-md-offset-3">
                 <h2>Profile info</h2>
@@ -54,11 +55,12 @@ class ProfilePage extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { data, authentication } = state;
+    const { data, authentication, auth } = state;
     const { user } = authentication;
     return {
         user,
-        data
+        data,
+        auth
     };
 }
 

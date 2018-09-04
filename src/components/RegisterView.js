@@ -140,7 +140,7 @@ class RegisterView extends React.Component {
                             </div>
                         } */}
                         {
-                            this.props.auth.registerStatusText  &&
+                            this.props.auth.registerStatusText &&
                             <div className="alert alert-info">
                                 {this.props.auth.registerStatusText}
                             </div>
@@ -197,14 +197,8 @@ class RegisterView extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { data, authentication, auth } = state;
-    const { user } = authentication;
-    // debugger
-    // console.log("mapStateToProps(state)");
-    // console.log(state);
+    const { auth } = state;
     return {
-        // user,
-        // data,
         auth
     };
     // const { loggingIn } = state.authentication;

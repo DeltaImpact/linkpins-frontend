@@ -40,12 +40,12 @@ class LoginView extends React.Component {
         // };
         const redirectRoute = '/';
         this.state = {
-            email: 'user@yandex.ru',
-            password: '123456',
+            email: 'user123@yandex.ru',
+            password: '',
             email_error_text: null,
             password_error_text: null,
             redirectTo: redirectRoute,
-            disabled: false,
+            disabled: true,
         };
         // debugger
     }
@@ -54,43 +54,43 @@ class LoginView extends React.Component {
         let email_is_valid = false;
         let password_is_valid = false;
 
-        // if (this.state.email === '') {
-        //     this.setState({
-        //         email_error_text: null,
-        //     });
-        // } else if (validateEmail(this.state.email)) {
-        //     email_is_valid = true;
-        //     this.setState({
-        //         email_error_text: null,
-        //     });
+        if (this.state.email === '') {
+            this.setState({
+                email_error_text: null,
+            });
+        } else if (validateEmail(this.state.email)) {
+            email_is_valid = true;
+            this.setState({
+                email_error_text: null,
+            });
 
-        // } else {
-        //     this.setState({
-        //         email_error_text: 'Sorry, this is not a valid email',
-        //     });
-        // }
+        } else {
+            this.setState({
+                // email_error_text: 'Sorry, this is not a valid email',
+            });
+        }
 
-        // if (this.state.password === '' || !this.state.password) {
-        //     this.setState({
-        //         password_error_text: null,
-        //     });
-        // } else if (this.state.password.length >= 6) {
-        //     password_is_valid = true;
-        //     this.setState({
-        //         password_error_text: null,
-        //     });
-        // } else {
-        //     this.setState({
-        //         password_error_text: 'Your password must be at least 6 characters',
-        //     });
+        if (this.state.password === '' || !this.state.password) {
+            this.setState({
+                password_error_text: null,
+            });
+        } else if (this.state.password.length >= 6) {
+            password_is_valid = true;
+            this.setState({
+                password_error_text: null,
+            });
+        } else {
+            this.setState({
+                // password_error_text: 'Your password at least 6 characters',
+            });
 
-        // }
+        }
 
-        // if (email_is_valid && password_is_valid) {
-        //     this.setState({
-        //         disabled: false,
-        //     });
-        // }
+        if (email_is_valid && password_is_valid) {
+            this.setState({
+                disabled: false,
+            });
+        }
 
     }
 
