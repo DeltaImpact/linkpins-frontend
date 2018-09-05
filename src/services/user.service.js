@@ -29,15 +29,13 @@ function login(email, password) {
         .then(response => {
             // debugger
             if (response.token) {
-                let tpm = jwtDecode(response.token);
                 let user = {
-                    username: tpm.unique_name,
-                    email: tpm.email,
-                    token: response.token
+                    username: response.username,
+                    email: response.email,
+                    token: response.token,
+                    role: response.role,
                 }
                 localStorage.setItem('user', JSON.stringify(user));
-                // axios.defaults.headers.common['Authorization'] =
-                //     'Bearer ' + response.token;
                 return user;
             }
             let err = {};
@@ -46,11 +44,6 @@ function login(email, password) {
         },
             error => {
                 let err = {};
-                // response: {
-                //     status: 503,
-                //     statusText: 'User with that email already exists',
-                // },
-                // let errorMessage = "";
                 if (error.response) {
                     err.response = error.response;
                     if (error.response.status === 400) {
@@ -69,14 +62,8 @@ function login(email, password) {
                     err.status = 503;
                     err.errorMessage = "Network Error";
                 }
-
-
-                // debugger
                 return Promise.reject(err);
             }
-
-
-
         );
 }
 
@@ -90,11 +77,12 @@ function register(email, username, password) {
         .then(response => {
             // debugger
             if (response.token) {
-                let tpm = jwtDecode(response.token);
+                // let tpm = jwtDecode(response.token);
                 let user = {
-                    username: tpm.unique_name,
-                    email: tpm.email,
-                    token: response.token
+                    username: response.username,
+                    email: response.email,
+                    token: response.token,
+                    role: response.role,
                 }
                 localStorage.setItem('user', JSON.stringify(user));
                 // debugger
