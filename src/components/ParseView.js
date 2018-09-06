@@ -11,8 +11,6 @@ import { userActions } from '../actions';
 
 import { validateEmail } from '../utils/misc';
 
-
-
 const style = {
     marginTop: 50,
     paddingBottom: 50,
@@ -38,8 +36,7 @@ class ParseView extends React.Component {
     }
 
     isDisabled() {
-        let email_is_valid = false;
-        let password_is_valid = false;
+        let url_is_valid = false;
 
         // if (this.state.email === '') {
         //     this.setState({
@@ -93,12 +90,12 @@ class ParseView extends React.Component {
     _handleKeyPress(e) {
         if (e.key === 'Enter') {
             if (!this.state.disabled) {
-                this.login(e);
+                this.parse(e);
             }
         }
     }
 
-    login(e) {
+    parse(e) {
         e.preventDefault();
         this.props.login(this.state.email, this.state.password, this.state.redirectTo);
     }
@@ -135,7 +132,7 @@ class ParseView extends React.Component {
                             disabled={this.state.disabled}
                             style={{ marginTop: 50 }}
                             label="Submit"
-                            onClick={(e) => this.login(e)}
+                            onClick={(e) => this.parse(e)}
                         />
                         {this.props.auth.loading &&
                             <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
@@ -152,12 +149,15 @@ class ParseView extends React.Component {
 
 function mapStateToProps(state) {
     const { data, authentication, auth } = state;
+    debugger
     const { user } = authentication;
+
     // debugger
     // console.log("mapStateToProps(state)");
     // console.log(state);
     return {
-        auth
+        auth,
+        data,
     };
 }
 
