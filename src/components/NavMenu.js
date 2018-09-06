@@ -6,6 +6,7 @@ import './../styles/NavMenu.css';
 import { connect } from 'react-redux';
 import { userActions } from '../actions';
 
+<<<<<<< HEAD
 // import AppBar from 'material-ui/AppBar';
 // import Toolbar from 'material-ui/Toolbar';
 // import Button from 'material-ui/Button';
@@ -31,6 +32,21 @@ const styles = {
     },
 };
 
+=======
+import * as actionCreators from '../actions/user.actions';
+import { bindActionCreators } from 'redux';
+
+function mapDispatchToProps(dispatch) {
+    let asd = dispatch;
+    // debugger
+    return bindActionCreators(actionCreators, dispatch);
+    // return bindActionCreators(actionCreators, dispatch);
+}
+
+// const mapDispatchToProps = dispatch => bindActionCreators({
+//     return bindActionCreators(actionCreators, dispatch);
+//   }, dispatch)
+>>>>>>> origin/master
 
 class NavMenu extends Component {
     constructor(props) {
@@ -45,18 +61,32 @@ class NavMenu extends Component {
 
     handleLogout(e) {
         e.preventDefault();
+
+        // let sd = this.props;
+        // sd = React.PropTypes.func;
+
+        // debugger
         this.props.dispatch(userActions.logout());
+        // this.props.userActions.logout();
     }
 
+<<<<<<< HEAD
 
 
     render() {
         const { user } = this.props;
+=======
+    render() {
+        // debugger;
+        const user = this.props.auth.user;
+        // debugger
+>>>>>>> origin/master
         let topbarRight;
         if (user) {
             topbarRight = <div>
                 <Link to={'/profile'} className="topbar_element">
                     {/* profile */}
+                    {/* {user.username} */}
                     {user.username}
                 </Link>
 
@@ -75,10 +105,15 @@ class NavMenu extends Component {
                         </Link>
             </div>
         }
+<<<<<<< HEAD
 
 
         // console.log(this.props);
 
+=======
+        console.log(this.props);
+        // debugger
+>>>>>>> origin/master
         return (
             <div>
 
@@ -104,11 +139,11 @@ class NavMenu extends Component {
                         </Link>
 
                         <div className="topbar_optionsdivider">
-                            
+
                         </div>
 
                         {topbarRight}
-
+                        {/* {user && <p>asd</p>} */}
                     </div>
                 </div>
             </div>
@@ -116,17 +151,28 @@ class NavMenu extends Component {
     }
 }
 
+NavMenu.propTypes = {
+    // // logout: React.PropTypes.func,
+    // registerStatusText: React.PropTypes.string,
+};
+
 function mapStateToProps(state) {
-    const { authentication } = state;
-    const { user } = authentication;
+    const { auth } = state;
     return {
-        user,
+        auth
     };
 }
 
+<<<<<<< HEAD
 // NavMenu.propTypes = {
 //     classes: PropTypes.object.isRequired,
 //   };
 
 const connectedNavMenuComponent = connect(mapStateToProps)(NavMenu);
+=======
+const connectedNavMenuComponent = connect(
+    mapStateToProps,
+    // mapDispatchToProps
+)(NavMenu);
+>>>>>>> origin/master
 export { connectedNavMenuComponent as NavMenu };

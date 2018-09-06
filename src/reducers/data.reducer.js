@@ -1,5 +1,6 @@
 // import { userConstants } from '../constants';
 
+<<<<<<< .merge_file_a15520
 // export function data(state = {}, action) {
 //   switch (action.type) {
 //     case userConstants.PROFILE_REQUEST:
@@ -71,3 +72,23 @@ export default createReducer(reducerInitialState, {
       loading: false,
     }),
 });
+=======
+export function data(state = {}, action) {
+  switch (action.type) {
+    case userConstants.PROFILE_USER_REQUEST:
+      return {
+        loading: true
+      };
+    case userConstants.PROFILE_USER_SUCCESS:
+      return {
+        items: action.data
+      };
+    case userConstants.PROFILE_USER_FAILURE:
+      return {
+        error: action.error
+      };
+    default:
+      return state
+  }
+}
+>>>>>>> .merge_file_a04884

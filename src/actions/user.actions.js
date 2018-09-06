@@ -19,19 +19,19 @@ function login(email, password) {
         }
         dispatch(loginUserRequest(user));
         return userService.login(email, password)
-        .then(
-            user => {
-                debugger
-                dispatch(loginUserSuccess(user));
-                history.push('/');
-            },
-            error => {
-                // debugger
-                dispatch(loginUserFailure(error));
-                // dispatch(failure(error));
-                // dispatch(alertActions.error(error));
-            }
-        );
+            .then(
+                user => {
+                    // debugger
+                    dispatch(loginUserSuccess(user));
+                    history.push('/');
+                },
+                error => {
+                    // debugger
+                    dispatch(loginUserFailure(error));
+                    // dispatch(failure(error));
+                    // dispatch(alertActions.error(error));
+                }
+            );
     };
 
 
@@ -71,14 +71,14 @@ function register(email, username, password) {
     return function (dispatch) {
         let user = {
             email: email,
-            username: username, 
+            username: username,
             password: password
         }
         dispatch(registerUserRequest(user));
         return userService.register(email, username, password)
             .then(
                 user => {
-                    debugger
+                    // debugger
                     dispatch(registerUserSuccess(user));
                     history.push('/');
                 },
@@ -119,57 +119,53 @@ export function registerUserFailure(error) {
     };
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 function logout() {
-    userService.logout();
+    return function (dispatch) {
+        userService.logout();
+        dispatch(logoutUserExecution())
+        history.push('/');
+    };
+
+}
+
+export function logoutUserExecution() {
     return {
-        type: userConstants.LOGOUT
+        type: userConstants.LOGOUT_USER
     };
 }
 
 function data_about_user() {
     return dispatch => {
-        dispatch(request());
-
+        dispatch(profileUserRequest());
         userService.data_about_user()
             .then(
                 user => {
-                    dispatch(success(user))
+                    dispatch(profileUserSuccess(user))
+                    // debugger
                 },
                 error => {
-                    dispatch(failure(error))
+                    // debugger
+                    dispatch(profileUserFailure(error))
                 }
             );
     };
 
-    function request() {
+    function profileUserRequest() {
         return {
-            type: userConstants.PROFILE_REQUEST
+            type: userConstants.PROFILE_USER_REQUEST
         }
     }
 
-    function success(data) {
+    function profileUserSuccess(data) {
         return {
-            type: userConstants.PROFILE_SUCCESS,
+            type: userConstants.PROFILE_USER_SUCCESS,
             data
         }
     }
 
-    function failure(error) {
+    function profileUserFailure(error) {
         return {
-            type: userConstants.PROFILE_FAILURE,
+            type: userConstants.PROFILE_USER_FAILURE,
             error
         }
     }
