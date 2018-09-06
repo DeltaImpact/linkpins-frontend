@@ -6,10 +6,10 @@ import { history } from '../../helpers';
 import { alertActions } from '../../actions';
 import { PrivateRoute } from '../../components/PrivateRoute';
 import { ProfilePage } from '../../components/ProfilePage';
-import { LoginPage } from '../../components/LoginPage';
+import { ParseView } from '../../components/ParseView';
+
 import { Layout } from '../../components/Layout';
 import { MainPage } from '../../components/MainPage';
-import { RegisterPage } from '../../components/RegisterPage';
 import { RegisterView } from '../../components/RegisterView';
 import { LoginView } from '../../components/LoginView';
 
@@ -42,6 +42,8 @@ class App extends React.Component {
                             <Layout>
                                 <Route exact path="/" component={MainPage} />
                                 <PrivateRoute path="/profile" component={ProfilePage} />
+                                <Route path="/parse" component={ParseView} />
+
                                 {/* <Route path="/login" component={LoginPage} /> */}
                                 <Route path="/login" component={LoginView} />
                                 <Route path="/register" component={RegisterView} />

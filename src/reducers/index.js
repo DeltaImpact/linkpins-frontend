@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import { authentication } from './authentication.reducer';
 import auth from './auth.reducer';
-import { data } from './data.reducer';
+import data from './data.reducer';
 import { alert } from './alert.reducer';
 
 // var myExports = require('./auth.reducer');
