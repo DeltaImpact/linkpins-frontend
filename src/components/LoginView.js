@@ -113,19 +113,10 @@ class LoginView extends React.Component {
 
     login(e) {
         e.preventDefault();
-        // console.log(JSON.stringify(this.state));
-        // debugger
-        // const { dispatch } = this.props;
-        // console.log(this.props);
-        // debugger
-        // dispatch(userActions.register(this.state.email, this.state.username, this.state.password, this.state.redirectTo));
-        // let asd;
         this.props.login(this.state.email, this.state.password, this.state.redirectTo);
-        // debugger
     }
 
     render() {
-        // debugger
         return (
             <div className="col-md-6 col-md-offset-3" onKeyPress={(e) => this._handleKeyPress(e)}>
                 <div style={style}>
@@ -188,16 +179,8 @@ function mapStateToProps(state) {
     // console.log("mapStateToProps(state)");
     // console.log(state);
     return {
-        // user,
-        // data,
         auth
     };
-    // const { loggingIn } = state.authentication;
-    // return {
-    //     loggingIn,
-    //     // isRegistering: state.auth.isRegistering,
-    //     // registerStatusText: state.auth.registerStatusText,
-    // };
 }
 
 function mapDispatchToProps(dispatch) {

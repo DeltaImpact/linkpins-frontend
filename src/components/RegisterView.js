@@ -1,14 +1,9 @@
-/* eslint camelcase: 0, no-underscore-dangle: 0 */
-
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-// import Paper from 'material-ui/Paper';
 import { userActions } from '../actions';
-// import * as actionCreators from '../actions/auth';
-
 import { validateEmail } from '../utils/misc';
 
 
@@ -27,17 +22,6 @@ class RegisterView extends React.Component {
 
     constructor(props) {
         super(props);
-        // const redirectRoute = '/login';
-        // this.state = {
-        //     email: '',
-        //     password: '',
-        //     username: '',
-        //     email_error_text: null,
-        //     username_error_text: null,
-        //     password_error_text: null,
-        //     redirectTo: redirectRoute,
-        //     disabled: true,
-        // };
         const redirectRoute = '/';
         this.state = {
             email: 'user@yandex.ru',
@@ -55,6 +39,8 @@ class RegisterView extends React.Component {
     isDisabled() {
         let email_is_valid = false;
         let password_is_valid = false;
+        let username_is_valid = false;
+
 
         if (this.state.email === '') {
             this.setState({
@@ -70,6 +56,22 @@ class RegisterView extends React.Component {
             this.setState({
                 email_error_text: 'Sorry, this is not a valid email',
             });
+        }
+
+        if (this.state.username === '' || !this.state.username) {
+            this.setState({
+                username_error_text: null,
+            });
+        } else if (this.state.username.length >= 3) {
+            username_is_valid = true;
+            this.setState({
+                username_error_text: null,
+            });
+        } else {
+            this.setState({
+                username_error_text: 'Your username must be at least 3 characters',
+            });
+
         }
 
         if (this.state.password === '' || !this.state.password) {
@@ -115,15 +117,7 @@ class RegisterView extends React.Component {
 
     login(e) {
         e.preventDefault();
-        // console.log(JSON.stringify(this.state));
-        // debugger
-        // const { dispatch } = this.props;
-        // console.log(this.props);
-        // debugger
-        // dispatch(userActions.register(this.state.email, this.state.username, this.state.password, this.state.redirectTo));
-        // let asd;
         this.props.register(this.state.email, this.state.username, this.state.password, this.state.redirectTo);
-        // debugger
     }
 
     render() {
@@ -133,12 +127,6 @@ class RegisterView extends React.Component {
                 <div style={style}>
                     <div className="text-center">
                         <h2>Register</h2>
-                        {/* {
-                            this.props.registerStatusText &&
-                            <div className="alert alert-info">
-                                {this.props.registerStatusText}
-                            </div>
-                        } */}
                         {
                             this.props.auth.registerStatusText  &&
                             <div className="alert alert-info">
@@ -197,33 +185,15 @@ class RegisterView extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { data, authentication, auth } = state;
-    const { user } = authentication;
-    // debugger
-    // console.log("mapStateToProps(state)");
-    // console.log(state);
+    const { auth } = state;
     return {
-        // user,
-        // data,
         auth
     };
-    // const { loggingIn } = state.authentication;
-    // return {
-    //     loggingIn,
-    //     // isRegistering: state.auth.isRegistering,
-    //     // registerStatusText: state.auth.registerStatusText,
-    // };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(userActions, dispatch);
 }
 
-RegisterView.propTypes = {
-    // register: React.PropTypes.func,
-    // registerStatusText: React.PropTypes.string,
-};
-
-// const connectedRegisterPage = connect(mapStateToProps)(RegisterView);
 const connectedRegisterPage = connect(mapStateToProps, mapDispatchToProps)(RegisterView);
 export { connectedRegisterPage as RegisterView }; 
