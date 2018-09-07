@@ -35,35 +35,26 @@ const styles = {
 class NavMenu extends Component {
     constructor(props) {
         super(props);
+        // debugger
         const { dispatch } = this.props;
         this.handleLogout = this.handleLogout.bind(this);
-    }
-    // displayName = NavMenu.name
-    componentDidMount() {
-        // this.props.dispatch(userActions.data_about_user());
+        
     }
 
     handleLogout(e) {
         e.preventDefault();
-
-        // let sd = this.props;
-        // sd = React.PropTypes.func;
-
         // debugger
         this.props.dispatch(userActions.logout());
-        // this.props.userActions.logout();
     }
 
 
 
     render() {
-        const { user } = this.props;
+        let { user } = this.props.auth;
         let topbarRight;
         if (user) {
             topbarRight = <div>
                 <Link to={'/profile'} className="topbar_element">
-                    {/* profile */}
-                    {/* {user.username} */}
                     {user.username}
                 </Link>
 
@@ -125,7 +116,7 @@ class NavMenu extends Component {
 
 NavMenu.propTypes = {
     // // logout: React.PropTypes.func,
-    // registerStatusText: React.PropTypes.string,
+    // statusText: React.PropTypes.string,
 };
 
 function mapStateToProps(state) {

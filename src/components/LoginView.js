@@ -123,13 +123,13 @@ class LoginView extends React.Component {
                     <div className="text-center">
                         <h2>Login</h2>
 
-                          <div className="col-md-12">
-                          {
-                            this.props.auth.statusText  &&
-                            <div className="alert alert-info">
-                                {this.props.auth.statusText}
-                            </div>
-                        }
+                        <div className="col-md-12">
+                            {
+                                this.props.auth.statusText &&
+                                <div className="alert alert-info">
+                                    {this.props.auth.statusText}
+                                </div>
+                            }
                         </div>
 
                         <div className="col-md-12">
@@ -173,8 +173,7 @@ class LoginView extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { data, authentication, auth } = state;
-    const { user } = authentication;
+    const { auth } = state;
     // debugger
     // console.log("mapStateToProps(state)");
     // console.log(state);
@@ -189,7 +188,7 @@ function mapDispatchToProps(dispatch) {
 
 LoginView.propTypes = {
     // register: React.PropTypes.func,
-    // registerStatusText: React.PropTypes.string,
+    // statusText: React.PropTypes.string,
 };
 
 // const connectedRegisterPage = connect(mapStateToProps)(LoginView);

@@ -22,8 +22,16 @@ function NumberList(props) {
 }
 
 class ProfilePage extends React.Component {
+    constructor(props) {
+        super(props);
+        const { dispatch } = this.props;
+        // this.handleLogout = this.handleLogout.bind(this);
+
+    }
+
     componentDidMount() {
         this.props.dispatch(userActions.data_about_user());
+
     }
 
     handleDeleteUser(id) {
@@ -33,34 +41,25 @@ class ProfilePage extends React.Component {
 
 
     render() {
-        const { user, data, auth } = this.props;
-        // debugger
+        const { data } = this.props;
         return (
             <div className="col-md-6 col-md-offset-3">
                 <h2>Profile info</h2>
                 {data.loading && <em>Loading profile...</em>}
                 {data.error && <span className="text-danger">ERROR: {data.error}</span>}
-                {data.items &&
-                    // <NumberList values={data.items} />
-                    <NumberList values={data.items} />
-                    // <div>
-                    //     {JSON.stringify(data.items)}
-                    //     {/* { data.items.map(station => <div> {station} </div>) } */}
-                    // </div>
+                {data.userProfile &&
+                    <NumberList values={data.userProfile} />
                 }
-
             </div>
         );
     }
 }
 
 function mapStateToProps(state) {
-    const { data, authentication, auth } = state;
-    const { user } = authentication;
+    const { data } = state;
+    // debugger
     return {
-        user,
-        data,
-        auth
+        data
     };
 }
 

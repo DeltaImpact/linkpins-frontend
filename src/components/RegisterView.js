@@ -128,9 +128,9 @@ class RegisterView extends React.Component {
                     <div className="text-center">
                         <h2>Register</h2>
                         {
-                            this.props.auth.registerStatusText &&
+                            this.props.auth.statusText &&
                             <div className="alert alert-info">
-                                {this.props.auth.registerStatusText}
+                                {this.props.auth.statusText}
                             </div>
                         }
 

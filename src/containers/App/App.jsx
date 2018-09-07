@@ -44,11 +44,8 @@ class App extends React.Component {
                                 <PrivateRoute path="/profile" component={ProfilePage} />
                                 <Route path="/parse" component={ParseView} />
 
-                                {/* <Route path="/login" component={LoginPage} /> */}
                                 <Route path="/login" component={LoginView} />
                                 <Route path="/register" component={RegisterView} />
-                                {/* <Route path="/register" component={RegisterPage} /> */}
-                                {/* <Route path="/logout" component={Logout} /> */}
                             </Layout>
                         </MuiThemeProvider>
                     </div>

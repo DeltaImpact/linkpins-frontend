@@ -1,15 +1,11 @@
-/* eslint camelcase: 0, no-underscore-dangle: 0 */
-
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 // import Paper from 'material-ui/Paper';
-import { userActions } from '../actions';
-// import * as actionCreators from '../actions/auth';
+import { dataActions } from '../actions';
 
-import { validateEmail } from '../utils/misc';
 
 const style = {
     marginTop: 50,
@@ -20,14 +16,15 @@ const style = {
     display: 'inline-block',
 };
 
-// @connect(mapStateToProps, mapDispatchToProps)
 class ParseView extends React.Component {
 
     constructor(props) {
         super(props);
         const redirectRoute = '/';
         this.state = {
-            url: 'http://casperjs.org/',
+            url: 'https://www.pinterest.com/Morricore/',
+            // url: 'http://image.com/',
+            // url: 'http://casperjs.org/',
             url_error_text: null,
             redirectTo: redirectRoute,
             disabled: false,
@@ -97,7 +94,9 @@ class ParseView extends React.Component {
 
     parse(e) {
         e.preventDefault();
-        this.props.login(this.state.email, this.state.password, this.state.redirectTo);
+        // debugger
+        this.props.parse(this.state.url, this.state.redirectTo);
+        // this.props.login(this.state.url, this.state.redirectTo);
     }
 
     render() {
@@ -110,9 +109,9 @@ class ParseView extends React.Component {
 
                           <div className="col-md-12">
                           {
-                            this.props.auth.statusText  &&
+                            this.props.data.statusText  &&
                             <div className="alert alert-info">
-                                {this.props.auth.statusText}
+                                {this.props.data.statusText}
                             </div>
                         }
                         </div>
@@ -134,7 +133,7 @@ class ParseView extends React.Component {
                             label="Submit"
                             onClick={(e) => this.parse(e)}
                         />
-                        {this.props.auth.loading &&
+                        {this.props.data.loading &&
                             <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                         }
 
@@ -148,26 +147,22 @@ class ParseView extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { data, authentication, auth } = state;
-    debugger
-    const { user } = authentication;
-
+    const { data } = state;
     // debugger
     // console.log("mapStateToProps(state)");
     // console.log(state);
     return {
-        auth,
         data,
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(userActions, dispatch);
+    return bindActionCreators(dataActions, dispatch);
 }
 
 ParseView.propTypes = {
     // register: React.PropTypes.func,
-    // registerStatusText: React.PropTypes.string,
+    // statusText: React.PropTypes.string,
 };
 
 // const connectedRegisterPage = connect(mapStateToProps)(ParseView);

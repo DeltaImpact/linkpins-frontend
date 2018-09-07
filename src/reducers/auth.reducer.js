@@ -1,7 +1,4 @@
 let user = JSON.parse(localStorage.getItem('user'));
-const initialState = user ? { loggedIn: true, user } : {};
-
-import jwtDecode from 'jwt-decode';
 import { createReducer } from '../utils/misc';
 import {
     LOGIN_USER_SUCCESS,
@@ -15,14 +12,8 @@ import {
 
 const reducerInitialState = {
     user: user,
-    token: null,
-    userName: null,
     isAuthenticated: false,
-    isAuthenticating: false,
     statusText: null,
-    isRegistering: false,
-    isRegistered: false,
-    registerStatusText: null,
     loading: null,
     items: null,
     error: null,
@@ -31,65 +22,47 @@ const reducerInitialState = {
 export default createReducer(reducerInitialState, {
     LOGIN_USER_REQUEST: (state) =>
         Object.assign({}, state, {
-            isAuthenticating: true,
             statusText: null,
             loading: true,
-            state: state,
         }),
     LOGIN_USER_SUCCESS: (state, payload) =>
         Object.assign({}, state, {
-            isAuthenticating: false,
             isAuthenticated: true,
-            token: payload.token,
-            userName: jwtDecode(payload.token).email,
-            statusText: 'You have been successfully logged in.',
+            // statusText: 'You have been successfully logged in.',
             loading: false,
-            state: state,
+            user: payload,
         }),
     LOGIN_USER_FAILURE: (state, payload) =>
         Object.assign({}, state, {
-            isAuthenticating: false,
             isAuthenticated: false,
-            token: null,
-            userName: null,
             statusText: payload.errorMessage,
             loading: false,
-            state: state,
+            user: null,
         }),
     LOGOUT_USER: (state) =>
         Object.assign({}, state, {
             isAuthenticated: false,
-            token: null,
-            userName: null,
-            statusText: 'You have been successfully logged out.',
-            state: state,
+            // statusText: 'You have been successfully logged out.',
+            user: null,
         }),
     REGISTER_USER_REQUEST: (state) =>
         Object.assign({}, state, {
-            isRegistering: true,
             loading: true,
-            state: state,
-            registerStatusText: null,
+            statusText: null,
         }),
     REGISTER_USER_SUCCESS: (state, payload) =>
         Object.assign({}, state, {
-            isAuthenticating: false,
             isAuthenticated: true,
-            isRegistering: false,
-            token: payload.token,
-            userName: jwtDecode(payload.token).email,
-            registerStatusText: 'You have been successfully registered.',
+            // statusText: 'You have been successfully registered.',
             loading: false,
-            state: state,
+            user: payload,
         }),
     REGISTER_USER_FAILURE: (state, payload) =>
         Object.assign({}, state, {
             isAuthenticated: false,
-            token: null,
-            userName: null,
             // registerStatusText: `Register Error: ${payload.status} ${payload.statusText}`,
-            registerStatusText: payload.errorMessage,
+            statusText: payload.errorMessage,
             loading: false,
-            state: state,
+            user: null,
         }),
 });

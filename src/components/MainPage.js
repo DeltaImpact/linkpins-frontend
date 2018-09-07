@@ -17,10 +17,8 @@ class MainPage extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { data, authentication } = state;
-    const { user } = authentication;
+    const { data } = state;
     return {
-        user,
         data
     };
 }

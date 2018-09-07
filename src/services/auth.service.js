@@ -13,13 +13,6 @@ export const userService = {
     data_about_user,
 };
 
-const tokenConfig = (token) => ({
-    headers: {
-        'token': token, // eslint-disable-line quote-props
-    },
-});
-
-
 function login(email, password) {
     return axios.post('https://localhost:5001/account/token', {
         Email: email,
@@ -27,7 +20,7 @@ function login(email, password) {
     })
         .then(parseJSON)
         .then(response => {
-            debugger
+            // debugger
             if (response.token) {
                 let tpm = jwtDecode(response.token);
                 let user = {
@@ -36,7 +29,7 @@ function login(email, password) {
                     token: response.token
                 }
                 localStorage.setItem('user', JSON.stringify(user));
-                debugger
+                // debugger
                 // axios.defaults.headers.common['Authorization'] =
                 //     'Bearer ' + response.token;
                 return user;
@@ -87,7 +80,7 @@ function register(email, username, password) {
     })
         .then(parseJSON)
         .then(response => {
-            debugger
+            // debugger
             if (response.token) {
                 let tpm = jwtDecode(response.token);
                 let user = {
@@ -96,7 +89,7 @@ function register(email, username, password) {
                     token: response.token
                 }
                 localStorage.setItem('user', JSON.stringify(user));
-                debugger
+                // debugger
                 // axios.defaults.headers.common['Authorization'] =
                 //     'Bearer ' + response.token;
                 return user;

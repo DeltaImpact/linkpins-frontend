@@ -1,8 +1,7 @@
 import { userConstants } from '../constants';
 import { userService } from '../services';
-import { alertActions } from './';
+
 import { history } from '../helpers';
-import { parseJSON } from '../utils/misc';
 
 export const userActions = {
     login,
@@ -46,13 +45,11 @@ export function loginUserRequest(user) {
     };
 }
 
-export function loginUserSuccess(token) {
+export function loginUserSuccess(user) {
     // localStorage.setItem('token', token);
     return {
         type: userConstants.LOGIN_USER_SUCCESS,
-        payload: {
-            token,
-        },
+        payload: user,
     };
 }
 
@@ -120,12 +117,11 @@ export function registerUserFailure(error) {
 }
 
 function logout() {
-    return function (dispatch) {
-        userService.logout();
+    return dispatch => {
         dispatch(logoutUserExecution())
-        history.push('/');
+        userService.logout();
+        // history.push('/');
     };
-
 }
 
 export function logoutUserExecution() {
@@ -156,10 +152,11 @@ function data_about_user() {
         }
     }
 
-    function profileUserSuccess(data) {
+    function profileUserSuccess(payload) {
+        // debugger
         return {
             type: userConstants.PROFILE_USER_SUCCESS,
-            data
+            payload
         }
     }
 

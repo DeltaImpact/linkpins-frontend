@@ -1,14 +1,12 @@
 import { dataConstants } from '../constants';
 import { dataService } from '../services';
-import { alertActions } from './';
-import { history } from '../helpers';
-import { parseJSON } from '../utils/misc';
 
 export const dataActions = {
     parse,
 };
 
 function parse(url) {
+    // debugger
     return function (dispatch) {
         let link = {
             url: url,
@@ -32,7 +30,7 @@ function parse(url) {
 
 export function dataUserRequest(user) {
     return {
-        type: dataConstants.PARSE_PAGE_REQEST,
+        type: dataConstants.PARSE_PAGE_REQUEST,
         payload: {
             user,
         },

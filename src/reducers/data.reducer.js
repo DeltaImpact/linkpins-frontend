@@ -1,71 +1,52 @@
-// import { userConstants } from '../constants';
-
-// export function data(state = {}, action) {
-//   switch (action.type) {
-//     case userConstants.PROFILE_REQUEST:
-//       return {
-//         loading: true
-//       };
-//     case userConstants.PROFILE_SUCCESS:
-//       return {
-//         items: action.data
-//       };
-//     case userConstants.PROFILE_FAILURE:
-//       return {
-//         error: action.error
-//       };
-//     default:
-//       return state
-//   }
-// }
-
 
 import { createReducer } from '../utils/misc';
 import {
   PROFILE_REQUEST,
   PROFILE_SUCCESS,
   PROFILE_FAILURE,
-  PARSE_PAGE_REQEST,
+  PARSE_PAGE_REQUEST,
   PARSE_PAGE_SUCCESS,
   PARSE_PAGE_FAILURE,
 } from '../constants';
 
 const reducerInitialState = {
   user: null,
-  page: null,
+  userProfile: null,
   statusText: null,
   loading: null,
   items: null,
   error: null,
 };
-
+// debugger
 export default createReducer(reducerInitialState, {
-  PROFILE_REQUEST: (state) =>
-  Object.assign({}, state, {
-    statusText: null,
-    loading: true,
-  }),
-  PROFILE_SUCCESS: (state, payload) =>
-  Object.assign({}, state, {
-    page: payload,
-    loading: false,
-  }),
-  PROFILE_FAILURE: (state, payload) =>
-  Object.assign({}, state, {
-    statusText: payload.errorMessage,
-    loading: false,
-  }),
-  PARSE_PAGE_REQEST: (state) =>
+  PROFILE_USER_REQUEST: (state) =>
+    Object.assign({}, state, {
+      userProfile: null,
+      statusText: null,
+      loading: true,
+    }),
+  PROFILE_USER_SUCCESS: (state, payload) =>
+    Object.assign({}, state, {
+      userProfile: payload,
+      loading: false,
+    }),
+  PROFILE_USER_FAILURE: (state, payload) =>
+    Object.assign({}, state, {
+      statusText: payload.errorMessage,
+      loading: false,
+      error: payload,
+    }),
+  PARSE_PAGE_REQUEST: (state) =>
     Object.assign({}, state, {
       statusText: null,
       loading: true,
     }),
-    PARSE_PAGE_SUCCESS: (state, payload) =>
+  PARSE_PAGE_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
       page: payload,
       loading: false,
     }),
-    PARSE_PAGE_FAILURE: (state, payload) =>
+  PARSE_PAGE_FAILURE: (state, payload) =>
     Object.assign({}, state, {
       statusText: payload.errorMessage,
       loading: false,
