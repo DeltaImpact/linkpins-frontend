@@ -1,8 +1,8 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import { userActions } from '../actions';
 import { validateEmail } from '../utils/misc';
 
@@ -164,8 +164,9 @@ class RegisterView extends React.Component {
                                 onChange={(e) => this.changeValue(e, 'password')}
                             />
                         </div>
-
-                        <RaisedButton
+                        
+                        <Button
+                            variant="contained"
                             disabled={this.state.disabled}
                             style={{ marginTop: 50 }}
                             label="Submit"

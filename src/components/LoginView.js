@@ -3,9 +3,9 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-// import Paper from 'material-ui/Paper';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+// import Paper from '@material-ui/core/Paper';
 import { userActions } from '../actions';
 // import * as actionCreators from '../actions/auth';
 
@@ -123,13 +123,13 @@ class LoginView extends React.Component {
                     <div className="text-center">
                         <h2>Login</h2>
 
-                          <div className="col-md-12">
-                          {
-                            this.props.auth.statusText  &&
-                            <div className="alert alert-info">
-                                {this.props.auth.statusText}
-                            </div>
-                        }
+                        <div className="col-md-12">
+                            {
+                                this.props.auth.statusText &&
+                                <div className="alert alert-info">
+                                    {this.props.auth.statusText}
+                                </div>
+                            }
                         </div>
 
                         <div className="col-md-12">
@@ -153,7 +153,8 @@ class LoginView extends React.Component {
                             />
                         </div>
 
-                        <RaisedButton
+                        <Button
+                            variant="contained"
                             disabled={this.state.disabled}
                             style={{ marginTop: 50 }}
                             label="Submit"
