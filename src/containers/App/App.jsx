@@ -13,8 +13,8 @@ import { MainPage } from '../../components/MainPage';
 import { RegisterView } from '../../components/RegisterView';
 import { LoginView } from '../../components/LoginView';
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import '../../static/styles/app.css';
 
@@ -23,13 +23,23 @@ class App extends React.Component {
         super(props);
 
         const { dispatch } = this.props;
-        // history.listen((location, action) => {
-        //     // clear alert on location change
-        //     dispatch(alertActions.clear());
-        // });
     }
 
     render() {
+        const muiTheme = createMuiTheme({
+            // palette: {
+            //     primary1Color: '#21c14c',
+            //     primary2Color: '#21c14c',
+            //     primary3Color: '#21c14c',
+            //     primary: {
+            //         main: '#f4f4f6',
+            //     },
+            //     secondary: {
+            //         main: '#f4f4f6',
+            //     },
+            // },
+        });
+
         const { alert } = this.props;
         return (
             <div>
@@ -38,14 +48,20 @@ class App extends React.Component {
                 }
                 <Router history={history}>
                     <div>
-                        <MuiThemeProvider muiTheme={getMuiTheme()}>
+                        <MuiThemeProvider theme={muiTheme}>
                             <Layout>
                                 <Route exact path="/" component={MainPage} />
                                 <PrivateRoute path="/profile" component={ProfilePage} />
                                 <Route path="/parse" component={ParseView} />
+<<<<<<< HEAD
 
                                 <Route path="/login" component={LoginView} />
                                 <Route path="/register" component={RegisterView} />
+=======
+                                <Route path="/login" component={LoginView} />
+                                <Route path="/register" component={RegisterView} />
+                                {/* <Route component={MainPage} /> */}
+>>>>>>> dev
                             </Layout>
                         </MuiThemeProvider>
                     </div>

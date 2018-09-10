@@ -144,7 +144,7 @@ function data_about_user() {
         .then(parseJSON)
         .then(user => {
             // console.log(user)
-            return user;
+                return user;
 
         },
             error => {

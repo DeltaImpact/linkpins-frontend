@@ -1,10 +1,18 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+<<<<<<< HEAD
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 // import Paper from 'material-ui/Paper';
 import { dataActions } from '../actions';
+=======
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+// import Paper from '@material-ui/core/Paper';
+import { userActions } from '../actions';
+// import * as actionCreators from '../actions/auth';
+>>>>>>> dev
 
 
 const style = {
@@ -107,6 +115,7 @@ class ParseView extends React.Component {
                     <div className="text-center">
                         <h2>Page parse</h2>
 
+<<<<<<< HEAD
                           <div className="col-md-12">
                           {
                             this.props.data.statusText  &&
@@ -114,6 +123,15 @@ class ParseView extends React.Component {
                                 {this.props.data.statusText}
                             </div>
                         }
+=======
+                        <div className="col-md-12">
+                            {
+                                this.props.auth.statusText &&
+                                <div className="alert alert-info">
+                                    {this.props.auth.statusText}
+                                </div>
+                            }
+>>>>>>> dev
                         </div>
 
                         <div className="col-md-12">
@@ -126,8 +144,9 @@ class ParseView extends React.Component {
                                 onChange={(e) => this.changeValue(e, 'url')}
                             />
                         </div>
-                        
-                        <RaisedButton
+
+                        <Button
+                            variant="contained"
                             disabled={this.state.disabled}
                             style={{ marginTop: 50 }}
                             label="Submit"
