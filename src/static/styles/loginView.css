@@ -1,0 +1,15 @@
+.s12 {
+    width: 80%;
+ }
+
+ nav ul li a{
+    color: black;
+  }  
+
+  #app > div > div > div > div.Header > div > nav > div > div > a {
+    color: black;
+  }  
+
+  nav .brand-logo {
+    position: relative !important;
+}

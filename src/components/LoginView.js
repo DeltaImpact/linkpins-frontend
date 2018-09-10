@@ -11,16 +11,7 @@ import { userActions } from '../actions';
 
 import { validateEmail } from '../utils/misc';
 
-
-
-const style = {
-    marginTop: 50,
-    paddingBottom: 50,
-    paddingTop: 25,
-    width: '100%',
-    textAlign: 'center',
-    display: 'inline-block',
-};
+import '../static/styles/LoginView.css';
 
 // @connect(mapStateToProps, mapDispatchToProps)
 class LoginView extends React.Component {
@@ -66,7 +57,7 @@ class LoginView extends React.Component {
 
         } else {
             this.setState({
-                // email_error_text: 'Sorry, this is not a valid email',
+                email_error_text: 'Sorry, this is not a valid email',
             });
         }
 
@@ -81,7 +72,7 @@ class LoginView extends React.Component {
             });
         } else {
             this.setState({
-                // password_error_text: 'Your password at least 6 characters',
+                password_error_text: 'Your password at least 6 characters',
             });
 
         }
@@ -116,57 +107,162 @@ class LoginView extends React.Component {
         this.props.login(this.state.email, this.state.password, this.state.redirectTo);
     }
 
+    passwordClasses() {
+        return (this.state.password_error_text == this.props.activeFilter) ? "btn active" : "btn";
+    }
+
+    submitClasses() {
+        return (this.state.disabled == true) ? "btn btn-medium waves-effect waves-light s12 disabled" : "btn btn-medium waves-effect waves-light s12";
+        // className="btn btn-medium waves-effect waves-light s12 disabled"
+    }
+
     render() {
+        const styles = {
+            main: {
+                // display: 'flex',
+                // flexDirection: 'column',
+                // minHeight: '100vh',
+                // alignItems: 'center',
+                // justifyContent: 'flex-start',
+                background: 'url(https://source.unsplash.com/random/1600x900)',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover',
+            },
+            
+        };
+        // debugger
         return (
-            <div className="col-md-6 col-md-offset-3" onKeyPress={(e) => this._handleKeyPress(e)}>
-                <div style={style}>
-                    <div className="text-center">
-                        <h2>Login</h2>
+            // <div className="col-md-6 col-md-offset-3" onKeyPress={(e) => this._handleKeyPress(e)}>
+            //     <div style={style}>
+            //         <div className="text-center">
+            //             <h2>Login</h2>
 
-                        <div className="col-md-12">
-                            {
-                                this.props.auth.statusText &&
-                                <div className="alert alert-info">
-                                    {this.props.auth.statusText}
+            //             <div className="col-md-12">
+            //                 {
+            //                     this.props.auth.statusText &&
+            //                     <div className="alert alert-info">
+            //                         {this.props.auth.statusText}
+            //                     </div>
+            //                 }
+            //             </div>
+
+            //             <div className="col-md-12">
+            //                 <TextField
+            //                     value={this.state.email}
+            //                     hintText="Email"
+            //                     floatingLabelText="Email"
+            //                     type="email"
+            //                     errorText={this.state.email_error_text}
+            //                     onChange={(e) => this.changeValue(e, 'email')}
+            //                 />
+            //             </div>
+            //             <div className="col-md-12">
+            //                 <TextField
+            //                     value={this.state.password}
+            //                     hintText="Password"
+            //                     floatingLabelText="Password"
+            //                     type="password" 
+            //                     errorText={this.state.password_error_text}
+            //                     onChange={(e) => this.changeValue(e, 'password')}
+            //                 />
+            //             </div>
+
+            //             <Button
+            //                 variant="contained"
+            //                 disabled={this.state.disabled}
+            //                 style={{ marginTop: 50 }}
+            //                 label="Submit"
+            //                 onClick={(e) => this.login(e)}
+            //             />
+            //             {this.props.auth.loading &&
+            //                 <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            //             }
+
+            //         </div>
+            //     </div>
+
+            // </div>
+            <div className="container">
+                <div className="row">
+                    <div className="col m4 offset-m4 z-depth-3 card-panel">
+                        <h2 className="center-align">Login</h2>
+                        <div className="row">
+                            <form className="col s12">
+                                <div className="row">
+                                    {
+                                        this.props.auth.statusText &&
+                                        <div className="alert alert-info">
+                                            {this.props.auth.statusText}
+                                        </div>
+                                    }
+
                                 </div>
-                            }
-                        </div>
+                                <div className="row">
+                                    <div className="input-field col s12" >
+                                        <input
+                                            id="email"
+                                            type="email"
+                                            value={this.state.email}
+                                            className="validate"
+                                            onChange={(e) => this.changeValue(e, 'email')}
+                                        />
+                                        <label
+                                            htmlFor="email"
+                                            data-success="long success that results in various lines"
+                                            data-error='Your password at least 6 characters'
+                                        >Email</label>
+                                        {
+                                            this.state.email_error_text &&
+                                            <div className="alert alert-info">
+                                                {this.state.email_error_text}
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="input-field col s12">
+                                        <input
+                                            id="pass"
+                                            type="password"
+                                            value={this.state.password}
+                                            className="validate"
+                                            // className="validate invalid"
+                                            // data-error={this.state.password_error_text}
+                                            onChange={(e) => this.changeValue(e, 'password')}
 
-                        <div className="col-md-12">
-                            <TextField
-                                value={this.state.email}
-                                hintText="Email"
-                                floatingLabelText="Email"
-                                type="email"
-                                errorText={this.state.email_error_text}
-                                onChange={(e) => this.changeValue(e, 'email')}
-                            />
-                        </div>
-                        <div className="col-md-12">
-                            <TextField
-                                value={this.state.password}
-                                hintText="Password"
-                                floatingLabelText="Password"
-                                type="password"
-                                errorText={this.state.password_error_text}
-                                onChange={(e) => this.changeValue(e, 'password')}
-                            />
-                        </div>
+                                        />
+                                        <label
+                                            htmlFor="pass"
+                                            className="active"
+                                            data-success="long success that results in various lines"
+                                            data-error='Your password at least 6 characters'
+                                        >Password</label>
+                                        {
+                                            this.state.password_error_text &&
+                                            <div className="alert alert-info">
+                                                {this.state.password_error_text}
+                                            </div>
+                                        }
 
-                        <Button
-                            variant="contained"
-                            disabled={this.state.disabled}
-                            style={{ marginTop: 50 }}
-                            label="Submit"
-                            onClick={(e) => this.login(e)}
-                        />
-                        {this.props.auth.loading &&
-                            <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                        }
-
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col m12">
+                                        <button
+                                            className={this.submitClasses()}
+                                            type="button"
+                                            name="action"
+                                            onClick={(e) => this.login(e)}
+                                        >Submit</button>
+                                        {this.props.auth.loading &&
+                                            <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                        }
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-
             </div>
         );
 

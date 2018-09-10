@@ -18,15 +18,9 @@
     "history": "^4.6.3",
     "jwt-decode": "^2.2.0",
     "material-ui": "^0.20.2",
-<<<<<<< HEAD
-    "materialize-css": "^1.0.0",
-    "react": "^16.5.0",
-    "react-dom": "^16.5.0",
-=======
     "mdi-material-ui": "^5.4.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
->>>>>>> dev
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.2",
     "redux": "^3.7.2",

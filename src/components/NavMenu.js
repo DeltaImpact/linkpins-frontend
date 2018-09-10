@@ -29,6 +29,9 @@ const styles = {
         marginLeft: -12,
         marginRight: 20,
     },
+    sideNav: {
+        left: -250
+    }
 };
 
 
@@ -38,7 +41,7 @@ class NavMenu extends Component {
         // debugger
         const { dispatch } = this.props;
         this.handleLogout = this.handleLogout.bind(this);
-        
+
     }
 
     handleLogout(e) {
@@ -78,34 +81,60 @@ class NavMenu extends Component {
         // console.log(this.props);
 
         return (
-            <div>
+            <div className="navbar-fixed">
+                <nav className="white"
+                    // role="navigation"
+                >
+                    <div className="container">
+                        <div className="nav-wrapper">
+                            <a href="#!" className="left brand-logo">
+                                {/* <a href="https://adbeus.com">
+                                    <img width="40" className="brown icon hide-on-med-and-down" src="images/icons/favicons/favicon.ico" alt=""></img>
+                                </a> */}
+                                <i className="material-icons">broken_image
+                                </i>
+                                Linkpins
+                            </a>
+                            <ul className="right hide-on-med-and-down">
+                                <li  className="active"><a href="sass.html">login</a></li>
+                                <li><a href="badges.html">register</a></li>
+                                {/* <li><a href="sass.html"><i className="material-icons">search</i></a></li>
+                                <li><a href="badges.html"><i className="material-icons">view_module</i></a></li>
+                                <li><a href="collapsible.html"><i className="material-icons">refresh</i></a></li>
+                                <li><a href="mobile.html"><i className="material-icons">more_vert</i></a></li> */}
+                            </ul>
 
-                {/* <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Navbar</a>
 
-                    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link disabled" href="#">Disabled</a>
-                            </li>
-                        </ul>
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        </form>
+                            {/* <div id="left logo-container">
+                                <a href="https://adbeus.com" className="green left brand-logo">adbeus</a>
+                                <a href="https://adbeus.com">
+                                    <img width="40" className="brown icon hide-on-med-and-down" src="images/icons/favicons/favicon.ico" alt=""></img>
+                                </a>
+                            </div>
+                            <div className="right">
+                                <ul id="slide-out" className="side-nav"><li className="menu-item menu-item-type-post_type menu-item-object-page menu-item-2025"><a href="https://adbeus.com/about-adbeus-best-coffee-montreal/">About</a></li>
+                                    <li className="black menu-item menu-item-type-post_type menu-item-object-page menu-item-5057"><a href="https://adbeus.com/blog/">Blog</a></li>
+                                    <li className="green menu-item menu-item-type-post_type menu-item-object-page menu-item-5639"><a href="https://adbeus.com/owner-dashboard/">Owner Dashboard</a></li>
+                                    <li className="purple menu-item menu-item-type-post_type menu-item-object-page menu-item-5638"><a href="https://adbeus.com/join-adbeus/">Join Adbeus</a></li>
+                                    <li className="yellow menu-item menu-item-type-post_type menu-item-object-page menu-item-5637"><a href="https://adbeus.com/suggest/">Add Shop</a></li>
+                                </ul>
+                            </div> */}
+
+                        </div>
                     </div>
-                </nav> */}
+                </nav>
+            </div>
 
-                <div className="topbar_inner">
+
+
+
+
+        );
+    }
+}
+
+// <div>
+{/* <div className="topbar_inner">
                     <div className="topbar_right">
                         <Link to={'/'} className="topbar_element">
                             main
@@ -120,20 +149,9 @@ class NavMenu extends Component {
 
                         {topbarRight}
                     </div>
-                </div>
-            </div>
-        );
-    }
-}
+                </div> */}
+{/* </div> */ }
 
-<<<<<<< HEAD
-NavMenu.propTypes = {
-    // // logout: React.PropTypes.func,
-    // statusText: React.PropTypes.string,
-};
-
-=======
->>>>>>> dev
 function mapStateToProps(state) {
     const { auth } = state;
     return {

@@ -1,19 +1,15 @@
+/* eslint camelcase: 0, no-underscore-dangle: 0 */
+
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-<<<<<<< HEAD
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-// import Paper from 'material-ui/Paper';
-import { dataActions } from '../actions';
-=======
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 // import Paper from '@material-ui/core/Paper';
 import { userActions } from '../actions';
 // import * as actionCreators from '../actions/auth';
->>>>>>> dev
 
+import { validateEmail } from '../utils/misc';
 
 const style = {
     marginTop: 50,
@@ -24,15 +20,14 @@ const style = {
     display: 'inline-block',
 };
 
+// @connect(mapStateToProps, mapDispatchToProps)
 class ParseView extends React.Component {
 
     constructor(props) {
         super(props);
         const redirectRoute = '/';
         this.state = {
-            url: 'https://www.pinterest.com/Morricore/',
-            // url: 'http://image.com/',
-            // url: 'http://casperjs.org/',
+            url: 'http://casperjs.org/',
             url_error_text: null,
             redirectTo: redirectRoute,
             disabled: false,
@@ -102,9 +97,7 @@ class ParseView extends React.Component {
 
     parse(e) {
         e.preventDefault();
-        // debugger
-        this.props.parse(this.state.url, this.state.redirectTo);
-        // this.props.login(this.state.url, this.state.redirectTo);
+        this.props.login(this.state.email, this.state.password, this.state.redirectTo);
     }
 
     render() {
@@ -115,15 +108,6 @@ class ParseView extends React.Component {
                     <div className="text-center">
                         <h2>Page parse</h2>
 
-<<<<<<< HEAD
-                          <div className="col-md-12">
-                          {
-                            this.props.data.statusText  &&
-                            <div className="alert alert-info">
-                                {this.props.data.statusText}
-                            </div>
-                        }
-=======
                         <div className="col-md-12">
                             {
                                 this.props.auth.statusText &&
@@ -131,7 +115,6 @@ class ParseView extends React.Component {
                                     {this.props.auth.statusText}
                                 </div>
                             }
->>>>>>> dev
                         </div>
 
                         <div className="col-md-12">
@@ -144,6 +127,8 @@ class ParseView extends React.Component {
                                 onChange={(e) => this.changeValue(e, 'url')}
                             />
                         </div>
+                        <a class="waves-effect waves-light btn">button</a>
+
 
                         <Button
                             variant="contained"
@@ -152,7 +137,7 @@ class ParseView extends React.Component {
                             label="Submit"
                             onClick={(e) => this.parse(e)}
                         />
-                        {this.props.data.loading &&
+                        {this.props.auth.loading &&
                             <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                         }
 
@@ -166,22 +151,19 @@ class ParseView extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { data } = state;
-    // debugger
-    // console.log("mapStateToProps(state)");
-    // console.log(state);
+    const { auth } = state;
     return {
-        data,
+        auth,
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(dataActions, dispatch);
+    return bindActionCreators(userActions, dispatch);
 }
 
 ParseView.propTypes = {
     // register: React.PropTypes.func,
-    // statusText: React.PropTypes.string,
+    // registerStatusText: React.PropTypes.string,
 };
 
 // const connectedRegisterPage = connect(mapStateToProps)(ParseView);
