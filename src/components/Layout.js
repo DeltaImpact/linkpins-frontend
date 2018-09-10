@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavMenu } from './NavMenu';
 
-import './../styles/Layout.css';
+import './../static/styles/Layout.css';
 // import { connect } from 'react-redux';
 
 export class Layout extends Component {

@@ -16,7 +16,7 @@ import { LoginView } from '../../components/LoginView';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import '../../styles/app.css';
+import '../../static/styles/app.css';
 
 class App extends React.Component {
     constructor(props) {

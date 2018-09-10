@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userActions } from '../actions';
-import './../styles/ProfilePage.css';
+import './../static/styles/ProfilePage.css';
 
 function NumberList(props) {
     const values = props.values;

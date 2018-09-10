@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 // import './NavMenu.css';
 
-import './../styles/NavMenu.css';
+import './../static/styles/NavMenu.css';
 import { connect } from 'react-redux';
 import { userActions } from '../actions';
 

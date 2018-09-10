@@ -1,8 +1,14 @@
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
+    // build: {
+    //     assetsPublicPath: '/',
+    //     assetsSubDirectory: 'src/static'
+    // },
+
     devtool: 'eval-source-map',
 
     entry: './src/index.jsx',
@@ -22,7 +28,6 @@ module.exports = {
                 query: {
                     presets: ['react', 'es2015', 'stage-3']
                 },
-
             },
             {
                 test: /\.css$/,
@@ -34,7 +39,7 @@ module.exports = {
             {
                 test: /\.jpe?g$|\.ico$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
                 exclude: /node_modules/,
-                loader:'file-loader?name=img/[path][name].[ext]&context=./assets'
+                loader: 'file-loader?name=img/[path][name].[ext]&context=./assets'
                 // loader: 'file-loader?name=[name].[ext]'  // <-- retain original file name
             }
 
@@ -49,15 +54,16 @@ module.exports = {
         new ExtractTextPlugin({
             filename: "style.css",
             allChunks: true
-        })
+        }),
+        new CopyWebpackPlugin([ 
+            {from:'src/static/images',to:'images'}, 
+            {from:'src/static/styles',to:'styles'}, 
+            {from:'src/static/css',to:'css'}, 
+            {from:'src/static/js',to:'js'}, 
+         ]),
     ],
     devServer: {
         historyApiFallback: true,
-        headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-            "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
-          }
     },
     externals: {
         // global app config object
