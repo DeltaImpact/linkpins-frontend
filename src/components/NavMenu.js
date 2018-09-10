@@ -89,7 +89,7 @@ class NavMenu extends Component {
         return (
             <div>
 
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                {/* <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -112,9 +112,9 @@ class NavMenu extends Component {
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                         </form>
                     </div>
-                </nav>
+                </nav> */}
 
-                {/* <div className="topbar_inner">
+                <div className="topbar_inner">
                     <div className="topbar_right">
                         <Link to={'/'} className="topbar_element">
                             main
@@ -129,16 +129,11 @@ class NavMenu extends Component {
 
                         {topbarRight}
                     </div>
-                </div> */}
+                </div>
             </div>
         );
     }
 }
-
-NavMenu.propTypes = {
-    // // logout: React.PropTypes.func,
-    // registerStatusText: React.PropTypes.string,
-};
 
 function mapStateToProps(state) {
     const { auth } = state;
@@ -146,10 +141,6 @@ function mapStateToProps(state) {
         auth
     };
 }
-
-// NavMenu.propTypes = {
-//     classes: PropTypes.object.isRequired,
-//   };
 
 const connectedNavMenuComponent = connect(mapStateToProps)(NavMenu);
 export { connectedNavMenuComponent as NavMenu };
