@@ -14,12 +14,9 @@ import { RegisterView } from '../../components/RegisterView';
 import { LoginView } from '../../components/LoginView';
 
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import '../../styles/app.css';
-
-
-
 
 class App extends React.Component {
     constructor(props) {
@@ -28,21 +25,20 @@ class App extends React.Component {
         const { dispatch } = this.props;
     }
 
-
     render() {
-        // const muiTheme = createMuiTheme({
-        //     palette: {
-        //         primary1Color: '#21c14c',
-        //         primary2Color: '#21c14c',
-        //         primary3Color: '#21c14c',
-        //         primary: {
-        //             main: '#f4f4f6',
-        //         },
-        //         secondary: {
-        //             main: '#f4f4f6',
-        //         },
-        //     },
-        // });
+        const muiTheme = createMuiTheme({
+            // palette: {
+            //     primary1Color: '#21c14c',
+            //     primary2Color: '#21c14c',
+            //     primary3Color: '#21c14c',
+            //     primary: {
+            //         main: '#f4f4f6',
+            //     },
+            //     secondary: {
+            //         main: '#f4f4f6',
+            //     },
+            // },
+        });
 
         const { alert } = this.props;
         return (
@@ -52,7 +48,7 @@ class App extends React.Component {
                 }
                 <Router history={history}>
                     <div>
-                        <MuiThemeProvider theme={getMuiTheme()}>
+                        <MuiThemeProvider theme={muiTheme}>
                             <Layout>
                                 <Route exact path="/" component={MainPage} />
                                 <PrivateRoute path="/profile" component={ProfilePage} />
