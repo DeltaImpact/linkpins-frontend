@@ -1,44 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import './NavMenu.css';
-
-import './../static/styles/NavMenu.css';
 import { connect } from 'react-redux';
 import { userActions } from '../actions';
+import { withRouter } from 'react-router'
 
-// import AppBar from 'material-ui/AppBar';
-// import Toolbar from 'material-ui/Toolbar';
-// import Button from 'material-ui/Button';
-// import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-// import MenuIcon from '@material-ui/icons/Menu';
+import './../static/styles/NavMenu.css';
+// import { Dropdown, NavItem, Button } from 'react-materialize';
+import Dropdown from 'react-dropdown'
+import 'react-dropdown/style.css'
 
-const styles = {
-    root: {
-        flexGrow: 1,
-    },
-    flex: {
-        flexGrow: 1,
-    },
-    menuButton: {
-        marginLeft: -12,
-        marginRight: 20,
-    },
-    sideNav: {
-        left: -250
-    }
-};
 
 
 class NavMenu extends Component {
     constructor(props) {
         super(props);
-        // debugger
         const { dispatch } = this.props;
         this.handleLogout = this.handleLogout.bind(this);
 
@@ -46,63 +21,86 @@ class NavMenu extends Component {
 
     handleLogout(e) {
         e.preventDefault();
-        // debugger
         this.props.dispatch(userActions.logout());
     }
 
 
 
     render() {
+        const options = [
+            'one', 'two', 'three'
+        ]
+        const defaultOption = options[0]
         let { user } = this.props.auth;
         let topbarRight;
         if (user) {
-            topbarRight = <div>
-                <Link to={'/profile'} className="topbar_element">
-                    {user.username}
-                </Link>
+            topbarRight =
+                <div>
+                    {/* <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" /> */}
 
-                <button onClick={this.handleLogout} className="topbar_element">
-                    logout
-                        </button>
-            </div>;
+
+                    <ul className="right hide-on-med-and-down">
+
+                        <li>
+                            <Link to={'/profile'} className="inline-icon">
+                                <i className="large material-icons">perm_identity</i>{user.username}
+                            </Link>
+                        </li>
+                        <li>
+                            <a onClick={this.handleLogout}>
+                                logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
         }
         else {
-            topbarRight = <div>
-                <Link to={'/login'} className="topbar_element">
-                    login
+            topbarRight =
+                <ul className="right hide-on-med-and-down">
+                    <li className={this.props.history.location.pathname == "/parse" ? "active" : ""}>
+                        <Link to={'/parse'}>
+                            parse
                         </Link>
-                <Link to={'/register'} className="topbar_element">
-                    register
+                    </li>
+                    <li className={this.props.history.location.pathname == "/login" ? "active" : ""}>
+                        <Link to={'/login'}>
+                            login
                         </Link>
-            </div>
+                    </li>
+                    <li className={this.props.history.location.pathname == "/register" ? "active" : ""}>
+                        <Link to={'/register'}>
+                            register
+                        </Link>
+                    </li>
+                </ul>
         }
-
+        // debugger
 
         // console.log(this.props);
-
+        // debugger
         return (
             <div className="navbar-fixed">
                 <nav className="white"
-                    // role="navigation"
+                // role="navigation"
                 >
                     <div className="container">
                         <div className="nav-wrapper">
-                            <a href="#!" className="left brand-logo">
+                            <Link to={'/'} className="left brand-logo">
                                 {/* <a href="https://adbeus.com">
                                     <img width="40" className="brown icon hide-on-med-and-down" src="images/icons/favicons/favicon.ico" alt=""></img>
                                 </a> */}
-                                <i className="material-icons">broken_image
-                                </i>
+                                <i className="material-icons">broken_image</i>
                                 Linkpins
-                            </a>
-                            <ul className="right hide-on-med-and-down">
-                                <li  className="active"><a href="sass.html">login</a></li>
-                                <li><a href="badges.html">register</a></li>
-                                {/* <li><a href="sass.html"><i className="material-icons">search</i></a></li>
+                                </Link>
+
+                            {topbarRight}
+                            {/* <li className="active"><a href="sass.html">login</a></li>
+                                <li><a href="badges.html">register</a></li> */}
+                            {/* <li><a href="sass.html"><i className="material-icons">search</i></a></li>
                                 <li><a href="badges.html"><i className="material-icons">view_module</i></a></li>
                                 <li><a href="collapsible.html"><i className="material-icons">refresh</i></a></li>
                                 <li><a href="mobile.html"><i className="material-icons">more_vert</i></a></li> */}
-                            </ul>
+
 
 
                             {/* <div id="left logo-container">
@@ -159,5 +157,13 @@ function mapStateToProps(state) {
     };
 }
 
-const connectedNavMenuComponent = connect(mapStateToProps)(NavMenu);
+// NavMenu.propTypes = {
+//     match: PropTypes.object.isRequired,
+//     location: PropTypes.object.isRequired,
+//     history: PropTypes.object.isRequired
+//   }
+
+//   const ShowTheLocationWithRouter = withRouter(NavMenu)
+
+const connectedNavMenuComponent = withRouter(connect(mapStateToProps)(NavMenu));
 export { connectedNavMenuComponent as NavMenu };

@@ -50,3 +50,10 @@
     width: 1px;
     height: 100%;
 } 
+
+.inline-icon {
+    vertical-align: bottom;
+    /* display: inline-flex; */
+    display: inline-flex !important;
+    /* font-size: 18px !important; */
+ }

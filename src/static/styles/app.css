@@ -6,6 +6,37 @@ body {
     text-align: center;
 }
 
+
+.error {
+    padding-top: .65rem;
+    padding-bottom: .65rem;
+  }
+  
+  .error-text {
+    color: #F44336;
+    opacity: 1;
+  }
+  
+  .error-container {
+    background-color: #ffebee ;
+    opacity: 1;
+  }
+  
+  
+  
+  /* hg - grid-24 */
+  .offset-hg1 {
+    
+    margin-left: 4.166666666666667%;
+  }
+  
+  .hg22 {
+    width: 91.66666666666667%;
+  }
+  
+
+  
+
 /* a { cursor: pointer; } */
 
 /* .help-block { font-size: 12px; } */
