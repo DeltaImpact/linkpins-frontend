@@ -39,6 +39,8 @@ class RegisterView extends React.Component {
     let email_is_valid = false;
     let password_is_valid = false;
     let username_is_valid = false;
+    let passwordConf_is_valid = false;
+
 
     if (this.state.email === "") {
       this.setState({
@@ -85,7 +87,19 @@ class RegisterView extends React.Component {
       });
     }
 
-    if (email_is_valid && password_is_valid) {
+    if (this.state.password == this.state.passwordConf) {
+      passwordConf_is_valid = true;
+      this.setState({
+        passwordConf_error_text: null
+      });
+    } else {
+      this.setState({
+        passwordConf_error_text: "Passwords did not match."
+      });
+
+    }
+
+    if (email_is_valid && password_is_valid && username_is_valid && passwordConf_is_valid) {
       this.setState({
         disabled: false
       });
@@ -123,17 +137,6 @@ class RegisterView extends React.Component {
     return this.state.email_error_text != null ? "invalid" : "";
   }
 
-  passwordClasses() {
-    return this.state.password_error_text != null ? "invalid" : "";
-  }
-  passwordConfClasses() {
-    return this.state.password_error_text != null ? "invalid" : "";
-  }
-
-  usernameClasses() {
-    return this.state.username_error_text != null ? "invalid" : "";
-  }
-
   submitClasses() {
     return this.state.disabled == true
       ? "btn btn-medium waves-effect waves-light s12 disabled"
@@ -168,7 +171,7 @@ class RegisterView extends React.Component {
                         id="email"
                         type="email"
                         value={this.state.email}
-                        className={this.emailClasses()}
+                        className={this.state.email_error_text != null ? "invalid" : ""}
                         onChange={e => this.changeValue(e, "email")}
                       />
                       <label
@@ -190,7 +193,7 @@ class RegisterView extends React.Component {
                         id="username"
                         type="text"
                         value={this.state.username}
-                        className={this.emailClasses()}
+                        className={this.state.username_error_text != null ? "invalid" : ""}
                         onChange={e => this.changeValue(e, "username")}
                       />
                       <label
@@ -212,7 +215,7 @@ class RegisterView extends React.Component {
                         id="pass"
                         type="password"
                         value={this.state.password}
-                        className={this.passwordClasses()}
+                        className={this.state.password_error_text != null ? "invalid" : ""}
                         onChange={e => this.changeValue(e, "password")}
                       />
                       <label
@@ -234,7 +237,7 @@ class RegisterView extends React.Component {
                         id="passConf"
                         type="password"
                         value={this.state.passwordConf}
-                        className={this.passwordConfClasses()}
+                        className={this.state.passwordConf_error_text != null ? "invalid" : ""}
                         onChange={e => this.changeValue(e, "passwordConf")}
                       />
                       <label

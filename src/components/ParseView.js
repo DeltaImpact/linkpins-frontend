@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 // import Paper from '@material-ui/core/Paper';
-import { userActions } from '../actions';
-// import * as actionCreators from '../actions/auth';
+import { dataActions } from '../actions';
+// import * as actionCreators from '../actions/data';
 
 import { validateEmail } from '../utils/misc';
 
@@ -38,43 +38,6 @@ class ParseView extends React.Component {
     isDisabled() {
         let url_is_valid = false;
 
-        // if (this.state.email === '') {
-        //     this.setState({
-        //         email_error_text: null,
-        //     });
-        // } else if (validateEmail(this.state.email)) {
-        //     email_is_valid = true;
-        //     this.setState({
-        //         email_error_text: null,
-        //     });
-
-        // } else {
-        //     this.setState({
-        //         email_error_text: 'Sorry, this is not a valid email',
-        //     });
-        // }
-
-        // if (this.state.password === '' || !this.state.password) {
-        //     this.setState({
-        //         password_error_text: null,
-        //     });
-        // } else if (this.state.password.length >= 6) {
-        //     password_is_valid = true;
-        //     this.setState({
-        //         password_error_text: null,
-        //     });
-        // } else {
-        //     this.setState({
-        //         password_error_text: 'Your password must be at least 6 characters',
-        //     });
-
-        // }
-
-        // if (email_is_valid && password_is_valid) {
-        //     this.setState({
-        //         disabled: false,
-        //     });
-        // }
 
     }
 
@@ -97,53 +60,81 @@ class ParseView extends React.Component {
 
     parse(e) {
         e.preventDefault();
-        this.props.login(this.state.email, this.state.password, this.state.redirectTo);
+        // debugger
+        this.props.parse(this.state.ulr, this.state.redirectTo);
+    }
+
+    submitClasses() {
+        return (this.state.disabled == true) ? "btn btn-medium waves-effect waves-light s12 disabled" : "btn btn-medium waves-effect waves-light s12";
     }
 
     render() {
         // debugger
         return (
-            <div className="col-md-6 col-md-offset-3" onKeyPress={(e) => this._handleKeyPress(e)}>
-                <div style={style}>
-                    <div className="text-center">
-                        <h2>Page parse</h2>
-
-                        <div className="col-md-12">
-                            {
-                                this.props.auth.statusText &&
-                                <div className="alert alert-info">
-                                    {this.props.auth.statusText}
+            <div className="container">
+                <div className="row">
+                    <div className="col m4 offset-m4 z-depth-3 card-panel">
+                        <div className="col hg22 offset-hg1">
+                            <h2 className="center-align">Page parse</h2>
+                            {this.props.data.loading &&
+                                <div className="progress">
+                                    <div className="indeterminate"></div>
                                 </div>
                             }
+
+                            <div className="row">
+                                <form className="col s12">
+                                    {
+                                        this.props.data.statusText &&
+                                        <div className="row error-container">
+                                            <div className="error error-text alert alert-info">
+                                                {this.props.data.statusText}
+                                            </div>
+                                        </div>
+                                    }
+                                    <div className="row">
+                                        <div className="input-field col s12" >
+                                            <input
+                                                id="url"
+                                                type="text"
+                                                value={this.state.url}
+                                                // className={this.emailClasses()}
+                                                onChange={(e) => this.changeValue(e, 'url')}
+                                            />
+                                            <label
+                                                htmlFor="url"
+                                                className={(this.state.url != null) ? "active" : ""}
+                                            >Site url</label>
+                                            {/* {
+                                            this.state.email_error_text &&
+                                            <div className="error-text">
+                                                {this.state.email_error_text}
+                                            </div>
+                                        } */}
+                                        </div>
+
+
+                                    </div>
+                                    <div className="row">
+                                        <div className="col m12">
+                                            <div className="col s10  offset-s1">
+                                                <button
+                                                    className={this.submitClasses()}
+                                                    type="button"
+                                                    name="action"
+                                                    onClick={(e) => this.parse(e)}
+                                                >
+                                                    Parse
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
                         </div>
-
-                        <div className="col-md-12">
-                            <TextField
-                                value={this.state.url}
-                                hintText="Site url"
-                                floatingLabelText="url"
-                                type="text"
-                                errorText={this.state.email_error_text}
-                                onChange={(e) => this.changeValue(e, 'url')}
-                            />
-                        </div>
-                        <a className="waves-effect waves-light btn">button</a>
-
-
-                        <Button
-                            variant="contained"
-                            disabled={this.state.disabled}
-                            style={{ marginTop: 50 }}
-                            label="Submit"
-                            onClick={(e) => this.parse(e)}
-                        />
-                        {this.props.auth.loading &&
-                            <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                        }
-
                     </div>
                 </div>
-
             </div>
         );
 
@@ -151,14 +142,15 @@ class ParseView extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { auth } = state;
+    // debugger
+    const { data } = state;
     return {
-        auth,
+        data,
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(userActions, dispatch);
+    return bindActionCreators(dataActions, dispatch);
 }
 
 ParseView.propTypes = {

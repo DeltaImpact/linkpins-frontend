@@ -6,7 +6,6 @@ body {
   text-align: center;
 }
 
-
 .error {
   padding-top: .65rem;
   padding-bottom: .65rem;
@@ -22,11 +21,8 @@ body {
   opacity: 1;
 }
 
-
-
 /* hg - grid-24 */
 .offset-hg1 {
-
   margin-left: 4.166666666666667%;
 }
 
@@ -34,9 +30,6 @@ body {
   width: 91.66666666666667%;
 }
 
-
-
-
-/* a { cursor: pointer; } */
-
-/* .help-block { font-size: 12px; } */
+.text-align-left {
+text-align: left;
+}

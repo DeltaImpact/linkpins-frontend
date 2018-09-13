@@ -16,6 +16,7 @@ const reducerInitialState = {
   loading: null,
   items: null,
   error: null,
+  page: null,
 };
 // debugger
 export default createReducer(reducerInitialState, {
@@ -40,6 +41,7 @@ export default createReducer(reducerInitialState, {
     Object.assign({}, state, {
       statusText: null,
       loading: true,
+      page: null,
     }),
   PARSE_PAGE_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
