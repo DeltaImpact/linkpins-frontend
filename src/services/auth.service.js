@@ -98,11 +98,6 @@ function register(email, username, password) {
         },
             error => {
                 let err = {};
-                // response: {
-                //     status: 503,
-                //     statusText: 'User with that email already exists',
-                // },
-                // let errorMessage = "";
                 if (error.response) {
                     err.response = error.response;
                     if (error.response.status === 400) {
@@ -134,7 +129,7 @@ function logout() {
 }
 
 function data_about_user() {
-
+    // debugger
     return axios.get('https://localhost:5001/account/user', {
         // let tmp = axios.get('http://httpbin.org/get', {
         headers: {
@@ -148,20 +143,28 @@ function data_about_user() {
 
         },
             error => {
-                let errorMessage = "";
-                if (error.status === 401) {
-                    // auto logout if 401 response returned from api
-                    logout();
-                    location.reload(true);
-                    errorMessage = error.response.statusText;
+                let err = {};
+                if (error.response) {
+                    err.response = error.response;
+                    if (error.response.status === 400) {
+                        logout();
+                        err.status = error.response.status;
+                        err.message = error.response.statusText;
+                        err.info = error.response.data.message;
+                    }
+
+                    if (error.response.data.message) {
+                        err.message = error.response.data.message;
+                    }
                 }
 
                 if (error.message === "Network Error") {
-                    // auto logout if 401 response returned from api
-                    errorMessage = "Network Error";
+                    err.status = 503;
+                    err.message = "Network Error";
                 }
 
-                return Promise.reject(errorMessage);
+                // debugger
+                return Promise.reject(err);
             }
         );
 }

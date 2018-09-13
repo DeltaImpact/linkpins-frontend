@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 
-// import { authentication } from './authentication.reducer';
 import auth from './auth.reducer';
 import data from './data.reducer';
 import { alert } from './alert.reducer';
@@ -10,10 +9,8 @@ import { alert } from './alert.reducer';
 // debugger
 
 const rootReducer = combineReducers({
-  // authentication,
   auth,
   data,
   alert
 });
-// debugger
 export default rootReducer;

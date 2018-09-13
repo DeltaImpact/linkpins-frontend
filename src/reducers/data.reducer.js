@@ -24,6 +24,7 @@ export default createReducer(reducerInitialState, {
       userProfile: null,
       statusText: null,
       loading: true,
+      error: null,
     }),
   PROFILE_USER_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
@@ -32,7 +33,6 @@ export default createReducer(reducerInitialState, {
     }),
   PROFILE_USER_FAILURE: (state, payload) =>
     Object.assign({}, state, {
-      statusText: payload.errorMessage,
       loading: false,
       error: payload,
     }),
@@ -48,7 +48,8 @@ export default createReducer(reducerInitialState, {
     }),
   PARSE_PAGE_FAILURE: (state, payload) =>
     Object.assign({}, state, {
-      statusText: payload.errorMessage,
+      // statusText: payload.errorMessage,
       loading: false,
+      error: payload,
     }),
 });

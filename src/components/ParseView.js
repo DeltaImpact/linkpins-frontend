@@ -127,7 +127,7 @@ class ParseView extends React.Component {
                                 onChange={(e) => this.changeValue(e, 'url')}
                             />
                         </div>
-                        <a class="waves-effect waves-light btn">button</a>
+                        <a className="waves-effect waves-light btn">button</a>
 
 
                         <Button

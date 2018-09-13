@@ -1,21 +1,14 @@
-import React, { Component } from 'react';
-import { NavMenu } from './NavMenu';
+import React, { Component } from "react";
+import { NavMenu } from "./NavMenu";
 
-import './../static/styles/Layout.css';
-// import { connect } from 'react-redux';
+import "./../static/styles/Layout.css";
 
 export class Layout extends Component {
-  // displayName = Layout.name
-
   render() {
     return (
       <div>
-        <div className="Header">
-          <NavMenu />
-        </div>
-        <div className="page">
-          {this.props.children}
-        </div>
+        <NavMenu />
+        <div className="page">{this.props.children}</div>
       </div>
     );
   }

@@ -155,15 +155,15 @@ function data_about_user() {
     function profileUserSuccess(payload) {
         // debugger
         return {
-            type: userConstants.PROFILE_USER_SUCCESS,
+            type: userConstants.PROFILE_USER_SUCCESS, 
             payload
         }
     }
 
     function profileUserFailure(error) {
+        // debugger
         return {
-            type: userConstants.PROFILE_USER_FAILURE,
-            error
+            type: userConstants.PROFILE_USER_FAILURE, payload: error
         }
     }
 }

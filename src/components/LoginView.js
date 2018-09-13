@@ -134,7 +134,10 @@ class LoginView extends React.Component {
                                                 className={this.emailClasses()}
                                                 onChange={(e) => this.changeValue(e, 'email')}
                                             />
-                                            <label htmlFor="email">Email</label>
+                                            <label 
+                                            htmlFor="email"
+                                            className={(this.state.email != null) ? "active" : ""}
+                                            >Email</label>
                                             {
                                                 this.state.email_error_text &&
                                                 <div className="error-text">
@@ -153,7 +156,10 @@ class LoginView extends React.Component {
                                                 onChange={(e) => this.changeValue(e, 'password')}
 
                                             />
-                                            <label htmlFor="pass">Password</label>
+                                            <label 
+                                            htmlFor="pass"
+                                            className={(this.state.password != null) ? "active" : ""}
+                                            >Password</label>
                                             {
                                                 this.state.password_error_text &&
                                                 <div className="error-text">
