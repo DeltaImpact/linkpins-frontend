@@ -27,7 +27,8 @@ class ParseView extends React.Component {
     super(props);
     const redirectRoute = "/";
     this.state = {
-      url: "http://casperjs.org/",
+    //   url: "http://casperjs.org/",
+      url: "http://joyreactor.cc/",
       url_error_text: null,
       redirectTo: redirectRoute,
       disabled: false

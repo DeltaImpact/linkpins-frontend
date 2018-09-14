@@ -38,7 +38,12 @@ class PinCard extends Component {
           </ul>
         </div>
 
-        <div className="z-depth-3">{JSON.stringify(this.props.item.images)}</div>
+        {/* <div className="z-depth-3">{JSON.stringify(this.props.item.images)}</div> */}
+        <div className="z-depth-3">
+          {this.props.item.images.map(function(item, i) {
+            return <li key={i}><img src={item}/></li>;
+          })}
+        </div>
       </div>
     );
   }
