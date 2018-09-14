@@ -24,7 +24,7 @@ class PinCard extends Component {
         <ul className="collection ">
           <li className="collection-item avatar pin-content">
             {/* <div className="col m2"> */}
-            {/* <i class="material-icons circle green">insert_chart</i> */}
+            {/* <i className="material-icons circle green">insert_chart</i> */}
             {/* <img src={this.props.item.images[0]} alt="" className="circle"></img> */}
             {/* <img src="https://cdn-images-1.medium.com/letterbox/183/36/50/50/1*mGbzSVmf-HAVTCgvlMcWPg.png?source=logoAvatar-lo_dnt_4JhHhPGMy7hr---138adf9c44c" alt="" className="circle"></img> */}
             {/* </div> */}
