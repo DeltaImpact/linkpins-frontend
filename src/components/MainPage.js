@@ -14,7 +14,7 @@ class MainPage extends React.Component {
                         <h4 className="left-align">Pins</h4>
 
                         <ul className="collection">
-                            <li className="collection-item avatar text-align-left">
+                            <li className="collection-item avatar pin-content">
                                 <div className="col m2">
                                     <i class="material-icons circle green">insert_chart</i>
 
@@ -26,7 +26,7 @@ class MainPage extends React.Component {
                                 {/* <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a> */}
                             </li>
 
-                            <li className="collection-item avatar text-align-left">
+                            <li className="collection-item avatar pin-content">
                                 <div className="col m2">
                                     <i class="material-icons circle green">insert_chart</i>
 
@@ -38,7 +38,7 @@ class MainPage extends React.Component {
                                 {/* <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a> */}
                             </li>
 
-                            <li className="collection-item avatar text-align-left">
+                            <li className="collection-item avatar pin-content">
                                 <div className="col m2">
                                     <i class="material-icons circle green">insert_chart</i>
 

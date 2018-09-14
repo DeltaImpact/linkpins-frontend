@@ -2,9 +2,18 @@
   list-style: none;
 }
 
-.top-margin-0 {
+.checkbox-container {
+  margin-right: 15px;
+}
+
+.checkbox-group-label {
+  padding-top: 15px;
+}
+
+/* .top-margin-0 {
   margin-top: 0px;
 }
+
 
 .legacy-sidebar > .card-content {
   padding-top: 10px;
@@ -12,4 +21,4 @@
 
 .legacy-content > .card-panel > h4 {
   margin-top: 0;
-}
+} */

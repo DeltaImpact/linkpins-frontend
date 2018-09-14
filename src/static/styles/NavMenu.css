@@ -1,15 +1,6 @@
-.inline-icon {
+.pagenav_option-inline {
     vertical-align: bottom;
-    /* display: inline-flex; */
     display: inline-flex !important;
-    /* font-size: 18px !important; */
 }
 
-.checkbox-container {
-    margin-right: 15px;
-}
-
-.checkbox-group-label {
-    padding-top: 15px;
-}
 
