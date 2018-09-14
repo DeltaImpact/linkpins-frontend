@@ -37,12 +37,10 @@ export function dataUserRequest(user) {
     };
 }
 
-export function dataUserSuccess(token) {
+export function dataUserSuccess(payload) {
     return {
         type: dataConstants.PARSE_PAGE_SUCCESS,
-        payload: {
-            token,
-        },
+        payload: payload,
     };
 }
 

@@ -159,8 +159,8 @@ class RegisterView extends React.Component {
               <div className="row">
                 <form className="col s12">
                   {this.props.auth.statusText && (
-                    <div className="row error-container">
-                      <div className="error error-text alert alert-info">
+                    <div className="row error--container">
+                      <div className="error error--text alert alert-info">
                         {this.props.auth.statusText}
                       </div>
                     </div>
@@ -181,7 +181,7 @@ class RegisterView extends React.Component {
                         Email
                       </label>
                       {this.state.email_error_text && (
-                        <div className="error-text">
+                        <div className="error--text">
                           {this.state.email_error_text}
                         </div>
                       )}
@@ -203,7 +203,7 @@ class RegisterView extends React.Component {
                         Username
                       </label>
                       {this.state.username_error_text && (
-                        <div className="error-text">
+                        <div className="error--text">
                           {this.state.username_error_text}
                         </div>
                       )}
@@ -225,7 +225,7 @@ class RegisterView extends React.Component {
                         Password
                       </label>
                       {this.state.password_error_text && (
-                        <div className="error-text">
+                        <div className="error--text">
                           {this.state.password_error_text}
                         </div>
                       )}
@@ -249,7 +249,7 @@ class RegisterView extends React.Component {
                         Confirm password
                       </label>
                       {this.state.passwordConf_error_text && (
-                        <div className="error-text">
+                        <div className="error--text">
                           {this.state.passwordConf_error_text}
                         </div>
                       )}

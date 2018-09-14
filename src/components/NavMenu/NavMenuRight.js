@@ -25,7 +25,7 @@ class NavMenuRight extends Component {
                 <div>
                     <ul className="right hide-on-med-and-down">
                         <li>
-                            <Link to={"/profile"} className="pagenav_option">
+                            <Link to={"/profile"} className="pagenav__option--inline black-text">
                                 <i className="large material-icons">perm_identity</i>
                                 {user.username}
                             </Link>
@@ -33,11 +33,11 @@ class NavMenuRight extends Component {
                         <li>
                             <a className="black-text" onClick={this.handleLogout}>logout</a>
                         </li>
-                        <li>
-                            <Link to={"/profile"} className="pagenav_option">
+                        {/* <li>
+                            <Link to={"/profile"} className="pagenav__option--inline black-text">
                                 <i className="material-icons">more_vert</i>
                             </Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             );

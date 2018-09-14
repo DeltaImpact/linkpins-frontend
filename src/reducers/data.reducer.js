@@ -42,6 +42,7 @@ export default createReducer(reducerInitialState, {
       statusText: null,
       loading: true,
       page: null,
+      error: null,
     }),
   PARSE_PAGE_SUCCESS: (state, payload) =>
     Object.assign({}, state, {

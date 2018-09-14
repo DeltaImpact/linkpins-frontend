@@ -77,7 +77,7 @@ export class UserFields extends React.Component {
                   id="disabled"
                   // id="email"
                   type="text"
-                  value={values.firstName}
+                  // value={values.firstName}
                   // className={this.emailClasses()}
                   readOnly
                 />
@@ -94,7 +94,7 @@ export class UserFields extends React.Component {
                   id="disabled"
                   // id="email"
                   type="text"
-                  value={values.surname}
+                  // value={values.surname}
                   // className={this.emailClasses()}
                   readOnly
                 />
@@ -109,36 +109,39 @@ export class UserFields extends React.Component {
             </div>
             <div className="row">
               <div className="col s12">
-                <label className="active left checkbox-container checkbox-group-label">
+                <label className="active left checkbox__container checkbox__label">
                   Gender
                 </label>
-                <p className="left checkbox-container">
+                <p className="left checkbox__container">
                   <label>
                     <input
                       type="checkbox"
                       className="filled-in"
                       checked="checked"
                       //   disabled="disabled"
+                      readOnly
                     />
-                    <span>Surpise</span>
+                    <span>Unspecified</span>
                   </label>
                 </p>
-                <p className="left checkbox-container">
+                <p className="left checkbox__container">
                   <label>
                     <input
                       type="checkbox"
                       className="filled-in"
                       //   disabled="disabled"
+                      readOnly
                     />
                     <span>Male</span>
                   </label>
                 </p>
-                <p className="left checkbox-container">
+                <p className="left checkbox__container">
                   <label>
                     <input
                       type="checkbox"
                       className="filled-in"
                       //   disabled="disabled"
+                      readOnly
                     />
                     <span>Female</span>
                   </label>

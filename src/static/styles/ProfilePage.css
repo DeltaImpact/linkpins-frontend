@@ -1,24 +1,19 @@
-.user-list {
-  list-style: none;
-}
-
-.checkbox-container {
+.checkbox__container {
   margin-right: 15px;
 }
 
-.checkbox-group-label {
+.checkbox__label {
   padding-top: 15px;
 }
 
-/* .top-margin-0 {
-  margin-top: 0px;
-}
-
-
-.legacy-sidebar > .card-content {
+.list__title {
   padding-top: 10px;
 }
 
-.legacy-content > .card-panel > h4 {
+.list__item {
+  margin-top: 0px;
+}
+
+.card__title {
   margin-top: 0;
-} */
+}

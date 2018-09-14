@@ -32,7 +32,7 @@ class NavMenu extends Component {
           >
             <div className="container">
               <div className="nav-wrapper">
-                <Link to={"/"} className="left brand-logo nav-brand-logo black-text">
+                <Link to={"/"} className="left brand-logo nav__logo black-text">
                   <i className="black-text material-icons">broken_image</i>
                   Linkpins
                 </Link>

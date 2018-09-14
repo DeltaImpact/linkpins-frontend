@@ -119,8 +119,8 @@ class LoginView extends React.Component {
                                 <form className="col s12">
                                     {
                                         this.props.auth.statusText &&
-                                        <div className="row error-container">
-                                            <div className="error error-text alert alert-info">
+                                        <div className="row error--container">
+                                            <div className="error error--text alert alert-info">
                                                 {this.props.auth.statusText}
                                             </div>
                                         </div>
@@ -140,7 +140,7 @@ class LoginView extends React.Component {
                                             >Email</label>
                                             {
                                                 this.state.email_error_text &&
-                                                <div className="error-text">
+                                                <div className="error--text">
                                                     {this.state.email_error_text}
                                                 </div>
                                             }
@@ -162,7 +162,7 @@ class LoginView extends React.Component {
                                             >Password</label>
                                             {
                                                 this.state.password_error_text &&
-                                                <div className="error-text">
+                                                <div className="error--text">
                                                     {this.state.password_error_text}
                                                 </div>
                                             }
