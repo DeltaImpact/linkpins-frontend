@@ -20,6 +20,7 @@ class PinCard extends Component {
     //   let { item } = this.props;
     //   debugger
     return (
+<<<<<<< HEAD
       <div className="z-depth-3">
         <ul className="collection ">
           <li className="collection-item avatar pin-content">
@@ -35,6 +36,32 @@ class PinCard extends Component {
             {/* <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a> */}
           </li>
         </ul>
+=======
+      <div>
+        <div className="z-depth-3">
+          <ul className="collection ">
+            <li className="collection-item avatar pin-content">
+              {/* <div className="col m2"> */}
+              {/* <i class="material-icons circle green">insert_chart</i> */}
+              <img src={this.props.item.images[0]} alt="" className="circle" />
+              {/* <img src="https://cdn-images-1.medium.com/letterbox/183/36/50/50/1*mGbzSVmf-HAVTCgvlMcWPg.png?source=logoAvatar-lo_dnt_4JhHhPGMy7hr---138adf9c44c" alt="" className="circle"></img> */}
+              {/* </div> */}
+              <div className="col m12">
+                <span className="title">{this.props.item.header}</span>
+                <p className="">{this.props.item.possibleDescriptions[0]}</p>
+              </div>
+              {/* <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a> */}
+            </li>
+          </ul>
+        </div>
+
+        {/* <div className="z-depth-3">{JSON.stringify(this.props.item.images)}</div> */}
+        <div className="z-depth-3">
+          {this.props.item.images.map(function(item, i) {
+            return <li key={i}><img src={item}/></li>;
+          })}
+        </div>
+>>>>>>> 1a347bf91fcb808dbe58a5a8737f21a91fd0540a
       </div>
     );
   }
