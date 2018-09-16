@@ -8,7 +8,7 @@ export class Layout extends Component {
   render() {
     return (
       <div>
-        <NavMenu />
+        <NavMenu /> 
         <RightSidebar />
 
         {/* <div className="sidenav-overlay"></div>
