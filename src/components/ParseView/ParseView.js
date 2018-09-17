@@ -6,11 +6,13 @@ import { connect } from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 // import Paper from '@material-ui/core/Paper';
-import { dataActions } from "../actions";
-import { PinCard } from "./PinCard";
+import { dataActions } from "../../actions";
+import { PinCard } from "../PinCard";
 // import * as actionCreators from '../actions/data';
 
-import { validateEmail } from "../utils/misc";
+import { validateEmail } from "../../utils/misc";
+
+import { ImageInList } from "./imageInList";
 
 const style = {
   marginTop: 50,
@@ -27,11 +29,14 @@ class ParseView extends React.Component {
     super(props);
     const redirectRoute = "/";
     this.state = {
-    //   url: "http://casperjs.org/",
+      //   url: "http://casperjs.org/",
       url: "http://joyreactor.cc/",
       url_error_text: null,
       redirectTo: redirectRoute,
-      disabled: false
+      disabled: false,
+      previewImage: null,
+      previewTitle: null,
+      previewDescription: null
     };
     // debugger
   }
@@ -69,8 +74,64 @@ class ParseView extends React.Component {
       : "btn btn-medium waves-effect waves-light s12";
   }
 
-  render() {
+  renderImages() {
+    return this.props.data.page.images.map((img, i) => {
+      // debugger
+      return (
+        <li
+          key={i}
+          // className="collection-item avatar pin-content"
+          // className="avatar pin-content"
+          // className="avatar"
+          className="square-container"
+          onClick={() => this.chooseImage(img)}
+        >
+          {/* <img src={img} className="circle" /> */}
+          <img src={img} className="square" />
+        </li>
+        // <ImageInList
+        //   id={i}
+        //   url={img}
+        //   clickHandler={() => this.chooseImage(img)}
+        //   {...img}
+        // />
+      );
+    });
+  }
+
+  renderPossibleDescriptions() {
+    return this.props.data.page.possibleDescriptions.map((text, i) => {
+      // debugger
+      return (
+        <div>
+          <li
+            key={i}
+            // className="collection-item avatar pin-content"
+            onClick={() => this.choosePossibleDescription(text)}
+          >
+            {text}
+          </li>
+          <div className="divider" />
+        </div>
+      );
+    });
+  }
+
+  chooseImage(index) {
     // debugger
+    this.setState({
+      previewImage: index
+    });
+  }
+
+  choosePossibleDescription(index) {
+    // debugger
+    this.setState({
+      previewDescription: index
+    });
+  }
+
+  render() {
     return (
       <div>
         <div className="container">
@@ -78,12 +139,12 @@ class ParseView extends React.Component {
             <div className="col m4 offset-m4 z-depth-3 card-panel">
               <div className="col hg22 offset-hg1">
                 <h2 className="center-align">Page parse</h2>
+                {/* <h2 className="center-align">{this.state.previewImage}</h2> */}
                 {this.props.data.loading && (
                   <div className="progress">
                     <div className="indeterminate" />
                   </div>
                 )}
-
                 <div className="row">
                   <form className="col s12">
                     {this.props.data.error && (
@@ -136,27 +197,53 @@ class ParseView extends React.Component {
             </div>
           </div>
         </div>
+
         <div className="row">
           <div className="col m8 offset-m2 ">
-            {this.props.data.page && <PinCard item={this.props.data.page} />}
+            {this.props.data.page && (
+              <PinCard
+                url={
+                  this.state.previewImage == null
+                    ? this.props.data.page.images[0]
+                    : this.state.previewImage
+                }
+                title={
+                  this.state.previewTitle == null
+                    ? this.props.data.page.header
+                    : this.state.previewTitle
+                }
+                description={
+                  this.state.previewDescription == null
+                    ? this.props.data.page.possibleDescriptions[0]
+                    : this.state.previewDescription
+                }
+                // item={this.props.data.page}
+              />
+            )}
           </div>
         </div>
 
-        {/* <div className="container">
+        {/* <div className="col m4 offset-m4 z-depth-3 card-panel"></div> */}
+
+        <div className="container">
           <div className="row">
-            <div className="col m8 offset-m2">
-              <div className="col s12 m4 l3 card-panel legacy-sidebar">
-                <div className="card-content list">
-                  <h6 className="left-align list__item">Profile</h6>
-                </div>
-              </div>
-              <div className="col s12 m8 l9 legacy-content">
-                <div className="container card-panel s12">
-                  <h4 className="left-align card-title card__title">Profile</h4>
-                </div>
-              </div>
+            <div className="col m6 z-depth-3 card-panel">
+              <ul
+              //  className="collection"
+               >
+                {this.props.data.page && this.renderImages()}
+              </ul>
+            </div>
+            <div className="col m6 z-depth-3 card-panel">
+              <ul>
+                {this.props.data.page && this.renderPossibleDescriptions()}
+              </ul>
             </div>
           </div>
+        </div>
+        {/* <ul>{this.props.data.page && this.renderImages()}</ul> */}
+        {/* <div className="z-depth-3">
+          {this.props.data.page && JSON.stringify(this.props.data.page.images)}
         </div> */}
       </div>
     );
@@ -166,7 +253,7 @@ class ParseView extends React.Component {
 function mapStateToProps(state) {
   // debugger
   const { data } = state;
-//   debugger
+  //   debugger
   return {
     data
   };

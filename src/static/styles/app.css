@@ -33,3 +33,35 @@ text-align: left;
   background-color: #ffebee;
   opacity: 1;
 }
+
+.square {
+  width: 100%;
+  /* height: 100%; */
+  /* float: left;
+  position: relative;
+  width: 10%;
+  height: 0;
+  padding-bottom: 10%;
+  /* width: 10%; */
+  /* width: 30%; */
+  /* padding-bottom: 30%; */
+  /* margin: 1.66%; 
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover; */
+}
+
+.square-container {
+  float: left;
+  position: relative;
+  width: 10%;
+  height: 0;
+  padding-bottom: 10%;
+  /* width: 10%; */
+  /* width: 30%; */
+  /* padding-bottom: 30%; */
+  margin: 1.66%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

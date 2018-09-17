@@ -16,7 +16,7 @@ class MainPage extends React.Component {
                         <ul className="collection">
                             <li className="collection-item avatar pin-content">
                                 {/* <div className="col m2"> */}
-                                    <i class="material-icons circle green">insert_chart</i>
+                                    <i className="material-icons circle green">insert_chart</i>
                                 {/* </div> */}
                                 <div className="col m12">
                                     <span className="title">Title</span>
@@ -27,7 +27,7 @@ class MainPage extends React.Component {
 
                             <li className="collection-item avatar pin-content">
                                 {/* <div className="col m2"> */}
-                                    <i class="material-icons circle green">insert_chart</i>
+                                    <i className="material-icons circle green">insert_chart</i>
                                 {/* </div> */}
                                 <div className="col m12">
                                     <span className="title">Title</span>
@@ -38,7 +38,7 @@ class MainPage extends React.Component {
 
                             <li className="collection-item avatar pin-content">
                                 {/* <div className="col m2"> */}
-                                    <i class="material-icons circle green">insert_chart</i>
+                                    <i className="material-icons circle green">insert_chart</i>
                                 {/* </div> */}
                                 <div className="col m12">
                                     <span className="title">Title</span>
