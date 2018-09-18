@@ -22,7 +22,9 @@ class PinCard extends Component {
     // debugger
     return (
       <div>
-        <div className="z-depth-3">
+        {/* <div className="z-depth-3"> */}
+        {/* <div className="card-panel"> */}
+        <div className="">
           <ul className="collection ">
             <li className="collection-item avatar pin-content">
               {/* <div className="col m2"> */}

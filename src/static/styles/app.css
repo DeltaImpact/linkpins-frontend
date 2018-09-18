@@ -16,16 +16,16 @@ body {
 }
 
 .pin-content {
-text-align: left;
+  text-align: left;
 }
 
 .error {
-  padding-top: .65rem;
-  padding-bottom: .65rem;
+  padding-top: 0.65rem;
+  padding-bottom: 0.65rem;
 }
 
 .error--text {
-  color: #F44336;
+  color: #f44336;
   opacity: 1;
 }
 
@@ -36,6 +36,7 @@ text-align: left;
 
 .square {
   width: 100%;
+  vertical-align: middle;
   /* height: 100%; */
   /* float: left;
   position: relative;
@@ -51,17 +52,69 @@ text-align: left;
   background-size: cover; */
 }
 
+.square-container:hover .square {
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
+  cursor: pointer;
+  -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23),
+    0 3px 10px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
+}
+
 .square-container {
   float: left;
   position: relative;
-  width: 10%;
+  /* width: 10%;
+  padding-bottom: 10%; */
+  width: 50%;
+  padding-bottom: 50%;
   height: 0;
-  padding-bottom: 10%;
   /* width: 10%; */
   /* width: 30%; */
   /* padding-bottom: 30%; */
-  margin: 1.66%;
-  background-position: center center;
+  /* margin: 1.66%; */
+  /* background-position: center center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
+  /* background-color: azure; */
+  vertical-align: middle;
+}
+
+.square-container-active {
+  background-color: cadetblue;
+}
+.square-active {
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
+  -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23),
+    0 3px 10px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
+  background-color: #fff;
+}
+
+.description-container:hover {
+  /* -webkit-transform: scale(0.9); */
+  /* transform: scale(0.9); */
+  -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23),
+    0 3px 10px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
+  cursor: pointer;
+}
+
+.description-container-active {
+  border: 3px solid cadetblue !important;
+  padding: 5px;
+}
+
+.description-container {
+  padding: 8px;
+}
+
+.tab__container--active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.tab__container:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }

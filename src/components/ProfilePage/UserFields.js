@@ -146,20 +146,6 @@ export class UserFields extends React.Component {
                     <span>Female</span>
                   </label>
                 </p>
-                {/* border-color: #26a69a; */}
-                {/* <ul class="tabs ">
-                  <li class="tab col s4 active">
-                    <a href="#test1">Surpise</a>
-                  </li>
-                  <li class="tab col s4">
-                    <a class="active" href="#test2">
-                      Male
-                    </a>
-                  </li>
-                  <li class="tab col s4">
-                    <a href="#test3">Female</a>
-                  </li>
-                </ul> */}
               </div>
             </div>
           </form>
