@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import auth from './auth.reducer';
 import data from './data.reducer';
+import board from './board.reducer';
 import { alert } from './alert.reducer';
 
 // var myExports = require('./auth.reducer');
@@ -11,6 +12,7 @@ import { alert } from './alert.reducer';
 const rootReducer = combineReducers({
   auth,
   data,
-  alert
+  board,
+  alert,
 });
 export default rootReducer;

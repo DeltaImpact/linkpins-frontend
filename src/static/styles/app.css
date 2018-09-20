@@ -64,10 +64,10 @@ body {
 .square-container {
   float: left;
   position: relative;
-  /* width: 10%;
-  padding-bottom: 10%; */
-  width: 50%;
-  padding-bottom: 50%;
+  width: 10%;
+  padding-bottom: 10%;
+  /* width: 50%;
+  padding-bottom: 50%; */
   height: 0;
   /* width: 10%; */
   /* width: 30%; */

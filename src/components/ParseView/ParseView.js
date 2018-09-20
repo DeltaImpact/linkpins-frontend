@@ -12,15 +12,6 @@ import { validateEmail } from "../../utils/misc";
 
 import { ImageInList } from "./imageInList";
 
-const style = {
-  marginTop: 50,
-  paddingBottom: 50,
-  paddingTop: 25,
-  width: "100%",
-  textAlign: "center",
-  display: "inline-block"
-};
-
 // @connect(mapStateToProps, mapDispatchToProps)
 class ParseView extends React.Component {
   constructor(props) {
@@ -180,87 +171,91 @@ class ParseView extends React.Component {
 
   renderRecordPreview() {
     return (
-      <PinCard
-        url={
-          this.state.previewImage == null
-            ? this.props.data.page.images[0]
-            : this.state.previewImage
-        }
-        title={
-          this.state.previewTitle == null
-            ? this.props.data.page.header
-            : this.state.previewTitle
-        }
-        description={
-          this.state.previewDescription == null
-            ? this.props.data.page.possibleDescriptions[0]
-            : this.state.previewDescription
-        }
-        // item={this.props.data.page}
-      />
+      <div className="card-panel">
+        <PinCard
+          url={
+            this.state.previewImage == null
+              ? this.props.data.page.images[0]
+              : this.state.previewImage
+          }
+          title={
+            this.state.previewTitle == null
+              ? this.props.data.page.header
+              : this.state.previewTitle
+          }
+          description={
+            this.state.previewDescription == null
+              ? this.props.data.page.possibleDescriptions[0]
+              : this.state.previewDescription
+          }
+          // item={this.props.data.page}
+        />
+      </div>
     );
   }
 
   renderManualEdit() {
     return (
-      <div className="container">
-      <div className="row">
+      <div className="container card-panel">
+        <div className="row">
           <div className="col m4 offset-m4 z-depth-3 card-panel">
-              <div className="col hg22 offset-hg1">
+            <div className="col hg22 offset-hg1">
+              <div className="row">
+                <form className="col s12">
                   <div className="row">
-                      <form className="col s12">
-                          <div className="row">
-                              <div className="input-field col s12" >
-                                  <input
-                                      id="email"
-                                      type="email"
-                                      value={this.state.email}
-                                      // className={this.emailClasses()}
-                                      onChange={(e) => this.changeValue(e, 'email')}
-                                  />
-                                  <label 
-                                  htmlFor="email"
-                                  className={(this.state.email != null) ? "active" : ""}
-                                  >Email</label>
-                              </div>
-                          </div>
-                          <div className="row">
-                              <div className="input-field col s12">
-                                  <input
-                                      id="pass"
-                                      type="password"
-                                      value={this.state.password}
-                                      // className={this.passwordClasses()}
-                                      onChange={(e) => this.changeValue(e, 'password')}
-
-                                  />
-                                  <label 
-                                  htmlFor="pass"
-                                  className={(this.state.password != null) ? "active" : ""}
-                                  >Password</label>
-                                  
-                              </div>
-                          </div>
-                          <div className="row">
-                              <div className="col m12">
-                                  <div className="col s10  offset-s1">
-                                      <button
-                                          className={this.submitClasses()}
-                                          type="button"
-                                          name="action"
-                                          // onClick={(e) => this.login(e)}
-                                      >
-                                          Log in
-                                      </button>
-                                  </div>
-                              </div>
-                          </div>
-                      </form>
+                    <div className="input-field col s12">
+                      <input
+                        id="email"
+                        type="email"
+                        value={this.state.email}
+                        // className={this.emailClasses()}
+                        onChange={e => this.changeValue(e, "email")}
+                      />
+                      <label
+                        htmlFor="email"
+                        className={this.state.email != null ? "active" : ""}
+                      >
+                        Email
+                      </label>
+                    </div>
                   </div>
+                  <div className="row">
+                    <div className="input-field col s12">
+                      <input
+                        id="pass"
+                        type="password"
+                        value={this.state.password}
+                        // className={this.passwordClasses()}
+                        onChange={e => this.changeValue(e, "password")}
+                      />
+                      <label
+                        htmlFor="pass"
+                        className={this.state.password != null ? "active" : ""}
+                      >
+                        Password
+                      </label>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col m12">
+                      <div className="col s10  offset-s1">
+                        <button
+                          className={this.submitClasses()}
+                          type="button"
+                          name="action"
+                          // onClick={(e) => this.login(e)}
+                        >
+                          Log in
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
+            </div>
           </div>
+        </div>
       </div>
-  </div >
     );
   }
 
@@ -347,7 +342,7 @@ class ParseView extends React.Component {
 
         {this.props.data.page && (
           <div className="container">
-            <div className="row">
+            <div className="row ">
               <ul className="tabs z-depth-1">
                 <li className="tab">
                   <a
@@ -388,7 +383,6 @@ class ParseView extends React.Component {
 
               {this.state.mode == "preview" && this.renderRecordPreview()}
               {this.state.mode == "edit" && this.renderManualEdit()}
-
             </div>
           </div>
         )}
@@ -396,18 +390,16 @@ class ParseView extends React.Component {
         {this.props.data.page && (
           <div className="container">
             <div className="row">
-              {/* <div className="card-panel"> */}
-              <div className="">
-                <form className="col s12">
-                  <button
-                    className={this.submitClasses()}
-                    type="button"
-                    name="action"
-                    // onClick={e => this.parse(e)}
-                  >
-                    Save
-                  </button>
-                </form>
+              <div className="card-panel">
+                {/* <div className=""> */}
+                <button
+                  className={this.submitClasses()}
+                  type="button"
+                  name="action"
+                  // onClick={e => this.parse(e)}
+                >
+                  Save
+                </button>
               </div>
             </div>
           </div>

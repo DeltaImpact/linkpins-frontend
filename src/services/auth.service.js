@@ -125,7 +125,7 @@ function data_about_user() {
   // debugger
   return axios
     .get("https://localhost:5001/account/user", {
-      // let tmp = axios.get('http://httpbin.org/get', {
+      // let tmp = axios.get('http://httpbin.org/post', {
       headers: {
         Authorization: authHeader()
       }
