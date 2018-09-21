@@ -19,7 +19,7 @@ class PinCard extends Component {
   render() {
     const { url, title, description } = this.props;
     //   let { item } = this.props;
-    // debugger
+    
     return (
       <div>
         {/* <div className="z-depth-3"> */}

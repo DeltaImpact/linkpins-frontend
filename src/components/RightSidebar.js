@@ -32,7 +32,7 @@ class RightSidebar extends React.Component {
             redirectTo: redirectRoute,
             disabled: false
         };
-        // debugger
+        
     }
 
     isDisabled() {
@@ -144,7 +144,7 @@ class RightSidebar extends React.Component {
     }
 
     render() {
-        // debugger
+        
         return (
             <aside id="right-sidebar-nav">
                 <div className="ps-scrollbar-x-rail" >

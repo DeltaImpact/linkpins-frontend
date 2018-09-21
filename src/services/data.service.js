@@ -7,7 +7,7 @@ export const dataService = {
 };
 
 function parse(url) {
-    // debugger
+    
   return axios
     .post("https://localhost:5001/parse", {
       url: url
@@ -43,7 +43,7 @@ function parse(url) {
           err.errorMessage = "Network Error";
         }
 
-        // debugger
+        
         return Promise.reject(err);
       }
     );

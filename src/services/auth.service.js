@@ -22,7 +22,7 @@ function login(email, password) {
     .then(parseJSON)
     .then(
       response => {
-        // debugger
+        
         if (response.token) {
           let tpm = jwtDecode(response.token);
           let user = {
@@ -31,7 +31,7 @@ function login(email, password) {
             token: response.token
           };
           localStorage.setItem("user", JSON.stringify(user));
-          // debugger
+          
           // axios.defaults.headers.common['Authorization'] =
           //     'Bearer ' + response.token;
           return user;
@@ -74,7 +74,7 @@ function register(email, username, password) {
     .then(parseJSON)
     .then(
       response => {
-        // debugger
+        
         if (response.token) {
           let tpm = jwtDecode(response.token);
           let user = {
@@ -83,7 +83,7 @@ function register(email, username, password) {
             token: response.token
           };
           localStorage.setItem("user", JSON.stringify(user));
-          // debugger
+          
           // axios.defaults.headers.common['Authorization'] =
           //     'Bearer ' + response.token;
           return user;
@@ -111,7 +111,7 @@ function register(email, username, password) {
           err.errorMessage = "Network Error";
         }
 
-        // debugger
+        
         return Promise.reject(err);
       }
     );
@@ -122,7 +122,7 @@ function logout() {
 }
 
 function data_about_user() {
-  // debugger
+  
   return axios
     .get("https://localhost:5001/account/user", {
       // let tmp = axios.get('http://httpbin.org/post', {
@@ -157,7 +157,7 @@ function data_about_user() {
           err.message = "Network Error";
         }
 
-        // debugger
+        
         return Promise.reject(err);
       }
     );

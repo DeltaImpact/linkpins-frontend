@@ -70,7 +70,7 @@ class NavMenuRight extends Component {
                 </ul>
             );
         }
-        // debugger
+        
         return (
             <div>
 

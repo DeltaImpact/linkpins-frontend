@@ -29,7 +29,7 @@ class ParseView extends React.Component {
       previewDescription: null,
       mode: "preview"
     };
-    // debugger
+    
   }
 
   componentDidMount() {
@@ -63,7 +63,7 @@ class ParseView extends React.Component {
 
   parse(e) {
     e.preventDefault();
-    // debugger
+    
     this.state.previewImage = null;
     this.state.previewTitle = null;
     this.state.previewDescription = null;
@@ -73,7 +73,7 @@ class ParseView extends React.Component {
 
   componentWillReceiveProps() {
     if (this.props.data.page) {
-      // debugger;
+      ;
       this.state.previewImage = this.props.data.page.images[0];
       this.state.previewTitle = this.props.data.page.possibleDescriptions[0];
       this.state.previewDescription = this.props.data.page.header;
@@ -86,7 +86,7 @@ class ParseView extends React.Component {
 
   componentWillUpdate() {
     if (this.props.data.page) {
-      // debugger;
+      ;
       this.state.previewImage = this.props.data.page.images[0];
       this.state.previewTitle = this.props.data.page.possibleDescriptions[0];
       this.state.previewDescription = this.props.data.page.header;
@@ -109,7 +109,7 @@ class ParseView extends React.Component {
     // if (this.state.previewTitle==null) this.state.previewTitle = this.props.data.page.possibleDescriptions[0];
     // if (this.state.previewDescription==null) this.state.previewDescription = this.props.data.page.header;
     return this.props.data.page.images.map((img, i) => {
-      // debugger
+      
       return (
         <li
           key={i}
@@ -146,7 +146,7 @@ class ParseView extends React.Component {
     if (this.state.previewDescription == null)
       this.state.previewDescription = this.props.data.page.possibleDescriptions[0];
     return this.props.data.page.possibleDescriptions.map((text, i) => {
-      // debugger
+      
       return (
         <div>
           <li
@@ -260,14 +260,14 @@ class ParseView extends React.Component {
   }
 
   chooseImage(index) {
-    // debugger
+    
     this.setState({
       previewImage: index
     });
   }
 
   choosePossibleDescription(index) {
-    // debugger
+    
     this.setState({
       previewDescription: index
     });
@@ -438,7 +438,7 @@ class ParseView extends React.Component {
 }
 
 function mapStateToProps(state) {
-  // debugger
+  
   const { data } = state;
   //   debugger
   return {

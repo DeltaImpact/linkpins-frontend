@@ -32,7 +32,7 @@ class RegisterView extends React.Component {
       redirectTo: redirectRoute,
       disabled: false
     };
-    // debugger
+    
   }
 
   isDisabled() {
@@ -144,7 +144,7 @@ class RegisterView extends React.Component {
   }
 
   render() {
-    // debugger
+    
     return (
       <div className="container">
         <div className="row">

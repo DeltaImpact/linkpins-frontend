@@ -1,96 +1,137 @@
-import { dataConstants } from '../constants';
-import { boardService } from '../services';
+import { dataConstants } from "../constants";
+import { boardService } from "../services";
 
 export const boardActions = {
-    addBoard,
-    getBoards,
+  addBoard,
+  deleteBoard,
+  getBoards,
 };
 
 function addBoard(name, description, img, isPrivate) {
-    // debugger
-    return function (dispatch) {
-        let boardParams = {
-            name, description, img, isPrivate
-        }
-        dispatch(addBoardRequest(boardParams));
-        return boardService.addBoard(name, description, img, isPrivate)
-            .then(
-                response => {
-                    // debugger
-                    dispatch(addBoardSuccess(response));
-                },
-                error => {
-                    // debugger
-                    dispatch(addBoardFailure(error));
-                }
-            );
+  
+  return function(dispatch) {
+    let boardParams = {
+      name,
+      description,
+      img,
+      isPrivate
     };
-
-
+    dispatch(addBoardRequest(boardParams));
+    return boardService.addBoard(name, description, img, isPrivate).then(
+      response => {
+        
+        dispatch(addBoardSuccess(response));
+      },
+      error => {
+        
+        dispatch(addBoardFailure(error));
+      }
+    );
+  };
 }
 
 export function addBoardRequest(tmp) {
-    return {
-        type: dataConstants.ADD_BOARD_REQUEST,
-        payload: {
-            tmp,
-        },
-    };
+  return {
+    type: dataConstants.ADD_BOARD_REQUEST,
+    payload: {
+      tmp
+    }
+  };
 }
 
 export function addBoardSuccess(payload) {
-    return {
-        type: dataConstants.ADD_BOARD_SUCCESS,
-        payload: payload,
-    };
+  return {
+    type: dataConstants.ADD_BOARD_SUCCESS,
+    payload
+  };
 }
 
 export function addBoardFailure(error) {
-    return {
-        type: dataConstants.ADD_BOARD_FAILURE, 
-        payload: error, 
-        error
-    };
+  return {
+    type: dataConstants.ADD_BOARD_FAILURE,
+    payload: error
+  };
 }
 
-
-
 function getBoards() {
-    // debugger
-    return function (dispatch) {
-        dispatch(getBoardsRequest());
-        return boardService.getBoards()
-            .then(
-                response => {
-                    // debugger
-                    dispatch(getBoardsSuccess(response));
-                },
-                error => {
-                    // debugger
-                    dispatch(getBoardsFailure(error));
-                }
-            );
-    };
-
-
+  
+  return function(dispatch) {
+    dispatch(getBoardsRequest());
+    return boardService.getBoards().then(
+      response => {
+        
+        dispatch(getBoardsSuccess(response));
+      },
+      error => {
+        
+        dispatch(getBoardsFailure(error));
+      }
+    );
+  };
 }
 
 export function getBoardsRequest() {
-    return {
-        type: dataConstants.GETALL_BOARD_REQUEST,
-    };
+  return {
+    type: dataConstants.GETALL_BOARD_REQUEST
+  };
 }
 
 export function getBoardsSuccess(payload) {
-    return {
-        type: dataConstants.GETALL_BOARD_SUCCESS,
-        payload: payload,
-    };
+  return {
+    type: dataConstants.GETALL_BOARD_SUCCESS,
+    payload
+  };
 }
 
 export function getBoardsFailure(error) {
-    return {
-        type: dataConstants.GETALL_BOARD_FAILURE, 
-        payload: error
-    };
+  
+  return {
+    type: dataConstants.GETALL_BOARD_FAILURE,
+    payload: error
+  };
 }
+
+
+
+function deleteBoard(name) {
+  
+    return function(dispatch) {
+      let boardParams = {
+        name,
+      };
+      dispatch(deleteBoardRequest(boardParams));
+      return boardService.deleteBoard(name).then(
+        response => {
+          
+          dispatch(deleteBoardSuccess(response));
+        },
+        error => {
+          
+          dispatch(deleteBoardFailure(error));
+        }
+      );
+    };
+  }
+  
+  export function deleteBoardRequest(tmp) {
+    return {
+      type: dataConstants.DELETE_BOARD_REQUEST,
+      payload: {
+        tmp
+      }
+    };
+  }
+  
+  export function deleteBoardSuccess(payload) {
+    return {
+      type: dataConstants.DELETE_BOARD_SUCCESS,
+      payload
+    };
+  }
+  
+  export function deleteBoardFailure(error) {
+    return {
+      type: dataConstants.DELETE_BOARD_FAILURE,
+      payload: error
+    };
+  }

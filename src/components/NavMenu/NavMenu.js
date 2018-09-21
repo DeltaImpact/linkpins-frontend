@@ -23,7 +23,7 @@ class NavMenu extends Component {
   }
 
   render() {
-    // debugger
+    
     return (
       <div className="Header">
         <div className="navbar-fixed">

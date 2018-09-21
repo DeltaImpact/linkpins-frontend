@@ -18,7 +18,7 @@ const reducerInitialState = {
   error: null,
   page: null,
 };
-// debugger
+
 export default createReducer(reducerInitialState, {
   PROFILE_USER_REQUEST: (state) =>
     Object.assign({}, state, {

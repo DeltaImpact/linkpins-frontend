@@ -3,6 +3,9 @@ import {
   ADD_BOARD_REQUEST,
   ADD_BOARD_SUCCESS,
   ADD_BOARD_FAILURE,
+  DELETE_BOARD_REQUEST,
+  DELETE_BOARD_SUCCESS,
+  DELETE_BOARD_FAILURE,
   GETALL_BOARD_REQUEST,
   GETALL_BOARD_SUCCESS,
   GETALL_BOARD_FAILURE
@@ -13,27 +16,54 @@ const reducerInitialState = {
   board: null,
   statusText: null,
   loading: null,
-  error: null
+  getAllBoardsError: null,
+  AddBoardError: null,
+  AddBoardLoading: null,
+  deleteBoardError: null,
+  deleteBoardLoading: null,
 };
 
 export default createReducer(reducerInitialState, {
   ADD_BOARD_REQUEST: state =>
     Object.assign({}, state, {
       statusText: null,
-      loading: true
+      AddBoardLoading: true
     }),
   ADD_BOARD_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
       // statusText: 'You have been successfully logged in.',
-      loading: false,
-      board: payload
+      AddBoardLoading: false,
+      board: payload,
+      boards: [
+        ...state.boards,
+        payload.board
+      ]
     }),
   ADD_BOARD_FAILURE: (state, payload) =>
     Object.assign({}, state, {
-      statusText: payload.errorMessage,
-      loading: false,
+      statusText: payload.statusText,
+      AddBoardLoading: false,
       board: null,
-      error: payload,
+      AddBoardError: payload,
+    }),
+    DELETE_BOARD_REQUEST: state =>
+    Object.assign({}, state, {
+      statusText: null,
+      deleteBoardLoading: true
+    }),
+  DELETE_BOARD_SUCCESS: (state, payload) =>
+    Object.assign({}, state, {
+      // statusText: 'You have been successfully logged in.',
+      deleteBoardLoading: false,
+      board: payload,
+      boards: state.boards.filter(t => t.name != payload.board.name)
+    }),
+  DELETE_BOARD_FAILURE: (state, payload) =>
+    Object.assign({}, state, {
+      statusText: payload.statusText,
+      deleteBoardLoading: false,
+      board: null,
+      deleteBoardError: payload,
     }),
   GETALL_BOARD_REQUEST: state =>
     Object.assign({}, state, {
@@ -48,9 +78,9 @@ export default createReducer(reducerInitialState, {
     }),
   GETALL_BOARD_FAILURE: (state, payload) =>
     Object.assign({}, state, {
-      statusText: payload.response.statusText,
+      statusText: payload.statusText,
       loading: false,
       boards: null,
-      error: payload.response,
+      getAllBoardsError: payload,
     })
 });

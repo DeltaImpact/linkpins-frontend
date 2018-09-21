@@ -16,7 +16,7 @@ class ImageInList extends React.Component {
     // const { view, id, name, avatar, sprite1, weapon, weakness } = this.props;
     // const listClass = `list-item card ${view}`;
     // const style = { zIndex: 100 - this.props.index };
-    // debugger;
+    ;
     return (
       <li
         id={id}

@@ -6,7 +6,7 @@ export const dataActions = {
 };
 
 function parse(url) {
-    // debugger
+    
     return function (dispatch) {
         let link = {
             url: url,
@@ -15,11 +15,11 @@ function parse(url) {
         return dataService.parse(url)
             .then(
                 user => {
-                    // debugger
+                    
                     dispatch(dataUserSuccess(user));
                 },
                 error => {
-                    // debugger
+                    
                     dispatch(dataUserFailure(error));
                 }
             );
