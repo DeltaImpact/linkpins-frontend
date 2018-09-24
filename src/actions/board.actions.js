@@ -1,4 +1,4 @@
-import { dataConstants } from "../constants";
+import { boardConstants } from "../constants";
 import { boardService } from "../services";
 
 export const boardActions = {
@@ -32,7 +32,7 @@ function addBoard(name, description, img, isPrivate) {
 
 export function addBoardRequest(tmp) {
   return {
-    type: dataConstants.ADD_BOARD_REQUEST,
+    type: boardConstants.ADD_BOARD_REQUEST,
     payload: {
       tmp
     }
@@ -41,14 +41,14 @@ export function addBoardRequest(tmp) {
 
 export function addBoardSuccess(payload) {
   return {
-    type: dataConstants.ADD_BOARD_SUCCESS,
+    type: boardConstants.ADD_BOARD_SUCCESS,
     payload
   };
 }
 
 export function addBoardFailure(error) {
   return {
-    type: dataConstants.ADD_BOARD_FAILURE,
+    type: boardConstants.ADD_BOARD_FAILURE,
     payload: error
   };
 }
@@ -72,13 +72,13 @@ function getBoards() {
 
 export function getBoardsRequest() {
   return {
-    type: dataConstants.GETALL_BOARD_REQUEST
+    type: boardConstants.GETALL_BOARD_REQUEST
   };
 }
 
 export function getBoardsSuccess(payload) {
   return {
-    type: dataConstants.GETALL_BOARD_SUCCESS,
+    type: boardConstants.GETALL_BOARD_SUCCESS,
     payload
   };
 }
@@ -86,7 +86,7 @@ export function getBoardsSuccess(payload) {
 export function getBoardsFailure(error) {
   
   return {
-    type: dataConstants.GETALL_BOARD_FAILURE,
+    type: boardConstants.GETALL_BOARD_FAILURE,
     payload: error
   };
 }
@@ -115,7 +115,7 @@ function deleteBoard(name) {
   
   export function deleteBoardRequest(tmp) {
     return {
-      type: dataConstants.DELETE_BOARD_REQUEST,
+      type: boardConstants.DELETE_BOARD_REQUEST,
       payload: {
         tmp
       }
@@ -124,14 +124,14 @@ function deleteBoard(name) {
   
   export function deleteBoardSuccess(payload) {
     return {
-      type: dataConstants.DELETE_BOARD_SUCCESS,
+      type: boardConstants.DELETE_BOARD_SUCCESS,
       payload
     };
   }
   
   export function deleteBoardFailure(error) {
     return {
-      type: dataConstants.DELETE_BOARD_FAILURE,
+      type: boardConstants.DELETE_BOARD_FAILURE,
       payload: error
     };
   }

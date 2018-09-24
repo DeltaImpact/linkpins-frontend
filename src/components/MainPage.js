@@ -2,6 +2,7 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -25,14 +26,16 @@ class MainPage extends React.Component {
   }
 
   renderPublicBoards() {
+    // debugger
     return this.props.board.boards.map((board, i) => {
-      return this.renderBoard(board, i);
+      return this.renderBoard(board);
     });
   }
 
-  renderBoard(board, i) {
+  renderBoard(board) {
+    // debugger
     return (
-      <li key={i} className="collection-item avatar pin-content">
+      <li key={board.id} className="collection-item avatar pin-content">
         {board.img == null ? (
           <i className="material-icons circle green">folder</i>
         ) : (
@@ -41,6 +44,7 @@ class MainPage extends React.Component {
         <div className="col m12">
           <span className="title">{board.name}</span>
           <p className="">{board.description}</p>
+          <p className="">Last change {board.modified ? distanceInWordsToNow(board.modified) : distanceInWordsToNow(board.created)}</p>
         </div>
 
         <a
@@ -49,7 +53,7 @@ class MainPage extends React.Component {
           onClick={e => {
             // let tmp = board.name;
             // debugger;
-            this.props.deleteBoard(board.name);
+            this.props.deleteBoard(board.id);
           }}
         >
           <i className="material-icons">delete</i>
@@ -217,10 +221,6 @@ class MainPage extends React.Component {
             </label>
           </p>
         </div>
-
-        {/* <div className="col m12">
-          <span className="title">Create a pingas</span>
-        </div> */}
       </div>
     );
   }

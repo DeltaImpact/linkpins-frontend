@@ -9,7 +9,7 @@ import {
   GETALL_BOARD_REQUEST,
   GETALL_BOARD_SUCCESS,
   GETALL_BOARD_FAILURE
-} from "../constants/data.constants";
+} from "../constants/board.constants";
 
 const reducerInitialState = {
   boards: null,
@@ -56,7 +56,7 @@ export default createReducer(reducerInitialState, {
       // statusText: 'You have been successfully logged in.',
       deleteBoardLoading: false,
       board: payload,
-      boards: state.boards.filter(t => t.name != payload.board.name)
+      boards: state.boards.filter(t => t.id != payload.board.id)
     }),
   DELETE_BOARD_FAILURE: (state, payload) =>
     Object.assign({}, state, {

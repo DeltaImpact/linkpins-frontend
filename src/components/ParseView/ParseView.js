@@ -12,6 +12,8 @@ import { validateEmail } from "../../utils/misc";
 
 import { ImageInList } from "./imageInList";
 
+import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
+
 // @connect(mapStateToProps, mapDispatchToProps)
 class ParseView extends React.Component {
   constructor(props) {
@@ -29,7 +31,6 @@ class ParseView extends React.Component {
       previewDescription: null,
       mode: "preview"
     };
-    
   }
 
   componentDidMount() {
@@ -37,6 +38,7 @@ class ParseView extends React.Component {
     this.state.previewTitle = null;
     this.state.previewDescription = null;
 
+    this.props.getBoards();
     this.props.parse(this.state.url, this.state.redirectTo);
   }
 
@@ -63,7 +65,7 @@ class ParseView extends React.Component {
 
   parse(e) {
     e.preventDefault();
-    
+
     this.state.previewImage = null;
     this.state.previewTitle = null;
     this.state.previewDescription = null;
@@ -71,9 +73,20 @@ class ParseView extends React.Component {
     this.props.parse(this.state.url, this.state.redirectTo);
   }
 
+  
+  savePin(id) {
+    debugger
+    // this.props.add(this.state.url, this.state.redirectTo);
+
+    // this.state.previewImage = null;
+    // this.state.previewTitle = null;
+    // this.state.previewDescription = null;
+
+    // this.props.parse(this.state.url, this.state.redirectTo);
+  }
+
   componentWillReceiveProps() {
     if (this.props.data.page) {
-      ;
       this.state.previewImage = this.props.data.page.images[0];
       this.state.previewTitle = this.props.data.page.possibleDescriptions[0];
       this.state.previewDescription = this.props.data.page.header;
@@ -86,7 +99,6 @@ class ParseView extends React.Component {
 
   componentWillUpdate() {
     if (this.props.data.page) {
-      ;
       this.state.previewImage = this.props.data.page.images[0];
       this.state.previewTitle = this.props.data.page.possibleDescriptions[0];
       this.state.previewDescription = this.props.data.page.header;
@@ -109,7 +121,6 @@ class ParseView extends React.Component {
     // if (this.state.previewTitle==null) this.state.previewTitle = this.props.data.page.possibleDescriptions[0];
     // if (this.state.previewDescription==null) this.state.previewDescription = this.props.data.page.header;
     return this.props.data.page.images.map((img, i) => {
-      
       return (
         <li
           key={i}
@@ -146,7 +157,6 @@ class ParseView extends React.Component {
     if (this.state.previewDescription == null)
       this.state.previewDescription = this.props.data.page.possibleDescriptions[0];
     return this.props.data.page.possibleDescriptions.map((text, i) => {
-      
       return (
         <div>
           <li
@@ -169,9 +179,40 @@ class ParseView extends React.Component {
     });
   }
 
+  renderBoards() {
+    return this.props.board.boards.map((board, i) => {
+      return this.renderBoard(board);
+    });
+  }
+
+  renderBoard(board) {
+    return (
+      <li key={board.id} className="collection-item avatar pin-content" onClick={() => this.savePin(board.id)}>
+        {board.img == null ? (
+          <i className="material-icons circle green">folder</i>
+        ) : (
+          <img src={board.img} alt="" className="circle" />
+        )}
+        <div className="col m12">
+          <span className="title">{board.name}</span>
+          <p className="">{board.description}</p>
+          <p className="">
+            Last change{" "}
+            {board.modified
+              ? distanceInWordsToNow(board.modified)
+              : distanceInWordsToNow(board.created)}
+          </p>
+        </div>
+      </li>
+    );
+  }
+
   renderRecordPreview() {
     return (
       <div className="card-panel">
+        <div className="card-content list__title">
+          <h6 className="left-align list__item">Preview</h6>
+        </div>
         <PinCard
           url={
             this.state.previewImage == null
@@ -260,14 +301,12 @@ class ParseView extends React.Component {
   }
 
   chooseImage(index) {
-    
     this.setState({
       previewImage: index
     });
   }
 
   choosePossibleDescription(index) {
-    
     this.setState({
       previewDescription: index
     });
@@ -343,7 +382,7 @@ class ParseView extends React.Component {
         {this.props.data.page && (
           <div className="container">
             <div className="row ">
-              <ul className="tabs z-depth-1">
+              {/* <ul className="tabs z-depth-1">
                 <li className="tab">
                   <a
                     // href=""
@@ -379,19 +418,34 @@ class ParseView extends React.Component {
                     Manual editing
                   </a>
                 </li>
-              </ul>
+              </ul> */}
 
               {this.state.mode == "preview" && this.renderRecordPreview()}
-              {this.state.mode == "edit" && this.renderManualEdit()}
+              {/* {this.state.mode == "edit" && this.renderManualEdit()} */}
             </div>
           </div>
         )}
 
-        {this.props.data.page && (
+        <div className="container">
+          <div className="row">
+            <div className="card-panel">
+              <h6 className="left-align">Boards</h6>
+              {this.props.board.loading && (
+                <div className="progress">
+                  <div className="indeterminate" />
+                </div>
+              )}
+              <ul className="collection">
+                {this.props.board.boards && this.renderBoards()}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* {this.props.data.page && (
           <div className="container">
             <div className="row">
               <div className="card-panel">
-                {/* <div className=""> */}
                 <button
                   className={this.submitClasses()}
                   type="button"
@@ -403,7 +457,7 @@ class ParseView extends React.Component {
               </div>
             </div>
           </div>
-        )}
+        )} */}
 
         {/* <div className="col m4 offset-m4 z-depth-3 card-panel"></div> */}
 
@@ -438,16 +492,18 @@ class ParseView extends React.Component {
 }
 
 function mapStateToProps(state) {
-  
-  const { data } = state;
+  const { data, board } = state;
   //   debugger
   return {
-    data
+    data,
+    board
   };
 }
 
+import { boardActions } from "../../actions";
+
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(dataActions, dispatch);
+  return bindActionCreators({ ...dataActions, ...boardActions }, dispatch);
 }
 
 ParseView.propTypes = {

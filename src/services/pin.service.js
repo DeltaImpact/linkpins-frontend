@@ -1,24 +1,23 @@
-import config from "config";
 import { authHeader } from "../helpers";
-
 import axios from "axios";
 import { parseJSON } from "../utils/misc";
 
-export const boardService = {
-  addBoard,
-  deleteBoard,
-  getBoards
+export const pinService = {
+  addPin,
+  deletePin,
+  getPins
 };
 
-function addBoard(name, description, img, isPrivate) {
+function addPin(name, description, img, Link, BoardId) {
   return axios
     .post(
-      "https://localhost:5001/board/addBoard",
+      "https://localhost:5001/pin/addPin",
       {
         Name: name,
         Description: description,
         Img: img,
-        IsPrivate: isPrivate
+        Link: Link,
+        BoardId: BoardId,
       },
       {
         headers: {
@@ -58,11 +57,11 @@ function addBoard(name, description, img, isPrivate) {
     );
 }
 
-function getBoards() {
+function getPins() {
   // axios.defaults.headers.common["Authorization"] = authHeader();
   return axios
     .post(
-      "https://localhost:5001/board/getBoards",
+      "https://localhost:5001/pin/getPins",
       {},
       {
         // .post("http://httpbin.org/post", {},  {
@@ -100,10 +99,10 @@ function getBoards() {
     );
 }
 
-function deleteBoard(Id) {
+function deletePin(Id) {
   return axios
     .post(
-      "https://localhost:5001/board/deleteBoard",
+      "https://localhost:5001/pin/deletePin",
       { Id: Id },
       {
         headers: {
