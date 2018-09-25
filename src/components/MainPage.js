@@ -2,7 +2,7 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
+import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -10,7 +10,8 @@ class MainPage extends React.Component {
     this.state = {
       ShowNewBoardForm: false,
       // ShowNewBoardForm: true,
-      boardTitle: null,
+      // boardTitle: null,
+      boardTitle: "123",
       boardDescription: null,
       // boardTitle: "Title",
       // boardDescription: "Description",
@@ -35,37 +36,45 @@ class MainPage extends React.Component {
   renderBoard(board) {
     // debugger
     return (
-      <li key={board.id} className="collection-item avatar pin-content">
-        {board.img == null ? (
-          <i className="material-icons circle green">folder</i>
-        ) : (
-          <img src={board.img} alt="" className="circle" />
-        )}
-        <div className="col m12">
-          <span className="title">{board.name}</span>
-          <p className="">{board.description}</p>
-          <p className="">Last change {board.modified ? distanceInWordsToNow(board.modified) : distanceInWordsToNow(board.created)}</p>
-        </div>
+      <Link key={board.id} to={"/board/" + board.id}>
+        <li key={board.id} className="collection-item avatar pin-content">
+          {board.img == null ? (
+            <i className="material-icons circle green">folder</i>
+          ) : (
+            <img src={board.img} alt="" className="circle" />
+          )}
+          <div className="col m12">
+            <span className="title">{board.name}</span>
+            <p className="">{board.description}</p>
+            <p className="">
+              Last change{" "}
+              {board.modified
+                ? distanceInWordsToNow(board.modified)
+                : distanceInWordsToNow(board.created)}
+            </p>
+          </div>
 
-        <a
-          href="#!"
-          className="secondary-content"
-          onClick={e => {
-            // let tmp = board.name;
-            // debugger;
-            this.props.deleteBoard(board.id);
-          }}
-        >
-          <i className="material-icons">delete</i>
-        </a>
-      </li>
+          <div
+            to="#!"
+            className="secondary-content"
+            onClick={e => {
+              e.preventDefault;
+              // let tmp = board.name;
+              // debugger;
+              this.props.deleteBoard(board.id);
+            }}
+          >
+            <i className="material-icons">delete</i>
+          </div>
+        </li>
+      </Link>
     );
   }
 
   renderPrivateBoards() {
     let array = this.props.board.boards
       .map((board, i) => {
-        if (board.isPrivate == true) return this.renderBoard(board, i);
+        if (board.isPrivate == true) return this.renderBoard(board);
       })
       .filter(n => n);
 
@@ -108,7 +117,6 @@ class MainPage extends React.Component {
           <span className="title">Create a board</span>
           {/* <p className="">Create a board</p> */}
         </div>
-        {/* <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a> */}
       </div>
     );
   }
@@ -283,9 +291,10 @@ class MainPage extends React.Component {
     //   });
     // }
 
-    if (boardTitle_is_valid 
+    if (
+      boardTitle_is_valid
       // && boardDescription_is_valid
-      ) {
+    ) {
       this.setState({
         disabled: false
       });
@@ -314,7 +323,7 @@ class MainPage extends React.Component {
           <div className="col m8 offset-m2">
             {/* <h4 className="left-align">Pins</h4> */}
             <h4 className="left-align">Boards</h4>
-            {this.props.board.loading && (
+            {this.props.board.getAllBoardsLoading && (
               <div className="progress">
                 <div className="indeterminate" />
               </div>

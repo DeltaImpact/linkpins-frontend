@@ -29,6 +29,8 @@ class ParseView extends React.Component {
       previewImage: null,
       previewTitle: null,
       previewDescription: null,
+      previewBoardId: null,
+      previewBoardName: null,
       mode: "preview"
     };
   }
@@ -73,9 +75,10 @@ class ParseView extends React.Component {
     this.props.parse(this.state.url, this.state.redirectTo);
   }
 
-  
-  savePin(id) {
-    debugger
+  savePin(id, name) {
+    // debugger;
+    this.state.previewBoardId = id;
+    this.state.previewBoardName = name;
     // this.props.add(this.state.url, this.state.redirectTo);
 
     // this.state.previewImage = null;
@@ -187,7 +190,11 @@ class ParseView extends React.Component {
 
   renderBoard(board) {
     return (
-      <li key={board.id} className="collection-item avatar pin-content" onClick={() => this.savePin(board.id)}>
+      <li
+        key={board.id}
+        className="collection-item avatar pin-content"
+        onClick={() => this.savePin(board.id, board.name)}
+      >
         {board.img == null ? (
           <i className="material-icons circle green">folder</i>
         ) : (
@@ -213,6 +220,9 @@ class ParseView extends React.Component {
         <div className="card-content list__title">
           <h6 className="left-align list__item">Preview</h6>
         </div>
+
+
+
         <PinCard
           url={
             this.state.previewImage == null
@@ -373,6 +383,7 @@ class ParseView extends React.Component {
                       </div>
                     </div>
                   </form>
+                  <p>Ram nam {this.state.previewBoardName}</p>
                 </div>
               </div>
             </div>
@@ -430,7 +441,7 @@ class ParseView extends React.Component {
           <div className="row">
             <div className="card-panel">
               <h6 className="left-align">Boards</h6>
-              {this.props.board.loading && (
+              {this.props.board.getAllBoardsLoading && (
                 <div className="progress">
                   <div className="indeterminate" />
                 </div>

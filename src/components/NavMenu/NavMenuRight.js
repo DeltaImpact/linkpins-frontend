@@ -42,9 +42,9 @@ class NavMenuRight extends Component {
               </Link>
             </li>
             <li>
-              <a className="black-text" onClick={this.handleLogout}>
+              <Link to="" className="black-text" onClick={this.handleLogout}>
                 logout
-              </a>
+              </Link>
             </li>
             {/* <li>
                             <Link to={"/profile"} className="pagenav__option--inline black-text">

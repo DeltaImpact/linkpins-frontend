@@ -6,6 +6,7 @@ import { history } from '../../helpers';
 import { alertActions } from '../../actions';
 import { PrivateRoute } from '../../components/PrivateRoute';
 import { ProfilePage } from '../../components/ProfilePage';
+import { BoardPage } from '../../components/BoardPage';
 import { ParseView } from '../../components/ParseView';
 
 import { Layout } from '../../components/Layout';
@@ -55,6 +56,7 @@ class App extends React.Component {
                                 <Route path="/parse" component={ParseView} />
                                 <Route path="/login" component={LoginView} />
                                 <Route path="/register" component={RegisterView} />
+                                <Route path="/board/:id" component={BoardPage} />
                                 {/* <Route component={MainPage} /> */}
                             </Layout>
                         </MuiThemeProvider>

@@ -8,7 +8,10 @@ import {
   DELETE_BOARD_FAILURE,
   GETALL_BOARD_REQUEST,
   GETALL_BOARD_SUCCESS,
-  GETALL_BOARD_FAILURE
+  GETALL_BOARD_FAILURE,
+  GET_BOARD_REQUEST,
+  GET_BOARD_SUCCESS,
+  GET_BOARD_FAILURE,
 } from "../constants/board.constants";
 
 const reducerInitialState = {
@@ -17,6 +20,10 @@ const reducerInitialState = {
   statusText: null,
   loading: null,
   getAllBoardsError: null,
+  getAllBoardsLoading: null,
+  getBoard: null,
+  getBoardError: null,
+  getBoardLoading: null,
   AddBoardError: null,
   AddBoardLoading: null,
   deleteBoardError: null,
@@ -27,7 +34,8 @@ export default createReducer(reducerInitialState, {
   ADD_BOARD_REQUEST: state =>
     Object.assign({}, state, {
       statusText: null,
-      AddBoardLoading: true
+      AddBoardLoading: true,
+      AddBoardError: null,
     }),
   ADD_BOARD_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
@@ -67,20 +75,40 @@ export default createReducer(reducerInitialState, {
     }),
   GETALL_BOARD_REQUEST: state =>
     Object.assign({}, state, {
-      loading: true,
-      statusText: null
+      getAllBoardsLoading: true,
+      statusText: null,
+      getAllBoardsError: null,
     }),
   GETALL_BOARD_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
       isAuthenticated: true,
-      loading: false,
+      getAllBoardsLoading: false,
       boards: payload
     }),
   GETALL_BOARD_FAILURE: (state, payload) =>
     Object.assign({}, state, {
       statusText: payload.statusText,
-      loading: false,
+      getAllBoardsLoading: false,
       boards: null,
       getAllBoardsError: payload,
-    })
+    }),
+    GET_BOARD_REQUEST: state =>
+    Object.assign({}, state, {
+      getBoardLoading: true,
+      statusText: null,
+      getBoardError: null,
+    }),
+  GET_BOARD_SUCCESS: (state, payload) =>
+    Object.assign({}, state, {
+      isAuthenticated: true,
+      getBoardLoading: false,
+      getBoard: payload
+    }),
+  GET_BOARD_FAILURE: (state, payload) =>
+    Object.assign({}, state, {
+      statusText: payload.statusText,
+      getBoardLoading: false,
+      getBoard: null,
+      getBoardError: payload,
+    }),
 });

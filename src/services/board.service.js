@@ -7,7 +7,8 @@ import { parseJSON } from "../utils/misc";
 export const boardService = {
   addBoard,
   deleteBoard,
-  getBoards
+  getBoards,
+  getBoard,
 };
 
 function addBoard(name, description, img, isPrivate) {
@@ -94,6 +95,52 @@ function getBoards() {
           err.status = 503;
           err.message = "Network Error";
         }
+
+        return Promise.reject(err);
+      }
+    );
+}
+
+function getBoard(id) {
+  let url = 'https://localhost:5001/board/' + id;
+  // let as = "{0}{1}".format("{1}", "{0}");
+  // debugger
+  return axios
+    .get(
+      url,
+      // {},
+      {
+        // .post("http://httpbin.org/post", {},  {
+        headers: { Authorization: authHeader() }
+      }
+    )
+    .then(parseJSON)
+    .then(
+      user => {
+        // console.log(user)
+        // debugger
+        return user;
+      },
+      error => {
+        let err = {};
+        if (error.response) {
+          err.response = error.response;
+          if (error.response.status === 400) {
+            err.status = error.response.status;
+            err.message = error.response.statusText;
+            err.info = error.response.data.message;
+          }
+
+          if (error.response.data.message) {
+            err.message = error.response.data.message;
+          }
+        }
+
+        if (error.message === "Network Error") {
+          err.status = 503;
+          err.message = "Network Error";
+        }
+        // debugger
 
         return Promise.reject(err);
       }
