@@ -7,6 +7,7 @@ import { alertActions } from '../../actions';
 import { PrivateRoute } from '../../components/PrivateRoute';
 import { ProfilePage } from '../../components/ProfilePage';
 import { BoardPage } from '../../components/BoardPage';
+import { PinPage } from '../../components/PinPage';
 import { ParseView } from '../../components/ParseView';
 
 import { Layout } from '../../components/Layout';
@@ -57,6 +58,7 @@ class App extends React.Component {
                                 <Route path="/login" component={LoginView} />
                                 <Route path="/register" component={RegisterView} />
                                 <Route path="/board/:id" component={BoardPage} />
+                                <Route path="/pin/:id" component={PinPage} />
                                 {/* <Route component={MainPage} /> */}
                             </Layout>
                         </MuiThemeProvider>

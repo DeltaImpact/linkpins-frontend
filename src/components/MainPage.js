@@ -23,7 +23,6 @@ class MainPage extends React.Component {
   }
   componentDidMount() {
     this.props.getBoards();
-    // this.props.addBoard("name", "description", "img", false);
   }
 
   renderPublicBoards() {
@@ -36,8 +35,8 @@ class MainPage extends React.Component {
   renderBoard(board) {
     // debugger
     return (
-      <Link key={board.id} to={"/board/" + board.id}>
-        <li key={board.id} className="collection-item avatar pin-content">
+      <li key={board.id} className="collection-item avatar pin-content">
+        <Link key={board.id} to={"/board/" + board.id}>
           {board.img == null ? (
             <i className="material-icons circle green">folder</i>
           ) : (
@@ -53,21 +52,21 @@ class MainPage extends React.Component {
                 : distanceInWordsToNow(board.created)}
             </p>
           </div>
+        </Link>
 
-          <div
-            to="#!"
-            className="secondary-content"
-            onClick={e => {
-              e.preventDefault;
-              // let tmp = board.name;
-              // debugger;
-              this.props.deleteBoard(board.id);
-            }}
-          >
-            <i className="material-icons">delete</i>
-          </div>
-        </li>
-      </Link>
+        <div
+          to="#!"
+          className="secondary-content"
+          onClick={e => {
+            e.preventDefault;
+            // let tmp = board.name;
+            // debugger;
+            this.props.deleteBoard(board.id);
+          }}
+        >
+          <i className="material-icons">delete</i>
+        </div>
+      </li>
     );
   }
 
@@ -130,9 +129,6 @@ class MainPage extends React.Component {
               ? "material-icons circle grey"
               : "material-icons circle green"
           }
-          // onClick={() =>
-          //   this.setState({ ShowNewBoardForm: !this.state.ShowNewBoardForm })
-          // }
           onClick={e => this.createNewBoard(e)}
         >
           {!this.props.board.AddBoardLoading &&
@@ -142,18 +138,12 @@ class MainPage extends React.Component {
             !this.props.board.AddBoardLoading &&
             "autorenew"}
           {this.props.board.AddBoardLoading && "hourglass_empty"}
-          {/* clear */}
         </i>
         <div className="col m12">
           <span className="title">Create a board</span>
           {/* <p className="">Create a board</p> */}
         </div>
         <div className="row">
-          {/* {this.props.board.AddBoardLoading && (
-            <div className="progress">
-              <div className="indeterminate" />
-            </div>
-          )} */}
           {this.props.board.AddBoardError && (
             <div className="error--container">
               <div className="error error--text alert alert-info">
@@ -165,7 +155,7 @@ class MainPage extends React.Component {
             <input
               id="boardTitle"
               type="text"
-              value={this.state.boardTitle}
+              value={this.state.boardTitle != null ? this.state.boardTitle : ""}
               className={
                 this.state.boardTitle_is_valid != null ? "invalid" : ""
               }
@@ -187,7 +177,11 @@ class MainPage extends React.Component {
             <input
               id="boardDescription"
               type="text"
-              value={this.state.boardDescription}
+              value={
+                this.state.boardDescription != null
+                  ? this.state.boardDescription
+                  : ""
+              }
               className={
                 this.state.boardDescription_is_valid != null ? "invalid" : ""
               }
@@ -210,22 +204,13 @@ class MainPage extends React.Component {
               <input
                 type="checkbox"
                 className="filled-in"
-                // checked={this.state.isBoardPrivate == "on" ? "checked" : ""}
-                // checked="checked"
-                // checked={null}
                 onChange={e => {
                   this.setState({
                     isBoardPrivate: e.target.checked
                   });
                 }}
-                // onChange={e => alert()}
-                // onClick={e => this.changeValue(e, "isBoardPrivate")}
-                // onClick={e => this.changeValue(e, "isBoardPrivate")}
               />
-              <span>
-                Private desk
-                {/* {this.state.isBoardPrivate + []} */}
-              </span>
+              <span>Private desk</span>
             </label>
           </p>
         </div>
@@ -235,7 +220,6 @@ class MainPage extends React.Component {
 
   createNewBoard(e) {
     e.preventDefault();
-    // debugger
     if (!this.state.disabled)
       this.props.addBoard(
         this.state.boardTitle,
@@ -248,8 +232,6 @@ class MainPage extends React.Component {
   isDisabled() {
     let boardTitle_is_valid = false;
     let boardDescription_is_valid = false;
-    // boardTitle
-    // boardDescription
     if (this.state.boardTitle === "" || this.state.boardTitle === null) {
       this.setState({
         boardTitle_error_text: null
@@ -269,32 +251,7 @@ class MainPage extends React.Component {
       });
     }
 
-    // if (
-    //   this.state.boardDescription === "" ||
-    //   this.state.boardDescription === null
-    // ) {
-    //   this.setState({
-    //     boardDescription_error_text: null
-    //   });
-    // } else if (
-    //   this.state.boardDescription.length > 3 &&
-    //   this.state.boardDescription.length < 256
-    // ) {
-    //   boardDescription_is_valid = true;
-    //   this.setState({
-    //     boardDescription_error_text: null
-    //   });
-    // } else {
-    //   boardDescription_is_valid = false;
-    //   this.setState({
-    //     boardDescription_error_text: "Title length should be between 3 and 256."
-    //   });
-    // }
-
-    if (
-      boardTitle_is_valid
-      // && boardDescription_is_valid
-    ) {
+    if (boardTitle_is_valid) {
       this.setState({
         disabled: false
       });
@@ -321,14 +278,12 @@ class MainPage extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col m8 offset-m2">
-            {/* <h4 className="left-align">Pins</h4> */}
             <h4 className="left-align">Boards</h4>
             {this.props.board.getAllBoardsLoading && (
               <div className="progress">
                 <div className="indeterminate" />
               </div>
             )}
-            {/* board */}
             {this.props.board.getAllBoardsError && (
               <div className="row error--container">
                 <div className="error error--text alert alert-info">
@@ -345,10 +300,6 @@ class MainPage extends React.Component {
           {this.props.board.boards && this.renderPrivateBoards()}
         </div>
       </div>
-      // <div>
-      //     something
-
-      // </div>
     );
   }
 }

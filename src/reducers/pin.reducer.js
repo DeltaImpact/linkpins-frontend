@@ -17,36 +17,40 @@ const reducerInitialState = {
   statusText: null,
   loading: null,
   getAllPinsError: null,
+  getPinError: null,
   AddPinError: null,
   AddPinLoading: null,
+  AddPinRedirectTo: null,
   deletePinError: null,
-  deletePinLoading: null,
+  deletePinLoading: null
 };
+// debugger
 
 export default createReducer(reducerInitialState, {
   ADD_PIN_REQUEST: state =>
     Object.assign({}, state, {
       statusText: null,
-      AddPinLoading: true
+      AddPinLoading: true,
+      AddPinRedirectTo: null
     }),
   ADD_PIN_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
       // statusText: 'You have been successfully logged in.',
       AddPinLoading: false,
-      pin: payload,
-      pins: [
-        ...state.pins,
-        payload.pin
-      ]
+      AddPinRedirectTo: payload.id
+      // pins: [
+      //   ...state.pins,
+      //   payload.pin
+      // ]
     }),
   ADD_PIN_FAILURE: (state, payload) =>
     Object.assign({}, state, {
-      statusText: payload.statusText,
+      // statusText: payload.statusText,
       AddPinLoading: false,
       pin: null,
-      AddPinError: payload,
+      AddPinError: payload
     }),
-    DELETE_PIN_REQUEST: state =>
+  DELETE_PIN_REQUEST: state =>
     Object.assign({}, state, {
       statusText: null,
       deletePinLoading: true
@@ -63,16 +67,15 @@ export default createReducer(reducerInitialState, {
       statusText: payload.statusText,
       deletePinLoading: false,
       pin: null,
-      deletePinError: payload,
+      deletePinError: payload
     }),
   GETALL_PIN_REQUEST: state =>
     Object.assign({}, state, {
       loading: true,
-      statusText: null
+      getAllPinsError: null
     }),
   GETALL_PIN_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
-      isAuthenticated: true,
       loading: false,
       pins: payload
     }),
@@ -81,6 +84,22 @@ export default createReducer(reducerInitialState, {
       statusText: payload.statusText,
       loading: false,
       pins: null,
-      getAllPinsError: payload,
+      getAllPinsError: payload
+    }),
+  GET_PIN_REQUEST: state =>
+    Object.assign({}, state, {
+      loading: true,
+      getPinError: null,
+    }),
+  GET_PIN_SUCCESS: (state, payload) =>
+    Object.assign({}, state, {
+      loading: false,
+      pin: payload
+    }),
+  GET_PIN_FAILURE: (state, payload) =>
+    Object.assign({}, state, {
+      loading: false,
+      pin: null,
+      getPinError: payload,
     })
 });

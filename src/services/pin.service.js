@@ -1,11 +1,13 @@
 import { authHeader } from "../helpers";
 import axios from "axios";
-import { parseJSON } from "../utils/misc";
+import { parseJSON, processErrorResponse } from "../utils/misc";
+
 
 export const pinService = {
   addPin,
   deletePin,
-  getPins
+  getPins,
+  getPin,
 };
 
 function addPin(name, description, img, Link, BoardId) {
@@ -32,27 +34,7 @@ function addPin(name, description, img, Link, BoardId) {
         return response;
       },
       error => {
-        let err = {};
-        if (error.response) {
-          err.response = error.response;
-          if (error.response.status === 400) {
-            err.status = error.response.status;
-            err.message = error.response.statusText;
-            err.info = error.response.data.message;
-          }
-
-          if (error.response.data.message) {
-            err.message = error.response.data.message;
-          }
-        }
-
-        if (error.message === "Network Error") {
-          err.status = 503;
-          err.message = "Network Error";
-        }
-
-        // debugger
-        return Promise.reject(err);
+        return Promise.reject(processErrorResponse(error));
       }
     );
 }
@@ -75,26 +57,27 @@ function getPins() {
         return user;
       },
       error => {
-        let err = {};
-        if (error.response) {
-          err.response = error.response;
-          if (error.response.status === 400) {
-            err.status = error.response.status;
-            err.message = error.response.statusText;
-            err.info = error.response.data.message;
-          }
+        return Promise.reject(processErrorResponse(error));
+      }
+    );
+}
 
-          if (error.response.data.message) {
-            err.message = error.response.data.message;
-          }
-        }
-
-        if (error.message === "Network Error") {
-          err.status = 503;
-          err.message = "Network Error";
-        }
-
-        return Promise.reject(err);
+function getPin(id) {
+  let url = 'https://localhost:5001/pin/' + id;
+  return axios
+    .get(
+      url,
+      {
+        headers: { Authorization: authHeader() }
+      }
+    )
+    .then(parseJSON)
+    .then(
+      user => {
+        return user;
+      },
+      error => {
+        return Promise.reject(processErrorResponse(error));
       }
     );
 }
@@ -117,26 +100,7 @@ function deletePin(Id) {
         return response;
       },
       error => {
-        let err = {};
-        if (error.response) {
-          err.response = error.response;
-          if (error.response.status === 400) {
-            err.status = error.response.status;
-            err.errorMessage = error.response.statusText;
-            err.info = error.response.data.message;
-          }
-
-          if (error.response.data.message) {
-            err.errorMessage = error.response.data.message;
-          }
-        }
-
-        if (error.message === "Network Error") {
-          err.status = 503;
-          err.errorMessage = "Network Error";
-        }
-
-        return Promise.reject(err);
+        return Promise.reject(processErrorResponse(error));
       }
     );
 }
