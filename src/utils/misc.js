@@ -37,6 +37,10 @@ export function processErrorResponse(error) {
     if (error.response.data.message) {
       err.message = error.response.data.message;
     }
+
+    if (error.response.data.Description) {
+      err.Description = error.response.data.Description;
+    }
   }
 
   if (error.message === "Network Error") {

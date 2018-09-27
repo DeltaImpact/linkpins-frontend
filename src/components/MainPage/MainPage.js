@@ -3,6 +3,8 @@ import { bindActionCreators } from "redux";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
+import { boardActions } from "../../actions";
+import { Board } from "./Board";
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -28,52 +30,32 @@ class MainPage extends React.Component {
   renderPublicBoards() {
     // debugger
     return this.props.board.boards.map((board, i) => {
-      return this.renderBoard(board);
+      // return this.renderBoard(board);
+      if (board.isPrivate == false)
+        return (
+          <Board
+            key={board.id}
+            board={board}
+            updateBoard={this.props.updateBoard}
+            deleteBoard={this.props.deleteBoard}
+            updateBoardLoading={this.props.board.updateBoardLoading}
+          />
+        );
     });
-  }
-
-  renderBoard(board) {
-    // debugger
-    return (
-      <li key={board.id} className="collection-item avatar pin-content">
-        <Link key={board.id} to={"/board/" + board.id}>
-          {board.img == null ? (
-            <i className="material-icons circle green">folder</i>
-          ) : (
-            <img src={board.img} alt="" className="circle" />
-          )}
-          <div className="col m12">
-            <span className="title">{board.name}</span>
-            <p className="">{board.description}</p>
-            <p className="">
-              Last change{" "}
-              {board.modified
-                ? distanceInWordsToNow(board.modified)
-                : distanceInWordsToNow(board.created)}
-            </p>
-          </div>
-        </Link>
-
-        <div
-          to="#!"
-          className="secondary-content"
-          onClick={e => {
-            e.preventDefault;
-            // let tmp = board.name;
-            // debugger;
-            this.props.deleteBoard(board.id);
-          }}
-        >
-          <i className="material-icons">delete</i>
-        </div>
-      </li>
-    );
   }
 
   renderPrivateBoards() {
     let array = this.props.board.boards
       .map((board, i) => {
-        if (board.isPrivate == true) return this.renderBoard(board);
+        if (board.isPrivate == true)
+          return (
+            <Board
+              key={board.id}
+              board={board}
+              updateBoard={this.props.updateBoard}
+              deleteBoard={this.props.deleteBoard}
+            />
+          );
       })
       .filter(n => n);
 
@@ -310,8 +292,6 @@ function mapStateToProps(state) {
     board
   };
 }
-
-import { boardActions } from "../actions";
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(boardActions, dispatch);

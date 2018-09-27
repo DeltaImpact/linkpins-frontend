@@ -6,12 +6,15 @@ import {
   DELETE_BOARD_REQUEST,
   DELETE_BOARD_SUCCESS,
   DELETE_BOARD_FAILURE,
+  UPDATE_BOARD_REQUEST,
+  UPDATE_BOARD_SUCCESS,
+  UPDATE_BOARD_FAILURE,
   GETALL_BOARD_REQUEST,
   GETALL_BOARD_SUCCESS,
   GETALL_BOARD_FAILURE,
   GET_BOARD_REQUEST,
   GET_BOARD_SUCCESS,
-  GET_BOARD_FAILURE,
+  GET_BOARD_FAILURE
 } from "../constants/board.constants";
 
 const reducerInitialState = {
@@ -28,6 +31,9 @@ const reducerInitialState = {
   AddBoardLoading: null,
   deleteBoardError: null,
   deleteBoardLoading: null,
+  updateBoardLoading: null,
+  updateBoard: null,
+  updateBoardError: null,
 };
 
 export default createReducer(reducerInitialState, {
@@ -35,26 +41,23 @@ export default createReducer(reducerInitialState, {
     Object.assign({}, state, {
       statusText: null,
       AddBoardLoading: true,
-      AddBoardError: null,
+      AddBoardError: null
     }),
   ADD_BOARD_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
       // statusText: 'You have been successfully logged in.',
       AddBoardLoading: false,
       board: payload,
-      boards: [
-        ...state.boards,
-        payload.board
-      ]
+      boards: [...state.boards, payload.board]
     }),
   ADD_BOARD_FAILURE: (state, payload) =>
     Object.assign({}, state, {
       statusText: payload.statusText,
       AddBoardLoading: false,
       board: null,
-      AddBoardError: payload,
+      AddBoardError: payload
     }),
-    DELETE_BOARD_REQUEST: state =>
+  DELETE_BOARD_REQUEST: state =>
     Object.assign({}, state, {
       statusText: null,
       deleteBoardLoading: true
@@ -71,17 +74,33 @@ export default createReducer(reducerInitialState, {
       statusText: payload.statusText,
       deleteBoardLoading: false,
       board: null,
-      deleteBoardError: payload,
+      deleteBoardError: payload
+    }),
+  UPDATE_BOARD_REQUEST: state =>
+    Object.assign({}, state, {
+      // updateBoard: null,
+      updateBoardLoading: true,
+      updateBoardError: null
+    }),
+  UPDATE_BOARD_SUCCESS: (state, payload) =>
+    Object.assign({}, state, {
+      updateBoardLoading: false,
+      boards: state.boards.map(function(item) { return item.id == payload.board.id ? payload.board : item }),
+    }),
+  UPDATE_BOARD_FAILURE: (state, payload) =>
+    Object.assign({}, state, {
+      updateBoardLoading: false,
+      updateBoard: null,
+      updateBoardError: payload
     }),
   GETALL_BOARD_REQUEST: state =>
     Object.assign({}, state, {
       getAllBoardsLoading: true,
       statusText: null,
-      getAllBoardsError: null,
+      getAllBoardsError: null
     }),
   GETALL_BOARD_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
-      isAuthenticated: true,
       getAllBoardsLoading: false,
       boards: payload
     }),
@@ -90,17 +109,16 @@ export default createReducer(reducerInitialState, {
       statusText: payload.statusText,
       getAllBoardsLoading: false,
       boards: null,
-      getAllBoardsError: payload,
+      getAllBoardsError: payload
     }),
-    GET_BOARD_REQUEST: state =>
+  GET_BOARD_REQUEST: state =>
     Object.assign({}, state, {
       getBoardLoading: true,
       statusText: null,
-      getBoardError: null,
+      getBoardError: null
     }),
   GET_BOARD_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
-      isAuthenticated: true,
       getBoardLoading: false,
       getBoard: payload
     }),
@@ -109,6 +127,6 @@ export default createReducer(reducerInitialState, {
       statusText: payload.statusText,
       getBoardLoading: false,
       getBoard: null,
-      getBoardError: payload,
-    }),
+      getBoardError: payload
+    })
 });
