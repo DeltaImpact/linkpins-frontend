@@ -18,7 +18,7 @@ import {
 } from "../constants/board.constants";
 
 const reducerInitialState = {
-  boards: null,
+  boards: [],
   board: null,
   statusText: null,
   loading: null,
@@ -32,7 +32,7 @@ const reducerInitialState = {
   deleteBoardError: null,
   deleteBoardLoading: null,
   updateBoardLoading: null,
-  updateBoard: null,
+  updateBoardId: null,
   updateBoardError: null,
 };
 
@@ -76,11 +76,12 @@ export default createReducer(reducerInitialState, {
       board: null,
       deleteBoardError: payload
     }),
-  UPDATE_BOARD_REQUEST: state =>
+  UPDATE_BOARD_REQUEST: (state, payload)  =>
     Object.assign({}, state, {
       // updateBoard: null,
       updateBoardLoading: true,
-      updateBoardError: null
+      updateBoardError: null,
+      updateBoardId: payload.id,
     }),
   UPDATE_BOARD_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
@@ -90,8 +91,8 @@ export default createReducer(reducerInitialState, {
   UPDATE_BOARD_FAILURE: (state, payload) =>
     Object.assign({}, state, {
       updateBoardLoading: false,
-      updateBoard: null,
-      updateBoardError: payload
+      // updateBoard: null,
+      updateBoardError: payload,
     }),
   GETALL_BOARD_REQUEST: state =>
     Object.assign({}, state, {

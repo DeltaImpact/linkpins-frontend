@@ -3,7 +3,7 @@ import { bindActionCreators } from "redux";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { boardActions } from "../../actions";
-import { Board } from "./Board";
+import { Board } from "../Board";
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -32,16 +32,7 @@ class MainPage extends React.Component {
     return this.props.board.boards
       .map((board, i) => {
         // return this.renderBoard(board);
-        if (board.isPrivate == false)
-          return (
-            <Board
-              key={board.id}
-              board={board}
-              updateBoard={this.props.updateBoard}
-              deleteBoard={this.props.deleteBoard}
-              loading={this.props.board.updateBoardLoading}
-            />
-          );
+        if (board.isPrivate == false) return this.renderBoard(board);
       })
       .filter(n => n);
   }
@@ -49,15 +40,7 @@ class MainPage extends React.Component {
   renderPrivateBoards() {
     let array = this.props.board.boards
       .map((board, i) => {
-        if (board.isPrivate == true)
-          return (
-            <Board
-              key={board.id}
-              board={board}
-              updateBoard={this.props.updateBoard}
-              deleteBoard={this.props.deleteBoard}
-            />
-          );
+        if (board.isPrivate == true) return this.renderBoard(board);
       })
       .filter(n => n);
 
@@ -71,20 +54,40 @@ class MainPage extends React.Component {
     } else return null;
   }
 
+  renderBoard(board) {
+    return (
+      <Board
+        key={board.id}
+        board={board}
+        updateBoard={this.props.updateBoard}
+        deleteBoard={this.props.deleteBoard}
+        loading={this.props.board.updateBoardLoading}
+        error={this.props.board.updateBoardError}
+        objectWithErrorId={this.props.board.updateBoardId}
+        typeOfElement="board"
+      />
+    );
+  }
+
   renderCreateNewBoardForm() {
     // debugger
     return (
-      <ul className="collection-item avatar pin-content">
-        <Board
-          addBoard={this.props.addBoard}
-          loading={this.props.board.AddBoardLoading}
-          error={this.props.board.AddBoardError}
-        />
-        {/* {this.state.ShowNewBoardForm
-          ? this.renderCreateNewBoardFormEdit()
-          : this.renderCreateNewBoardFormPreview()} */}
-      </ul>
+      // <ul className="collection-item avatar pin-content">
+      <Board
+        addBoard={this.props.addBoard}
+        loading={this.props.board.AddBoardLoading}
+        error={this.props.board.AddBoardError}
+        typeOfElement="board"
+      />
     );
+    {
+      /* {this.state.ShowNewBoardForm
+          ? this.renderCreateNewBoardFormEdit()
+          : this.renderCreateNewBoardFormPreview()} */
+    }
+    {
+      /* </ul> */
+    }
   }
 
   renderCreateNewBoardFormPreview() {
@@ -219,22 +222,47 @@ class MainPage extends React.Component {
     let boardTitle_is_valid = false;
     let boardDescription_is_valid = false;
     if (this.state.boardTitle === "" || this.state.boardTitle === null) {
-      this.setState({
-        boardTitle_error_text: null
-      });
+      // this.setState({
+      //   boardTitle_error_text: null
+      // });
     } else if (
       this.state.boardTitle.length > 3 &&
-      this.state.boardTitle.length < 256
+      this.state.boardTitle.length < 500
     ) {
+      debugger;
+
       boardTitle_is_valid = true;
-      this.setState({
-        boardTitle_error_text: null
-      });
+      // this.setState({
+      //   boardTitle_error_text: null
+      // });
     } else {
       boardTitle_is_valid = false;
-      this.setState({
-        boardTitle_error_text: "Title length should be between 3 and 256."
-      });
+      // this.setState({
+      //   boardTitle_error_text: "Title length should be between 3 and 256."
+      // });
+    }
+
+    if (
+      this.state.boardDescription === "" ||
+      this.state.boardDescription === null
+    ) {
+      debugger;
+      // this.setState({
+      //   boardTitle_error_text: null
+      // });
+    } else if (
+      this.state.boardDescription.length > 0 &&
+      this.state.boardDescription.length < 500
+    ) {
+      boardDescription_is_valid = true;
+      // this.setState({
+      //   boardTitle_error_text: null
+      // });
+    } else {
+      boardDescription_is_valid = false;
+      // this.setState({
+      //   boardTitle_error_text: "Title length should be between 3 and 256."
+      // });
     }
 
     if (boardTitle_is_valid) {

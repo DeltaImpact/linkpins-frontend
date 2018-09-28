@@ -5,6 +5,7 @@ import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
 export class Board extends React.Component {
   constructor(props) {
     super(props);
+    // debugger;
     this.state = {
       isHovered: false,
       editMode: false,
@@ -12,14 +13,17 @@ export class Board extends React.Component {
       editDescription: "",
       editIsPrivateBoard: null,
       editTitle_error_text: null,
-      disabled: false
+      disabled: false,
+      contentType: null
       // editTitle_error_text: null,
     };
   }
 
+  componentWillMount() {
+    this.isDisabled();
+  }
+
   handleHover() {
-    // debugger
-    // let asd = this.state;
     this.setState({
       isHovered: !this.state.isHovered
     });
@@ -31,6 +35,12 @@ export class Board extends React.Component {
         className="collection-item avatar pin-content board__card"
         onClick={() => {
           // debugger;
+          this.setState({
+            editIsPrivateBoard: false,
+            editTitle: "12345",
+            editDescription: "",
+            disabled: true
+          });
           this.setState({ editMode: true });
         }}
       >
@@ -42,7 +52,30 @@ export class Board extends React.Component {
     );
   }
 
+  ConvertUTCTimeToLocalTime(UTCDateString) {
+    var convertdLocalTime = new Date(UTCDateString);
+
+    var hourOffset = convertdLocalTime.getTimezoneOffset() / 60;
+
+    convertdLocalTime.setHours(convertdLocalTime.getHours() - hourOffset);
+
+    return convertdLocalTime;
+  }
+
+  dateInWordsToNow(date) {
+    return distanceInWordsToNow(this.ConvertUTCTimeToLocalTime(date));
+  }
+
   renderCard(board) {
+    let link;
+    if (this.state.contentType == "board") {
+      link = "/board/" + board.id;
+    }
+
+    if (this.state.contentType == "pin") {
+      link = "/pin/" + board.id;
+    }
+    // debugger;
     return (
       <li
         key={board.id}
@@ -58,23 +91,35 @@ export class Board extends React.Component {
           })
         }
       >
-        <Link to={"/board/" + board.id} className="board__card__content">
-          {board.img == null ? (
-            <i className="material-icons circle green">folder</i>
-          ) : (
-            <img src={board.img} alt="" className="circle" />
-          )}
+        <div className="board__card__content">
           <div className="col m12">
-            <span className="title">{board.name}</span>
-            <p className="">{board.description}</p>
-            <p className="">
+            <Link to={link}>
+              {board.img == null ? (
+                <i className="material-icons circle green">folder</i>
+              ) : (
+                <img src={board.img} alt="" className="circle" />
+              )}
+              <span className="title board__card__text">{board.name}</span>
+              <p className="board__card__text">{board.description}</p>
+              {/* <p className="">{board.description}</p> */}
+            </Link>
+            {board.link && (
+              <a href={board.link} className="">
+                <span className="board__misc board__card__text">
+                  {board.link}
+                </span>
+              </a>
+            )}
+
+            <p className="board__misc">
               Last change
               {board.modified
-                ? " " + distanceInWordsToNow(board.modified)
-                : " " + distanceInWordsToNow(board.created)}
+                ? " " + this.dateInWordsToNow(board.modified)
+                : " " + this.dateInWordsToNow(board.created)}
             </p>
           </div>
-        </Link>
+        </div>
+
         {this.state.isHovered && (
           <div
             // to="#!"
@@ -104,8 +149,9 @@ export class Board extends React.Component {
               onClick={e => {
                 e.preventDefault;
                 // let tmp = board.name;
+                if (this.props.deleteBoard) this.props.deleteBoard(board.id);
+                if (this.props.deletePin) this.props.deletePin(board.id);
                 // debugger;
-                this.props.deleteBoard(board.id);
               }}
             >
               delete
@@ -131,25 +177,33 @@ export class Board extends React.Component {
     let boardDescription_is_valid = false;
     if (this.state.editTitle === "" || this.state.editTitle === null) {
       // debugger;
-      this.setState({
-        editTitle_error_text: null
-      });
+      // this.setState({
+      //   editTitle_error_text: null
+      // });
     } else if (
       this.state.editTitle.length > 3 &&
       this.state.editTitle.length < 256
     ) {
       editTitle_is_valid = true;
-      this.setState({
-        editTitle_error_text: null
-      });
+      // this.setState({
+      //   editTitle_error_text: null
+      // });
     } else {
       editTitle_is_valid = false;
-      this.setState({
-        editTitle_error_text: "Title length should be between 3 and 256."
-      });
+      // this.setState({
+      //   editTitle_error_text: "Title length should be between 3 and 256."
+      // });
     }
 
-    if (editTitle_is_valid) {
+    if (
+      this.state.editDescription == "" ||
+      this.state.editDescription.length <= 500
+    ) {
+      boardDescription_is_valid = true;
+    } else {
+      boardDescription_is_valid = false;
+    }
+    if (editTitle_is_valid && boardDescription_is_valid) {
       this.setState({
         disabled: false
       });
@@ -161,19 +215,82 @@ export class Board extends React.Component {
   }
 
   renderCharacterCounter(string, minLength, maxLength) {
-    debugger;
+    let length = string != null ? string.length : 0;
+    // debugger
     return (
       <span className="character-counter">
-        <span className={string.length <= minLength ? "invalid" : ""}>
+        <span className={length < minLength ? "error--text" : ""}>
           {minLength}/
         </span>
-        {string.length}
-        <span className={string.length > maxLength ? "invalid" : ""}>
+        {length}
+        <span className={length > maxLength ? "error--text" : ""}>
           /{maxLength}
         </span>
-        {/* /{maxLength} */}
       </span>
     );
+  }
+
+  renderEditCardError() {
+    let array = [];
+    if (this.props.error.messages) {
+      if (this.props.error.messages.Name) {
+        array.push(this.props.error.messages.Name);
+      }
+      if (this.props.error.messages.Description) {
+        array.push(this.props.error.messages.Description);
+      }
+    }
+
+    if (this.props.error.message) {
+      array.push(this.props.error.message);
+    }
+    // debugger;
+    return (
+      <div className="error--container">
+        {array
+          .map((error, i) => {
+            return (
+              <div className="error error--text alert alert-info">{error}</div>
+            );
+          })
+          .filter(n => n)}
+      </div>
+    );
+
+    // if (this.props.error.messages) {
+    //   return Object.values(this.props.error.messages).forEach(value => {
+    //     return (
+    //       <div className="error--container">
+    //         <div className="error error--text alert alert-info">{value}</div>
+    //       </div>
+    //     );
+    //     //use value here
+    //   });
+
+    // return this.props.error.messages.map((error, i) => {
+    //   return (
+    //     <div className="error--container">
+    //       <div className="error error--text alert alert-info">{error}</div>
+    //     </div>
+    //   );
+    // });
+
+    //   <div className="error--container">
+    //   <div className="error error--text alert alert-info">
+    //     {this.props.error.message}
+    //   </div>
+    // </div>
+    // }
+
+    // return (
+    //   this.props.error && (
+    //     <div className="error--container">
+    //       <div className="error error--text alert alert-info">
+    //         {this.props.error.message}
+    //       </div>
+    //     </div>
+    //   )
+    // );
   }
 
   renderEditCard(board) {
@@ -184,8 +301,7 @@ export class Board extends React.Component {
       if (board.img)
         formImg = <i className="material-icons circle green">folder</i>;
     }
-
-    // debugger;
+// debugger
     return (
       <li
         className="collection-item avatar pin-content board__card"
@@ -201,14 +317,13 @@ export class Board extends React.Component {
         }
       >
         {formImg}
-        <div className="col m11">
-          {this.props.error && (
-            <div className="error--container">
-              <div className="error error--text alert alert-info">
-                {this.props.error.message}
-              </div>
-            </div>
-          )}
+        {/* {board.img == null ? (
+          <i className="material-icons circle green">folder</i>
+        ) : (
+          <img src={board.img} alt="" className="circle" />
+        )} */}
+        <div className="col m10">
+          {this.props.error && this.renderEditCardError()}
           {/* <span className="title">{this.props.loading + []}</span> */}
 
           {this.props.loading && (
@@ -230,7 +345,7 @@ export class Board extends React.Component {
             >
               Title
             </label>
-            {this.renderCharacterCounter(this.state.editTitle, 3, 500)}
+            {this.renderCharacterCounter(this.state.editTitle, 3, 80)}
             {this.state.editTitle_error_text && (
               <div className="error--text">
                 {this.state.editTitle_error_text}
@@ -257,28 +372,30 @@ export class Board extends React.Component {
             >
               Description
             </label>
-            {this.renderCharacterCounter(this.state.editDescription, 3, 500)}
+            {this.renderCharacterCounter(this.state.editDescription, 0, 500)}
             {this.state.boardDescription_error_text && (
               <div className="error--text">
                 {this.state.boardDescription_error_text}
               </div>
             )}
           </div>
-          <p>
-            <label>
-              <input
-                type="checkbox"
-                className="filled-in"
-                checked={this.state.editIsPrivateBoard ? "checked" : ""}
-                onChange={e => {
-                  this.setState({
-                    editIsPrivateBoard: e.target.checked
-                  });
-                }}
-              />
-              <span>Private desk</span>
-            </label>
-          </p>
+          {this.props.typeOfElement == "board"  && (
+            <p>
+              <label className="input-field col s12">
+                <input
+                  type="checkbox"
+                  className="filled-in"
+                  checked={this.state.editIsPrivateBoard ? "checked" : ""}
+                  onChange={e => {
+                    this.setState({
+                      editIsPrivateBoard: e.target.checked
+                    });
+                  }}
+                />
+                <span>Private desk</span>
+              </label>
+            </p>
+          )}
           {/* <span className="title">{board.name}</span>
             <p className="">{board.description}</p>
             <p className="">
@@ -315,27 +432,33 @@ export class Board extends React.Component {
               onClick={e => {
                 e.preventDefault;
                 // let asd = this.state;
-                // debugger;
-                if (this.state.isDisabled)
-                  if (this.props.updateBoard)
+                if (!this.state.isDisabled) {
+                  // debugger;
+                  if (this.props.updateBoard) {
                     this.props.updateBoard(
                       board.id,
                       this.state.editTitle,
                       this.state.editDescription,
                       this.state.editIsPrivateBoard
                     );
-                if (this.props.addBoard)
-                  this.props.addBoard(
-                    this.state.editTitle,
-                    this.state.editDescription,
-                    null,
-                    this.state.editIsPrivateBoard
-                  );
+                  }
 
-                // updateBoard
-                // this.setState({
-                //   editMode: false
-                // });
+                  if (this.props.updatePin) {
+                    this.props.updatePin(
+                      board.id,
+                      this.state.editTitle,
+                      this.state.editDescription
+                    );
+                  }
+
+                  if (this.props.addBoard)
+                    this.props.addBoard(
+                      this.state.editTitle,
+                      this.state.editDescription,
+                      null,
+                      this.state.editIsPrivateBoard
+                    );
+                }
               }}
             >
               check
@@ -347,16 +470,24 @@ export class Board extends React.Component {
   }
 
   render() {
-    let { board } = this.props;
+    let { board, pin } = this.props;
     // debugger;
+    if (pin) {
+      this.state.contentType = "pin";
+      return this.state.editMode == false
+        ? this.renderCard(pin)
+        : this.renderEditCard(pin);
+    }
+
     if (board) {
+      this.state.contentType = "board";
       return this.state.editMode == false
         ? this.renderCard(board)
         : this.renderEditCard(board);
-    } else {
-      return this.state.editMode == false
-        ? this.renderNewCard()
-        : this.renderEditCard();
     }
+
+    return this.state.editMode == false
+      ? this.renderNewCard()
+      : this.renderEditCard();
   }
 }

@@ -6,8 +6,50 @@ export const pinActions = {
   addPin,
   deletePin,
   getPins,
-  getPin
+  getPin,
+  updatePin,
 };
+
+function updatePin(id, name, description) {
+  return function(dispatch) {
+    let boardParams = {
+      id,
+      name,
+      description,
+    };
+    // debugger
+    dispatch(updatePinRequest(boardParams));
+    return pinService.updatePin(id, name, description).then(
+      response => {
+        dispatch(updatePinSuccess(response));
+      },
+      error => {
+        dispatch(updatePinFailure(error));
+      }
+    );
+  };
+}
+
+export function updatePinRequest(payload) {
+  return {
+    type: pinConstants.UPDATE_PIN_REQUEST,
+    payload
+  };
+}
+
+export function updatePinSuccess(payload) {
+  return {
+    type: pinConstants.UPDATE_PIN_SUCCESS,
+    payload
+  };
+}
+
+export function updatePinFailure(error) {
+  return {
+    type: pinConstants.UPDATE_PIN_FAILURE,
+    payload: error
+  };
+}
 
 function addPin(name, description, img, Link, id) {
   // debugger

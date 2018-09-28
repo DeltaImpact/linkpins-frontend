@@ -72,12 +72,10 @@ function updateBoard(id, name, description, isPrivate) {
   };
 }
 
-export function updateBoardRequest(tmp) {
+export function updateBoardRequest(payload) {
   return {
     type: boardConstants.UPDATE_BOARD_REQUEST,
-    payload: {
-      tmp
-    }
+    payload
   };
 }
 

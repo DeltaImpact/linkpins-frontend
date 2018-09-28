@@ -22,7 +22,10 @@ const reducerInitialState = {
   AddPinLoading: null,
   AddPinRedirectTo: null,
   deletePinError: null,
-  deletePinLoading: null
+  deletePinLoading: null,
+  updatePinLoading: null,
+  updatePinError: null,
+  updatePinId: null,
 };
 // debugger
 
@@ -49,6 +52,26 @@ export default createReducer(reducerInitialState, {
       AddPinLoading: false,
       pin: null,
       AddPinError: payload
+    }),
+  UPDATE_PIN_REQUEST: (state, payload) =>
+    Object.assign({}, state, {
+      // updatePin: null,
+      updatePinLoading: true,
+      updatePinError: null,
+      updatePinId: payload.id
+    }),
+  UPDATE_PIN_SUCCESS: (state, payload) =>
+    Object.assign({}, state, {
+      updatePinLoading: false
+      // boards: state.boards.map(function(item) {
+      //   return item.id == payload.board.id ? payload.board : item;
+      // })
+    }),
+  UPDATE_PIN_FAILURE: (state, payload) =>
+    Object.assign({}, state, {
+      updatePinLoading: false,
+      // updatePin: null,
+      updatePinError: payload
     }),
   DELETE_PIN_REQUEST: state =>
     Object.assign({}, state, {
@@ -89,7 +112,7 @@ export default createReducer(reducerInitialState, {
   GET_PIN_REQUEST: state =>
     Object.assign({}, state, {
       loading: true,
-      getPinError: null,
+      getPinError: null
     }),
   GET_PIN_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
@@ -100,6 +123,6 @@ export default createReducer(reducerInitialState, {
     Object.assign({}, state, {
       loading: false,
       pin: null,
-      getPinError: payload,
+      getPinError: payload
     })
 });

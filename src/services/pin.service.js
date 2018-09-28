@@ -8,7 +8,39 @@ export const pinService = {
   deletePin,
   getPins,
   getPin,
+  updatePin,
 };
+
+function updatePin(id, name, description) {
+  // debugger
+  return axios
+    .post(
+      "https://localhost:5001/pin/updatePin",
+      {
+        Id: id,
+        Name: name,
+        Description: description,
+      },
+      {
+        headers: {
+          Authorization: authHeader()
+        }
+      }
+    )
+    .then(parseJSON)
+    .then(
+      response => {
+        // debugger;
+        return response;
+      },
+      error => {
+        // debugger;
+        return Promise.reject(processErrorResponse(error));
+      }
+    );
+}
+
+
 
 function addPin(name, description, img, Link, BoardId) {
   return axios
@@ -100,6 +132,8 @@ function deletePin(Id) {
         return response;
       },
       error => {
+        debugger;
+
         return Promise.reject(processErrorResponse(error));
       }
     );

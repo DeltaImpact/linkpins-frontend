@@ -32,6 +32,8 @@ body {
 .error--container {
   background-color: #ffebee;
   opacity: 1;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 
 .square {
@@ -148,6 +150,13 @@ body {
   cursor: pointer;
 } */
 
+.board__card__text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90%;
+}
+
 .board__card__button {
   cursor: pointer;
   border-radius: 50%;
@@ -206,7 +215,7 @@ body {
   opacity: 1;
 }
 
-.board__page__misc {
+.board__misc {
   /* display: inline-flex; */
   color: #8e8e8e;
 }
@@ -216,7 +225,11 @@ body {
   /* color: #8e8e8e; */
 }
 
-/* .board__page__misc h6:after {
+.title__wrap {
+  word-break: break-all;
+}
+
+/* .board__misc h6:after {
   content: ".";
   padding-left: 4px;
   padding-right: 4px;
@@ -226,6 +239,6 @@ body {
   transform: rotate(180deg);
 }
 
-.board__page__misc h6:last-child:after  {
+.board__misc h6:last-child:after  {
   display: none; */
 /* } */
