@@ -122,6 +122,7 @@ body {
 .board__card {
   overflow: auto;
 }
+
 .board__card a:link {
   color: #313131;
 }
@@ -130,9 +131,22 @@ body {
   color: #313131;
 }
 
-.board__card a:hover {
+.board__card:hover {
   color: #26a69a;
 }
+
+/* .board__card__content:link {
+  color: #313131;
+}
+
+.board__card__content:visited {
+  color: #313131;
+}
+
+.board__card__content:hover {
+  color: #26a69a;
+  cursor: pointer;
+} */
 
 .board__card__button {
   cursor: pointer;

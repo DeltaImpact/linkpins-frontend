@@ -2,14 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
 
-export class Board extends React.Component {
+export class NewBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isHovered: false,
       editMode: false,
-      editTitle: "",
-      editDescription: "",
+      editTitle: null,
+      editDescription: null,
       editIsPrivateBoard: null,
       editTitle_error_text: null,
       disabled: false
@@ -25,40 +25,13 @@ export class Board extends React.Component {
     });
   }
 
-  renderNewCard() {
-    return (
-      <li
-        className="collection-item avatar pin-content board__card"
-        onClick={() => {
-          // debugger;
-          this.setState({ editMode: true });
-        }}
-      >
-        <i className="material-icons circle green">add</i>
-        <div className="col m12 board__card__content">
-          <span className="title">Create a board</span>
-        </div>
-      </li>
-    );
-  }
-
   renderCard(board) {
     return (
       <li
         key={board.id}
         className="collection-item avatar pin-content board__card"
-        onMouseEnter={() =>
-          this.setState({
-            isHovered: true
-          })
-        }
-        onMouseLeave={() =>
-          this.setState({
-            isHovered: false
-          })
-        }
       >
-        <Link to={"/board/" + board.id} className="board__card__content">
+        <Link to={"/board/" + board.id}>
           {board.img == null ? (
             <i className="material-icons circle green">folder</i>
           ) : (
@@ -160,34 +133,11 @@ export class Board extends React.Component {
     }
   }
 
-  renderCharacterCounter(string, minLength, maxLength) {
-    debugger;
-    return (
-      <span className="character-counter">
-        <span className={string.length <= minLength ? "invalid" : ""}>
-          {minLength}/
-        </span>
-        {string.length}
-        <span className={string.length > maxLength ? "invalid" : ""}>
-          /{maxLength}
-        </span>
-        {/* /{maxLength} */}
-      </span>
-    );
-  }
-
   renderEditCard(board) {
-    let formTitle = "";
-    let formImg = <i className="material-icons circle green">folder</i>;
-
-    if (board) {
-      if (board.img)
-        formImg = <i className="material-icons circle green">folder</i>;
-    }
-
-    // debugger;
+    // debugger
     return (
       <li
+        key={board.id}
         className="collection-item avatar pin-content board__card"
         onMouseEnter={() =>
           this.setState({
@@ -200,18 +150,16 @@ export class Board extends React.Component {
           })
         }
       >
-        {formImg}
+        {/* <Link to={"/board/" + board.id}> */}
+        {board.img == null ? (
+          <i className="material-icons circle green">folder</i>
+        ) : (
+          <img src={board.img} alt="" className="circle" />
+        )}
         <div className="col m11">
-          {this.props.error && (
-            <div className="error--container">
-              <div className="error error--text alert alert-info">
-                {this.props.error.message}
-              </div>
-            </div>
-          )}
-          {/* <span className="title">{this.props.loading + []}</span> */}
+          {/* <span className="title">{this.props.updateBoardLoading + []}</span> */}
 
-          {this.props.loading && (
+          {this.props.updateBoardLoading && (
             <div className="progress">
               <div className="indeterminate" />
             </div>
@@ -230,7 +178,6 @@ export class Board extends React.Component {
             >
               Title
             </label>
-            {this.renderCharacterCounter(this.state.editTitle, 3, 500)}
             {this.state.editTitle_error_text && (
               <div className="error--text">
                 {this.state.editTitle_error_text}
@@ -257,7 +204,6 @@ export class Board extends React.Component {
             >
               Description
             </label>
-            {this.renderCharacterCounter(this.state.editDescription, 3, 500)}
             {this.state.boardDescription_error_text && (
               <div className="error--text">
                 {this.state.boardDescription_error_text}
@@ -289,7 +235,7 @@ export class Board extends React.Component {
             </p> */}
         </div>
         {/* </Link> */}
-        {
+        {this.state.isHovered && (
           <div
             // to="#!"
             className="secondary-content"
@@ -315,48 +261,28 @@ export class Board extends React.Component {
               onClick={e => {
                 e.preventDefault;
                 // let asd = this.state;
-                // debugger;
-                if (this.state.isDisabled)
-                  if (this.props.updateBoard)
-                    this.props.updateBoard(
-                      board.id,
-                      this.state.editTitle,
-                      this.state.editDescription,
-                      this.state.editIsPrivateBoard
-                    );
-                if (this.props.addBoard)
-                  this.props.addBoard(
-                    this.state.editTitle,
-                    this.state.editDescription,
-                    null,
-                    this.state.editIsPrivateBoard
-                  );
-
-                // updateBoard
-                // this.setState({
-                //   editMode: false
-                // });
+                debugger;
+                // if (this.state.isDisabled)
+                //   this.props.updateBoard(
+                //     board.id,
+                //     this.state.editTitle,
+                //     this.state.editDescription,
+                //     this.state.editIsPrivateBoard
+                //   );
               }}
             >
               check
             </i>
           </div>
-        }
+        )}
       </li>
     );
   }
 
   render() {
     let { board } = this.props;
-    // debugger;
-    if (board) {
-      return this.state.editMode == false
-        ? this.renderCard(board)
-        : this.renderEditCard(board);
-    } else {
-      return this.state.editMode == false
-        ? this.renderNewCard()
-        : this.renderEditCard();
-    }
+    return this.state.editMode == false
+      ? this.renderCard(board)
+      : this.renderEditCard(board);
   }
 }

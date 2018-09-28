@@ -2,7 +2,6 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
 import { boardActions } from "../../actions";
 import { Board } from "./Board";
 
@@ -23,25 +22,28 @@ class MainPage extends React.Component {
       disabled: true
     };
   }
+
   componentDidMount() {
     this.props.getBoards();
   }
 
   renderPublicBoards() {
     // debugger
-    return this.props.board.boards.map((board, i) => {
-      // return this.renderBoard(board);
-      if (board.isPrivate == false)
-        return (
-          <Board
-            key={board.id}
-            board={board}
-            updateBoard={this.props.updateBoard}
-            deleteBoard={this.props.deleteBoard}
-            updateBoardLoading={this.props.board.updateBoardLoading}
-          />
-        );
-    });
+    return this.props.board.boards
+      .map((board, i) => {
+        // return this.renderBoard(board);
+        if (board.isPrivate == false)
+          return (
+            <Board
+              key={board.id}
+              board={board}
+              updateBoard={this.props.updateBoard}
+              deleteBoard={this.props.deleteBoard}
+              loading={this.props.board.updateBoardLoading}
+            />
+          );
+      })
+      .filter(n => n);
   }
 
   renderPrivateBoards() {
@@ -70,16 +72,20 @@ class MainPage extends React.Component {
   }
 
   renderCreateNewBoardForm() {
+    // debugger
     return (
-      <li className="collection-item avatar pin-content">
-        {this.state.ShowNewBoardForm
+      <ul className="collection-item avatar pin-content">
+        <Board
+          addBoard={this.props.addBoard}
+          loading={this.props.board.AddBoardLoading}
+          error={this.props.board.AddBoardError}
+        />
+        {/* {this.state.ShowNewBoardForm
           ? this.renderCreateNewBoardFormEdit()
-          : this.renderCreateNewBoardFormPreview()}
-      </li>
+          : this.renderCreateNewBoardFormPreview()} */}
+      </ul>
     );
   }
-
-  switchCreateNewBoardForm() {}
 
   renderCreateNewBoardFormPreview() {
     return (
@@ -93,10 +99,8 @@ class MainPage extends React.Component {
         >
           add
         </i>
-        {/* </div> */}
         <div className="col m12">
           <span className="title">Create a board</span>
-          {/* <p className="">Create a board</p> */}
         </div>
       </div>
     );
