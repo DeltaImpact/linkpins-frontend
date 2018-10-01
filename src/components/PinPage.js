@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { dataActions, boardActions, pinActions } from "../actions";
 import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
-import { Board } from "./Board";
+import { Card } from "./Card";
 // import { authActions } from "../../actions";
 // import "./../../static/styles/PinPage.css";
 // import { UserFields } from "./UserFields";
@@ -54,7 +54,7 @@ class PinPage extends React.Component {
 
   renderBoard(board) {
     return (
-      <Board
+      <Card
         key={board.id}
         board={board}
         updateBoard={this.props.updateBoard}

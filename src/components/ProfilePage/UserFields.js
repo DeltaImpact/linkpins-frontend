@@ -4,14 +4,25 @@ export class UserFields extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      passwordOld: "",
-      password: "",
-      passwordConf: "",
-      password_error_text: null,
-      passwordConf_error_text: null,
-      disabled: false,
+      email: "",
+      username: "",
+      firstName: "",
+      surName: "",
+      gender: null,
+      email_error_text: null,
+      username_error_text: null,
+      firstName_error_text: null,
+      surName_error_text: null,
+      disabled: false
       // disabled: true,
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== this.props.value) {
+      debugger;
+      // this.setState({ value: nextProps.value });
+    }
   }
 
   changeValue(e, type) {
@@ -24,13 +35,51 @@ export class UserFields extends React.Component {
   }
 
   isDisabled() {
-    let old_password_is_valid = false;
-    let password_is_valid = false;
-    let passwordConf_is_valid = false;
+    let values_changed = false;
+    let email_is_valid = false;
+    let username_is_valid = false;
 
-    
+    if (this.state.email === "") {
+      this.setState({
+        email_error_text: null
+      });
+    } else if (validateEmail(this.state.email)) {
+      email_is_valid = true;
+      this.setState({
+        email_error_text: null
+      });
+    } else {
+      this.setState({
+        email_error_text: "Sorry, this is not a valid email"
+      });
+    }
 
-    if (password_is_valid && passwordConf_is_valid) {
+    if (this.state.username === "" || !this.state.username) {
+      this.setState({
+        username_error_text: null
+      });
+    } else if (this.state.username.length >= 3) {
+      username_is_valid = true;
+      this.setState({
+        username_error_text: null
+      });
+    } else {
+      this.setState({
+        username_error_text: "Your username must be at least 3 characters"
+      });
+    }
+
+    if (
+      this.state.email != values.email &&
+      this.state.username != values.username &&
+      this.state.firstName != values.firstName &&
+      this.state.surName != values.surName &&
+      this.state.gender != values.gender
+    ) {
+      values_changed = true;
+    }
+
+    if (email_is_valid && username_is_valid && values_changed) {
       this.setState({
         disabled: false
       });
@@ -40,16 +89,20 @@ export class UserFields extends React.Component {
   SaveChanges(e) {
     e.preventDefault();
     debugger;
-//     email: "user123@yandex.ru"
-// firstName: null
-// gender: null
-// language: null
-// role: "User"
-// surname: null
-// userName: "user123"
-    this.props
-    .editProfile(
-      this.state.passwordOld,
+    // email, username, firstName, surName, gender
+    //     email: "user123@yandex.ru"
+    // firstName: null
+    // gender: null
+    // language: null
+    // role: "User"
+    // surname: null
+    // userName: "user123"
+    this.props.editProfile(
+      this.state.email,
+      this.state.username,
+      this.state.firstName,
+      this.state.surName,
+      this.state.gender
     );
   }
 
@@ -63,76 +116,121 @@ export class UserFields extends React.Component {
             <div className="row">
               <div className="input-field col s12">
                 <input
-                  id="disabled"
-                  // id="email"
+                  id="email"
                   type="email"
-                  value={values.email}
-                  // className={this.emailClasses()}
-                  readOnly
+                  value={this.state.email}
+                  className={
+                    this.state.email_error_text != null ? "invalid" : ""
+                  }
+                  onChange={e => this.changeValue(e, "email")}
                 />
                 <label
-                  htmlFor="disabled"
-                  // htmlFor="email"
-                  className={values.email != null ? "active" : ""}
+                  htmlFor="email"
+                  className={this.state.email != null ? "active" : ""}
                 >
-                  Email
+                  Email*
                 </label>
+                {this.state.email_error_text && (
+                  <div className="error--text">
+                    {this.state.email_error_text}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="input-field col s12">
+                <input
+                  id="username"
+                  type="text"
+                  value={this.state.username}
+                  className={
+                    this.state.username_error_text != null ? "invalid" : ""
+                  }
+                  onChange={e => this.changeValue(e, "username")}
+                />
+                <label
+                  htmlFor="username"
+                  className={this.state.username != null ? "active" : ""}
+                >
+                  Username*
+                </label>
+                {this.state.username_error_text && (
+                  <div className="error--text">
+                    {this.state.username_error_text}
+                  </div>
+                )}
               </div>
             </div>
             <div className="row">
               <div className="input-field col s12">
                 <input
-                  id="disabled"
-                  // id="email"
+                  id="username"
                   type="text"
-                  value={values.userName}
-                  // className={this.emailClasses()}
-                  readOnly
+                  value={this.state.username}
+                  className={
+                    this.state.username_error_text != null ? "invalid" : ""
+                  }
+                  onChange={e => this.changeValue(e, "username")}
                 />
                 <label
-                  htmlFor="disabled"
-                  // htmlFor="email"
-                  className={values.userName != null ? "active" : ""}
+                  htmlFor="username"
+                  className={this.state.username != null ? "active" : ""}
                 >
-                  Username
+                  Username*
                 </label>
+                {this.state.username_error_text && (
+                  <div className="error--text">
+                    {this.state.username_error_text}
+                  </div>
+                )}
               </div>
             </div>
 
             <div className="row">
               <div className="input-field col s6">
                 <input
-                  id="disabled"
-                  // id="email"
+                  id="firstName"
                   type="text"
-                  // value={values.firstName}
-                  // className={this.emailClasses()}
-                  readOnly
+                  value={this.state.firstName}
+                  className={
+                    this.state.firstName_error_text != null ? "invalid" : ""
+                  }
+                  onChange={e => this.changeValue(e, "firstName")}
                 />
                 <label
-                  htmlFor="disabled"
-                  // htmlFor="email"
-                  className={values.firstName != null ? "active" : ""}
+                  htmlFor="firstName"
+                  className={this.state.firstName != null ? "active" : ""}
                 >
                   First Name
                 </label>
+                {this.state.firstName_error_text && (
+                  <div className="error--text">
+                    {this.state.firstName_error_text}
+                  </div>
+                )}
               </div>
               <div className="input-field col s6">
                 <input
-                  id="disabled"
-                  // id="email"
+                  id="surName"
                   type="text"
-                  // value={values.surname}
-                  // className={this.emailClasses()}
-                  readOnly
+                  value={this.state.surName}
+                  className={
+                    this.state.surName_error_text != null ? "invalid" : ""
+                  }
+                  onChange={e => this.changeValue(e, "surName")}
                 />
                 <label
-                  htmlFor="disabled"
-                  // htmlFor="email"
-                  className={values.surname != null ? "active" : ""}
+                  htmlFor="surName"
+                  className={this.state.surName != null ? "active" : ""}
                 >
                   Last Name
                 </label>
+                {this.state.surName_error_text && (
+                  <div className="error--text">
+                    {this.state.surName_error_text}
+                  </div>
+                )}
               </div>
             </div>
             <div className="row">
@@ -145,9 +243,12 @@ export class UserFields extends React.Component {
                     <input
                       type="checkbox"
                       className="filled-in"
-                      checked="checked"
-                      //   disabled="disabled"
-                      readOnly
+                      checked={this.state.gender == null ? "checked" : ""}
+                      onChange={e => {
+                        this.setState({
+                          gender: null
+                        });
+                      }}
                     />
                     <span>Unspecified</span>
                   </label>
@@ -157,8 +258,12 @@ export class UserFields extends React.Component {
                     <input
                       type="checkbox"
                       className="filled-in"
-                      //   disabled="disabled"
-                      readOnly
+                      checked={this.state.gender == true ? "checked" : ""}
+                      onChange={e => {
+                        this.setState({
+                          gender: true
+                        });
+                      }}
                     />
                     <span>Male</span>
                   </label>
@@ -168,8 +273,12 @@ export class UserFields extends React.Component {
                     <input
                       type="checkbox"
                       className="filled-in"
-                      //   disabled="disabled"
-                      readOnly
+                      checked={this.state.gender == false ? "checked" : ""}
+                      onChange={e => {
+                        this.setState({
+                          gender: false
+                        });
+                      }}
                     />
                     <span>Female</span>
                   </label>
@@ -201,14 +310,3 @@ export class UserFields extends React.Component {
     );
   }
 }
-
-// const values = props.values;
-// var listItems = Object.keys(values).map(function(value, index) {
-
-//   return (
-//     <li key={index}>
-//       {value} : {values[value]}
-//     </li>
-//   );
-// });
-// return <ul className="user-list">{listItems}</ul>;

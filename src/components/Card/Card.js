@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
 
-export class Board extends React.Component {
+export class Card extends React.Component {
   constructor(props) {
     super(props);
     // debugger;
@@ -53,13 +53,13 @@ export class Board extends React.Component {
   }
 
   ConvertUTCTimeToLocalTime(UTCDateString) {
-    var convertdLocalTime = new Date(UTCDateString);
+    var convertLocalTime = new Date(UTCDateString);
 
-    var hourOffset = convertdLocalTime.getTimezoneOffset() / 60;
+    var hourOffset = convertLocalTime.getTimezoneOffset() / 60;
 
-    convertdLocalTime.setHours(convertdLocalTime.getHours() - hourOffset);
+    convertLocalTime.setHours(convertLocalTime.getHours() - hourOffset);
 
-    return convertdLocalTime;
+    return convertLocalTime;
   }
 
   dateInWordsToNow(date) {
@@ -301,7 +301,7 @@ export class Board extends React.Component {
       if (board.img)
         formImg = <i className="material-icons circle green">folder</i>;
     }
-// debugger
+    // debugger
     return (
       <li
         className="collection-item avatar pin-content board__card"
@@ -379,7 +379,7 @@ export class Board extends React.Component {
               </div>
             )}
           </div>
-          {this.props.typeOfElement == "board"  && (
+          {this.props.typeOfElement == "board" && (
             <p>
               <label className="input-field col s12">
                 <input

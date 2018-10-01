@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import { dataActions, boardActions, pinActions } from "../../actions";
 import { BoardPin } from "./BoardPin";
 import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
-import { Board } from "../Board";
+import { Card } from "../Card";
 
 class BoardPage extends React.Component {
   constructor(props) {
@@ -38,7 +38,7 @@ class BoardPage extends React.Component {
   renderPin(pin) {
     // debugger
     return (
-      <Board
+      <Card
         key={pin.id}
         pin={pin}
         updatePin={this.props.updatePin}

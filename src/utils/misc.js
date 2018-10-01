@@ -39,7 +39,6 @@ export function processErrorResponse(error) {
     if (error.response.data) {
       err.messages = error.response.data;
     }
-
   }
 
   if (error.message === "Network Error") {
@@ -49,18 +48,16 @@ export function processErrorResponse(error) {
   return err;
 }
 
-export function  convertUTCTimeToLocalTime(UTCDateString) {
-  var convertdLocalTime = new Date(UTCDateString);
+export function convertUTCTimeToLocalTime(UTCDateString) {
+  var convertLocalTime = new Date(UTCDateString);
 
-  var hourOffset = convertdLocalTime.getTimezoneOffset() / 60;
+  var hourOffset = convertLocalTime.getTimezoneOffset() / 60;
 
-  convertdLocalTime.setHours(convertdLocalTime.getHours() - hourOffset);
+  convertLocalTime.setHours(convertLocalTime.getHours() - hourOffset);
 
-  return convertdLocalTime;
+  return convertLocalTime;
 }
 
 export function dateInWordsToNow(date) {
   return distanceInWordsToNow(this.ConvertUTCTimeToLocalTime(date));
 }
-
-

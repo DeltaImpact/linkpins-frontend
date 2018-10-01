@@ -110,7 +110,7 @@ class LoginView extends React.Component {
                     <div className="col m4 offset-m4 z-depth-3 card-panel">
                         <div className="col hg22 offset-hg1">
                             <h2 className="center-align">Login</h2>
-                            {this.props.auth.loading &&
+                            {this.props.auth.loginLoading &&
                                 <div className="progress">
                                     <div className="indeterminate"></div>
                                 </div>
@@ -118,10 +118,10 @@ class LoginView extends React.Component {
                             <div className="row">
                                 <form className="col s12">
                                     {
-                                        this.props.auth.statusText &&
+                                        this.props.auth.loginStatusText &&
                                         <div className="row error--container">
                                             <div className="error error--text alert alert-info">
-                                                {this.props.auth.statusText}
+                                                {this.props.auth.loginStatusText}
                                             </div>
                                         </div>
                                     }

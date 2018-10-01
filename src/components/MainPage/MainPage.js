@@ -3,7 +3,7 @@ import { bindActionCreators } from "redux";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { boardActions } from "../../actions";
-import { Board } from "../Board";
+import { Card } from "../Card/Card";
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -56,7 +56,7 @@ class MainPage extends React.Component {
 
   renderBoard(board) {
     return (
-      <Board
+      <Card
         key={board.id}
         board={board}
         updateBoard={this.props.updateBoard}
@@ -73,7 +73,7 @@ class MainPage extends React.Component {
     // debugger
     return (
       // <ul className="collection-item avatar pin-content">
-      <Board
+      <Card
         addBoard={this.props.addBoard}
         loading={this.props.board.AddBoardLoading}
         error={this.props.board.AddBoardError}

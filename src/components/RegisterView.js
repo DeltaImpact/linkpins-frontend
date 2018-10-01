@@ -134,13 +134,8 @@ class RegisterView extends React.Component {
       this.state.username,
       this.state.password,
       this.state.firstName,
-      this.state.surName,
-      this.state.redirectTo
+      this.state.surName
     );
-  }
-
-  emailClasses() {
-    return this.state.email_error_text != null ? "invalid" : "";
   }
 
   render() {
@@ -150,17 +145,17 @@ class RegisterView extends React.Component {
           <div className="col m4 offset-m4 z-depth-3 card-panel">
             <div className="col hg22 offset-hg1">
               <h2 className="center-align">Register</h2>
-              {this.props.auth.loading && (
+              {this.props.auth.registerLoading && (
                 <div className="progress">
                   <div className="indeterminate" />
                 </div>
               )}
               <div className="row">
                 <form className="col s12">
-                  {this.props.auth.statusText && (
+                  {this.props.auth.registerStatusText && (
                     <div className="row error--container">
                       <div className="error error--text alert alert-info">
-                        {this.props.auth.statusText}
+                        {this.props.auth.registerStatusText}
                       </div>
                     </div>
                   )}
