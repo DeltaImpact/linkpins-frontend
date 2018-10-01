@@ -83,7 +83,7 @@ class ParseView extends React.Component {
       this.state.previewTitle,
       this.state.previewDescription,
       this.state.previewImage,
-      this.props.data.page.url,
+      this.props.parse.page.url,
       id
     );
     // this.props.add(this.state.url, this.state.redirectTo);
@@ -96,10 +96,10 @@ class ParseView extends React.Component {
   }
 
   // componentDidReceiveProps() {
-  //   if (this.props.data.page) {
-  //     this.state.previewImage = this.props.data.page.images[0];
-  //     this.state.previewTitle = this.props.data.page.possibleDescriptions[0];
-  //     this.state.previewDescription = this.props.data.page.header;
+  //   if (this.props.parse.page) {
+  //     this.state.previewImage = this.props.parse.page.images[0];
+  //     this.state.previewTitle = this.props.parse.page.possibleDescriptions[0];
+  //     this.state.previewDescription = this.props.parse.page.header;
   //     debugger
   //   } else {
   //     this.state.previewImage = null;
@@ -112,7 +112,7 @@ class ParseView extends React.Component {
     // debugger
     if (
       this.props.board !== nextProps.board ||
-      this.props.data !== nextProps.data
+      this.props.parse !== nextProps.parse
     )
       this.needsUpdate = true;
   }
@@ -121,20 +121,20 @@ class ParseView extends React.Component {
       this.needsUpdate = false;
       // debugger;
       // let sda = this.props;
-      if (this.props.data.page) {
-        this.state.previewImage = this.props.data.page.images[0];
-        this.state.previewDescription = this.props.data.page.possibleDescriptions[0];
-        this.state.previewTitle = this.props.data.page.header;
+      if (this.props.parse.page) {
+        this.state.previewImage = this.props.parse.page.images[0];
+        this.state.previewDescription = this.props.parse.page.possibleDescriptions[0];
+        this.state.previewTitle = this.props.parse.page.header;
       }
       // alert(JSON.stringify(this.props))
     }
   }
 
   componentWillUpdate() {
-    // if (this.props.data.page) {
-    //   this.state.previewImage = this.props.data.page.images[0];
-    //   this.state.previewTitle = this.props.data.page.possibleDescriptions[0];
-    //   this.state.previewDescription = this.props.data.page.header;
+    // if (this.props.parse.page) {
+    //   this.state.previewImage = this.props.parse.page.images[0];
+    //   this.state.previewTitle = this.props.parse.page.possibleDescriptions[0];
+    //   this.state.previewDescription = this.props.parse.page.header;
     // } else {
     //   this.state.previewImage = null;
     //   this.state.previewTitle = null;
@@ -150,10 +150,10 @@ class ParseView extends React.Component {
 
   renderImages() {
     if (this.state.previewImage == null)
-      this.state.previewImage = this.props.data.page.images[0];
-    // if (this.state.previewTitle==null) this.state.previewTitle = this.props.data.page.possibleDescriptions[0];
-    // if (this.state.previewDescription==null) this.state.previewDescription = this.props.data.page.header;
-    return this.props.data.page.images.map((img, i) => {
+      this.state.previewImage = this.props.parse.page.images[0];
+    // if (this.state.previewTitle==null) this.state.previewTitle = this.props.parse.page.possibleDescriptions[0];
+    // if (this.state.previewDescription==null) this.state.previewDescription = this.props.parse.page.header;
+    return this.props.parse.page.images.map((img, i) => {
       return (
         <li
           key={i}
@@ -184,12 +184,12 @@ class ParseView extends React.Component {
   }
 
   renderPossibleDescriptions() {
-    // this.state.previewImage = this.props.data.page.images[0];
-    // this.state.previewTitle = this.props.data.page.possibleDescriptions[0];
-    // this.state.previewDescription = this.props.data.page.header;
+    // this.state.previewImage = this.props.parse.page.images[0];
+    // this.state.previewTitle = this.props.parse.page.possibleDescriptions[0];
+    // this.state.previewDescription = this.props.parse.page.header;
     if (this.state.previewDescription == null)
-      this.state.previewDescription = this.props.data.page.possibleDescriptions[0];
-    return this.props.data.page.possibleDescriptions.map((text, i) => {
+      this.state.previewDescription = this.props.parse.page.possibleDescriptions[0];
+    return this.props.parse.page.possibleDescriptions.map((text, i) => {
       return (
         <div key={i}>
           <li
@@ -254,20 +254,20 @@ class ParseView extends React.Component {
         <PinCard
           url={
             this.state.previewImage == null
-              ? this.props.data.page.images[0]
+              ? this.props.parse.page.images[0]
               : this.state.previewImage
           }
           title={
             this.state.previewTitle == null
-              ? this.props.data.page.header
+              ? this.props.parse.page.header
               : this.state.previewTitle
           }
           description={
             this.state.previewDescription == null
-              ? this.props.data.page.possibleDescriptions[0]
+              ? this.props.parse.page.possibleDescriptions[0]
               : this.state.previewDescription
           }
-          // item={this.props.data.page}
+          // item={this.props.parse.page}
         />
       </div>
     );
@@ -294,17 +294,17 @@ class ParseView extends React.Component {
               <div className="col hg22 offset-hg1">
                 <h2 className="center-align">Page parse</h2>
                 {/* <h2 className="center-align">{this.state.previewImage}</h2> */}
-                {this.props.data.loading && (
+                {this.props.parse.loading && (
                   <div className="progress">
                     <div className="indeterminate" />
                   </div>
                 )}
                 <div className="row">
                   <form className="col s12">
-                    {this.props.data.error && (
+                    {this.props.parse.error && (
                       <div className="row error--container">
                         <div className="error error--text alert alert-info">
-                          {this.props.data.error.errorMessage}
+                          {this.props.parse.error.errorMessage}
                         </div>
                       </div>
                     )}
@@ -352,7 +352,7 @@ class ParseView extends React.Component {
           </div>
         </div>
 
-        {this.props.data.page && (
+        {this.props.parse.page && (
           <div className="container">
             <div className="row ">
               {/* <ul className="tabs z-depth-1">
@@ -415,7 +415,7 @@ class ParseView extends React.Component {
           </div>
         </div>
 
-        {/* {this.props.data.page && (
+        {/* {this.props.parse.page && (
           <div className="container">
             <div className="row">
               <div className="card-panel">
@@ -436,7 +436,7 @@ class ParseView extends React.Component {
 
         <div className="container">
           <div className="row">
-            {this.props.data.page && (
+            {this.props.parse.page && (
               <div className="col m5 z-depth-3 card-panel">
                 <div className="card-content list__title">
                   <h6 className="left-align list__item">Choose image</h6>
@@ -445,7 +445,7 @@ class ParseView extends React.Component {
               </div>
             )}
 
-            {this.props.data.page && (
+            {this.props.parse.page && (
               <div className="col m6 offset-m1 z-depth-3 card-panel">
                 <div className="card-content list__title">
                   <h6 className="left-align list__item">Choose description</h6>
@@ -455,9 +455,9 @@ class ParseView extends React.Component {
             )}
           </div>
         </div>
-        {/* <ul>{this.props.data.page && this.renderImages()}</ul> */}
+        {/* <ul>{this.props.parse.page && this.renderImages()}</ul> */}
         {/* <div className="z-depth-3">
-          {this.props.data.page && JSON.stringify(this.props.data.page.images)}
+          {this.props.parse.page && JSON.stringify(this.props.parse.page.images)}
         </div> */}
       </div>
     );
@@ -465,10 +465,10 @@ class ParseView extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { data, board } = state;
+  const { parse, board } = state;
   //   debugger
   return {
-    data,
+    parse,
     board
   };
 }

@@ -12,7 +12,6 @@ import {
 const reducerInitialState = {
   user: null,
   userProfile: null,
-  statusText: null,
   loading: null,
   items: null,
   error: null,
@@ -20,26 +19,8 @@ const reducerInitialState = {
 };
 
 export default createReducer(reducerInitialState, {
-  PROFILE_USER_REQUEST: (state) =>
-    Object.assign({}, state, {
-      userProfile: null,
-      statusText: null,
-      loading: true,
-      error: null,
-    }),
-  PROFILE_USER_SUCCESS: (state, payload) =>
-    Object.assign({}, state, {
-      userProfile: payload,
-      loading: false,
-    }),
-  PROFILE_USER_FAILURE: (state, payload) =>
-    Object.assign({}, state, {
-      loading: false,
-      error: payload,
-    }),
   PARSE_PAGE_REQUEST: (state) =>
     Object.assign({}, state, {
-      statusText: null,
       loading: true,
       page: null,
       error: null,

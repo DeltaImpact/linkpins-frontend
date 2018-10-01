@@ -242,3 +242,7 @@ body {
 .board__misc h6:last-child:after  {
   display: none; */
 /* } */
+
+.menu__item--active {
+  background-color: rgba(0, 0, 0, 0.1);
+}

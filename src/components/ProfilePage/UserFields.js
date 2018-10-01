@@ -3,35 +3,63 @@ import React from "react";
 export class UserFields extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      passwordOld: "",
+      password: "",
+      passwordConf: "",
+      password_error_text: null,
+      passwordConf_error_text: null,
+      disabled: false,
+      // disabled: true,
+    };
+  }
+
+  changeValue(e, type) {
+    const value = e.target.value;
+    const next_state = {};
+    next_state[type] = value;
+    this.setState(next_state, () => {
+      this.isDisabled();
+    });
+  }
+
+  isDisabled() {
+    let old_password_is_valid = false;
+    let password_is_valid = false;
+    let passwordConf_is_valid = false;
+
+    
+
+    if (password_is_valid && passwordConf_is_valid) {
+      this.setState({
+        disabled: false
+      });
+    }
+  }
+
+  SaveChanges(e) {
+    e.preventDefault();
+    debugger;
+//     email: "user123@yandex.ru"
+// firstName: null
+// gender: null
+// language: null
+// role: "User"
+// surname: null
+// userName: "user123"
+    this.props
+    .editProfile(
+      this.state.passwordOld,
+    );
   }
 
   render() {
     const values = this.props.values;
 
-    ;
-
     return (
       <div>
         <div className="row">
-          {/* {JSON.stringify(values)} */}
-
           <form className="col s12">
-            {/* <div class="row">
-              <div class="input-field col s6">
-                <input
-                  placeholder="Placeholder"
-                  id="first_name"
-                  type="text"
-                  class="validate"
-                />
-                ><label for="first_name">First Name</label>
-              </div>
-              <div class="input-field col s6">
-                <input id="last_name" type="text" class="validate" />>
-                <label for="last_name">Last Name</label>
-              </div>
-            </div> */}
-
             <div className="row">
               <div className="input-field col s12">
                 <input
@@ -146,6 +174,25 @@ export class UserFields extends React.Component {
                     <span>Female</span>
                   </label>
                 </p>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col m12">
+                <div className="col s10  offset-s1">
+                  <button
+                    className={
+                      this.state.disabled == true
+                        ? "btn btn-medium waves-effect waves-light s12 disabled"
+                        : "btn btn-medium waves-effect waves-light s12"
+                    }
+                    type="button"
+                    name="action"
+                    onClick={e => this.SaveChanges(e)}
+                  >
+                    Save changes
+                  </button>
+                </div>
               </div>
             </div>
           </form>

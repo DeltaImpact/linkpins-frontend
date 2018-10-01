@@ -1,9 +1,7 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import { userActions } from "../actions";
+import { authActions } from "../actions";
 import { validateEmail } from "../utils/misc";
 
 // const style = {
@@ -25,14 +23,17 @@ class RegisterView extends React.Component {
       username: "user",
       password: "123456",
       passwordConf: "123456",
+      firstName: "",
+      surName: "",
       email_error_text: null,
       username_error_text: null,
       password_error_text: null,
       passwordConf_error_text: null,
+      firstName_error_text: null,
+      surName_error_text: null,
       redirectTo: redirectRoute,
       disabled: false
     };
-    
   }
 
   isDisabled() {
@@ -40,7 +41,6 @@ class RegisterView extends React.Component {
     let password_is_valid = false;
     let username_is_valid = false;
     let passwordConf_is_valid = false;
-
 
     if (this.state.email === "") {
       this.setState({
@@ -96,10 +96,14 @@ class RegisterView extends React.Component {
       this.setState({
         passwordConf_error_text: "Passwords did not match."
       });
-
     }
 
-    if (email_is_valid && password_is_valid && username_is_valid && passwordConf_is_valid) {
+    if (
+      email_is_valid &&
+      password_is_valid &&
+      username_is_valid &&
+      passwordConf_is_valid
+    ) {
       this.setState({
         disabled: false
       });
@@ -129,6 +133,8 @@ class RegisterView extends React.Component {
       this.state.email,
       this.state.username,
       this.state.password,
+      this.state.firstName,
+      this.state.surName,
       this.state.redirectTo
     );
   }
@@ -137,14 +143,7 @@ class RegisterView extends React.Component {
     return this.state.email_error_text != null ? "invalid" : "";
   }
 
-  submitClasses() {
-    return this.state.disabled == true
-      ? "btn btn-medium waves-effect waves-light s12 disabled"
-      : "btn btn-medium waves-effect waves-light s12";
-  }
-
   render() {
-    
     return (
       <div className="container">
         <div className="row">
@@ -171,14 +170,16 @@ class RegisterView extends React.Component {
                         id="email"
                         type="email"
                         value={this.state.email}
-                        className={this.state.email_error_text != null ? "invalid" : ""}
+                        className={
+                          this.state.email_error_text != null ? "invalid" : ""
+                        }
                         onChange={e => this.changeValue(e, "email")}
                       />
                       <label
                         htmlFor="email"
                         className={this.state.email != null ? "active" : ""}
                       >
-                        Email
+                        Email*
                       </label>
                       {this.state.email_error_text && (
                         <div className="error--text">
@@ -193,14 +194,18 @@ class RegisterView extends React.Component {
                         id="username"
                         type="text"
                         value={this.state.username}
-                        className={this.state.username_error_text != null ? "invalid" : ""}
+                        className={
+                          this.state.username_error_text != null
+                            ? "invalid"
+                            : ""
+                        }
                         onChange={e => this.changeValue(e, "username")}
                       />
                       <label
                         htmlFor="username"
                         className={this.state.username != null ? "active" : ""}
                       >
-                        Username
+                        Username*
                       </label>
                       {this.state.username_error_text && (
                         <div className="error--text">
@@ -210,19 +215,23 @@ class RegisterView extends React.Component {
                     </div>
                   </div>
                   <div className="row">
-                    <div className="input-field col s12">
+                    <div className="input-field col s6">
                       <input
                         id="pass"
                         type="password"
                         value={this.state.password}
-                        className={this.state.password_error_text != null ? "invalid" : ""}
+                        className={
+                          this.state.password_error_text != null
+                            ? "invalid"
+                            : ""
+                        }
                         onChange={e => this.changeValue(e, "password")}
                       />
                       <label
                         htmlFor="pass"
                         className={this.state.password != null ? "active" : ""}
                       >
-                        Password
+                        Password*
                       </label>
                       {this.state.password_error_text && (
                         <div className="error--text">
@@ -230,14 +239,16 @@ class RegisterView extends React.Component {
                         </div>
                       )}
                     </div>
-                  </div>
-                  <div className="row">
-                    <div className="input-field col s12">
+                    <div className="input-field col s6">
                       <input
                         id="passConf"
                         type="password"
                         value={this.state.passwordConf}
-                        className={this.state.passwordConf_error_text != null ? "invalid" : ""}
+                        className={
+                          this.state.passwordConf_error_text != null
+                            ? "invalid"
+                            : ""
+                        }
                         onChange={e => this.changeValue(e, "passwordConf")}
                       />
                       <label
@@ -256,10 +267,63 @@ class RegisterView extends React.Component {
                     </div>
                   </div>
                   <div className="row">
+                    <div className="input-field col s6">
+                      <input
+                        id="firstName"
+                        type="text"
+                        value={this.state.firstName}
+                        className={
+                          this.state.firstName_error_text != null
+                            ? "invalid"
+                            : ""
+                        }
+                        onChange={e => this.changeValue(e, "firstName")}
+                      />
+                      <label
+                        htmlFor="firstName"
+                        className={this.state.firstName != null ? "active" : ""}
+                      >
+                        First Name
+                      </label>
+                      {this.state.firstName_error_text && (
+                        <div className="error--text">
+                          {this.state.firstName_error_text}
+                        </div>
+                      )}
+                    </div>
+                    <div className="input-field col s6">
+                      <input
+                        id="surName"
+                        type="text"
+                        value={this.state.surName}
+                        className={
+                          this.state.surName_error_text != null ? "invalid" : ""
+                        }
+                        onChange={e => this.changeValue(e, "surName")}
+                      />
+                      <label
+                        htmlFor="surName"
+                        className={this.state.surName != null ? "active" : ""}
+                      >
+                        Last Name
+                      </label>
+                      {this.state.surName_error_text && (
+                        <div className="error--text">
+                          {this.state.surName_error_text}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="row">
                     <div className="col m12">
                       <div className="col s10  offset-s1">
                         <button
-                          className={this.submitClasses()}
+                          className={
+                            this.state.disabled == true
+                              ? "btn btn-medium waves-effect waves-light s12 disabled"
+                              : "btn btn-medium waves-effect waves-light s12"
+                          }
                           type="button"
                           name="action"
                           onClick={e => this.login(e)}
@@ -287,7 +351,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(userActions, dispatch);
+  return bindActionCreators(authActions, dispatch);
 }
 
 const connectedRegisterPage = connect(

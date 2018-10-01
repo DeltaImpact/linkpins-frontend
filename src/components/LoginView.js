@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { userActions } from '../actions';
+import { authActions } from '../actions';
 
 import { validateEmail } from '../utils/misc';
 
@@ -201,7 +201,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(userActions, dispatch);
+    return bindActionCreators(authActions, dispatch);
 }
 
 const connectedRegisterPage = connect(mapStateToProps, mapDispatchToProps)(LoginView);

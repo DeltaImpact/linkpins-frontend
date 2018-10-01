@@ -3,7 +3,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { userActions } from "../actions";
+import { authActions } from "../actions";
 import { validateEmail } from "../utils/misc";
 
 // const style = {
@@ -169,7 +169,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(userActions, dispatch);
+    return bindActionCreators(authActions, dispatch);
 }
 
 const connectedRegisterPage = connect(

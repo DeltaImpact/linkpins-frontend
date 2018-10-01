@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { userActions } from "../../actions";
+import { authActions } from "../../actions";
 import { withRouter } from "react-router";
 
 class NavMenuRight extends Component {
@@ -13,7 +13,7 @@ class NavMenuRight extends Component {
 
   handleLogout(e) {
     e.preventDefault();
-    this.props.dispatch(userActions.logout());
+    this.props.dispatch(authActions.logout());
   }
 
   render() {
@@ -32,7 +32,13 @@ class NavMenuRight extends Component {
                 parse
               </Link>
             </li>
-            <li>
+            <li
+              className={
+                this.props.history.location.pathname == "/profile"
+                  ? "active"
+                  : ""
+              }
+            >
               <Link
                 to={"/profile"}
                 className="pagenav__option--inline black-text"
@@ -46,11 +52,6 @@ class NavMenuRight extends Component {
                 logout
               </Link>
             </li>
-            {/* <li>
-                            <Link to={"/profile"} className="pagenav__option--inline black-text">
-                                <i className="material-icons">more_vert</i>
-                            </Link>
-                        </li> */}
           </ul>
         </div>
       );

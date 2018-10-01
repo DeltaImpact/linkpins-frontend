@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import { dataActions, boardActions, pinActions } from "../actions";
 import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
 import { Board } from "./Board";
-// import { userActions } from "../../actions";
+// import { authActions } from "../../actions";
 // import "./../../static/styles/PinPage.css";
 // import { UserFields } from "./UserFields";
 class PinPage extends React.Component {

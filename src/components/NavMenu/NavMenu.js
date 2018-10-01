@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { userActions } from "../../actions";
+import { authActions } from "../../actions";
 import { withRouter } from "react-router";
 import { NavMenuRight } from "./NavMenuRight";
 
@@ -19,7 +19,7 @@ class NavMenu extends Component {
 
   handleLogout(e) {
     e.preventDefault();
-    this.props.dispatch(userActions.logout());
+    this.props.dispatch(authActions.logout());
   }
 
   render() {
