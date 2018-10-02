@@ -1,5 +1,5 @@
 /* eslint max-len: 0, no-param-reassign: 0 */
-
+import React from "react";
 import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
 
 export function createConstants(...constants) {
@@ -48,16 +48,49 @@ export function processErrorResponse(error) {
   return err;
 }
 
-export function convertUTCTimeToLocalTime(UTCDateString) {
+function convertUTCTimeToLocalTime(UTCDateString) {
   var convertLocalTime = new Date(UTCDateString);
-
   var hourOffset = convertLocalTime.getTimezoneOffset() / 60;
-
   convertLocalTime.setHours(convertLocalTime.getHours() - hourOffset);
-
   return convertLocalTime;
 }
 
 export function dateInWordsToNow(date) {
-  return distanceInWordsToNow(this.ConvertUTCTimeToLocalTime(date));
+  return distanceInWordsToNow(convertUTCTimeToLocalTime(date));
+}
+
+export function renderError(error) {
+  // debugger;
+  let array = [];
+  if (error.messages) {
+    if (error.messages.Name) {
+      array.push(error.messages.Name);
+    }
+    if (error.messages.Description) {
+      array.push(error.messages.Description);
+    }
+    if (error.messages.FirstName) {
+      array.push(error.messages.FirstName);
+    }
+
+    if (error.messages.Surname) {
+      array.push(error.messages.Surname);
+    }
+  }
+
+  if (error.message) {
+    array.push(error.message);
+  }
+  // debugger;
+  return (
+    <div className="error--container">
+      {array
+        .map((error, i) => {
+          return (
+            <div className="error error--text alert alert-info">{error}</div>
+          );
+        })
+        .filter(n => n)}
+    </div>
+  );
 }

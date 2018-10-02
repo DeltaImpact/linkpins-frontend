@@ -246,3 +246,35 @@ body {
 .menu__item--active {
   background-color: rgba(0, 0, 0, 0.1);
 }
+
+
+
+.menu__item__container {
+  padding: 0!important;
+}
+
+.menu__item {
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.menu__item:hover {
+  background-color: rgba(0,0,0,0.1);
+}
+
+.menu__item--active:hover{
+  background-color: rgba(0,0,0,0.2);
+}
+
+.menu__item__text {
+  padding: 15px;
+  margin: 0;
+}
+/* profileButtns
+.list__item {
+    padding: 10px 10px;
+    margin: 0px;
+    height: 55px;
+    cursor: pointer;
+} */

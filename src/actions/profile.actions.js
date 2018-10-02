@@ -6,7 +6,7 @@ import { history } from "../helpers";
 export const profileActions = {
   dataAboutUser,
   changePassword,
-  editProfile,
+  editProfile
 };
 
 function dataAboutUser() {
@@ -48,14 +48,13 @@ function editProfile(email, username, firstName, surName, gender) {
     let user = {
       Username: username,
       Email: email,
-      Password: password,
       FirstName: firstName,
       Surname: surName,
-      Gender: gender,
+      Gender: gender
     };
     dispatch(editProfileRequest(user));
     return profileService
-      .register(email, username, password, firstName, surName, gender)
+      .editProfile(email, username, firstName, surName, gender)
       .then(
         user => {
           dispatch(editProfileSuccess(user));
@@ -85,10 +84,9 @@ export function editProfileSuccess(token) {
 export function editProfileFailure(error) {
   return {
     type: userConstants.PROFILE_CHANGE_FAILURE,
-    payload: error,
+    payload: error
   };
 }
-
 
 function changePassword(email, password) {
   return function(dispatch) {
@@ -100,7 +98,7 @@ function changePassword(email, password) {
     return profileService.changePassword(email, password).then(
       user => {
         dispatch(changePasswordSuccess(user));
-        history.push("/");
+        // history.push("/");
       },
       error => {
         dispatch(changePasswordFailure(error));

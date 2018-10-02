@@ -482,7 +482,7 @@ function mapDispatchToProps(dispatch) {
 
 ParseView.propTypes = {
   // register: React.PropTypes.func,
-  // registerStatusText: React.PropTypes.string,
+  // registerError: React.PropTypes.string,
 };
 
 // const connectedRegisterPage = connect(mapStateToProps)(ParseView);

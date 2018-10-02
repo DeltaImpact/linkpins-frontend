@@ -2,7 +2,7 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { authActions } from "../actions";
-import { validateEmail } from "../utils/misc";
+import { validateEmail, renderError } from "../utils/misc";
 
 // const style = {
 //     marginTop: 50,
@@ -145,20 +145,25 @@ class RegisterView extends React.Component {
           <div className="col m4 offset-m4 z-depth-3 card-panel">
             <div className="col hg22 offset-hg1">
               <h2 className="center-align">Register</h2>
-              {this.props.auth.registerLoading && (
+              {this.props.account.registerLoading && (
                 <div className="progress">
                   <div className="indeterminate" />
                 </div>
               )}
+
+              {this.props.account.registerError &&
+                renderError(this.props.account.registerError)}
+
               <div className="row">
                 <form className="col s12">
-                  {this.props.auth.registerStatusText && (
+                  {/* {this.props.account.registerError && (
                     <div className="row error--container">
                       <div className="error error--text alert alert-info">
-                        {this.props.auth.registerStatusText}
+                        {this.props.account.registerError}
                       </div>
                     </div>
-                  )}
+                  )} */}
+
                   <div className="row">
                     <div className="input-field col s12">
                       <input
@@ -339,9 +344,9 @@ class RegisterView extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { auth } = state;
+  const { account } = state;
   return {
-    auth
+    account
   };
 }
 

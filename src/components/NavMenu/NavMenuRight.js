@@ -17,7 +17,7 @@ class NavMenuRight extends Component {
   }
 
   render() {
-    let { user } = this.props.auth;
+    let { user } = this.props.account;
     let topbarRight;
     if (user) {
       topbarRight = (
@@ -87,9 +87,9 @@ class NavMenuRight extends Component {
 }
 
 function mapStateToProps(state) {
-  const { auth } = state;
+  const { account } = state;
   return {
-    auth
+    account
   };
 }
 

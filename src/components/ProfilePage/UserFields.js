@@ -1,29 +1,57 @@
 import React from "react";
+import { validateEmail, renderError } from "../../utils/misc";
 
 export class UserFields extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      email: "",
-      username: "",
-      firstName: "",
-      surName: "",
-      gender: null,
+      email: this.props.values.email,
+      username: this.props.values.userName,
+      firstName: this.props.values.firstName,
+      surName: this.props.values.surname,
+      gender: this.props.values.gender,
       email_error_text: null,
       username_error_text: null,
       firstName_error_text: null,
       surName_error_text: null,
-      disabled: false
-      // disabled: true,
+      disabled: false,
+      // disabled: true
     };
+    // debugger
   }
+  // componentWillMount() {}
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== this.props.value) {
-      debugger;
-      // this.setState({ value: nextProps.value });
+    this.setState({
+      disabled: true
+    });
+
+    // debugger;
+    if (nextProps.values !== this.props.values) {
+      // this.needsUpdate = true;
+      this.setState({
+        email: nextProps.values.email,
+        username: nextProps.values.userName,
+        firstName: nextProps.values.firstName,
+        surName: nextProps.values.surname,
+        gender: nextProps.values.gender
+      });
     }
   }
+  // componentDidUpdate() {
+  //   if (this.needsUpdate) {
+  //     this.needsUpdate = false;
+  //     // debugger;
+  //     // let sda = this.props;
+  //     if (this.props.parse.page) {
+  //       this.state.previewImage = this.props.parse.page.images[0];
+  //       this.state.previewDescription = this.props.parse.page.possibleDescriptions[0];
+  //       this.state.previewTitle = this.props.parse.page.header;
+  //     }
+  //     // alert(JSON.stringify(this.props))
+  //   }
+  // }
 
   changeValue(e, type) {
     const value = e.target.value;
@@ -34,10 +62,23 @@ export class UserFields extends React.Component {
     });
   }
 
+  changeGenderValue(value) {
+    // this.setState({
+    //   gender: value
+    // });
+    const next_state = {};
+    next_state["gender"] = value;
+    this.setState(next_state, () => {
+      this.isDisabled();
+    });
+  }
+
   isDisabled() {
     let values_changed = false;
     let email_is_valid = false;
     let username_is_valid = false;
+    let firstName_is_valid = false;
+    let surName_is_valid = false;
 
     if (this.state.email === "") {
       this.setState({
@@ -50,7 +91,7 @@ export class UserFields extends React.Component {
       });
     } else {
       this.setState({
-        email_error_text: "Sorry, this is not a valid email"
+        email_error_text: "Sorry, this is not a valid email."
       });
     }
 
@@ -65,38 +106,82 @@ export class UserFields extends React.Component {
       });
     } else {
       this.setState({
-        username_error_text: "Your username must be at least 3 characters"
+        username_error_text:
+          "Your username length name must be between 3 an 100."
       });
     }
 
-    if (
-      this.state.email != values.email &&
-      this.state.username != values.username &&
-      this.state.firstName != values.firstName &&
-      this.state.surName != values.surName &&
-      this.state.gender != values.gender
+    if (this.state.surName === "" || !this.state.surName) {
+      // if (this.state.surName == this.props.values.surName)
+        surName_is_valid = true;
+      this.setState({
+        surName_error_text: null
+      });
+    } else if (
+      this.state.surName.length >= 3 &&
+      this.state.surName.length < 100
     ) {
-      values_changed = true;
+      surName_is_valid = true;
+      this.setState({
+        surName_error_text: null
+      });
+    } else {
+      this.setState({
+        surName_error_text: "Your surname length name must be between 3 an 100."
+      });
     }
 
-    if (email_is_valid && username_is_valid && values_changed) {
+    if (this.state.firstName === "" || !this.state.firstName) {
+      // if (this.state.firstName == this.props.values.firstName)
+        firstName_is_valid = true;
+      this.setState({
+        firstName_error_text: null
+      });
+    } else if (
+      this.state.firstName.length >= 3 &&
+      this.state.firstName.length < 100
+    ) {
+      firstName_is_valid = true;
+      this.setState({
+        firstName_error_text: null
+      });
+    } else {
+      this.setState({
+        firstName_error_text:
+          "Your first name length name must be between 3 an 100."
+      });
+    }
+
+    // if (
+    //   this.state.email != this.props.values.email ||
+    //   this.state.username != this.props.values.userName ||
+    //   this.state.firstName != this.props.values.firstName ||
+    //   this.state.surName != this.props.values.surName ||
+    //   this.state.gender != this.props.values.gender
+    // ) {
+    //   values_changed = true;
+    // }
+
+    // debugger;
+    if (
+      email_is_valid &&
+      username_is_valid &&
+      // values_changed &&
+      firstName_is_valid &&
+      surName_is_valid
+    ) {
       this.setState({
         disabled: false
+      });
+    } else {
+      this.setState({
+        disabled: true
       });
     }
   }
 
   SaveChanges(e) {
     e.preventDefault();
-    debugger;
-    // email, username, firstName, surName, gender
-    //     email: "user123@yandex.ru"
-    // firstName: null
-    // gender: null
-    // language: null
-    // role: "User"
-    // surname: null
-    // userName: "user123"
     this.props.editProfile(
       this.state.email,
       this.state.username,
@@ -108,11 +193,17 @@ export class UserFields extends React.Component {
 
   render() {
     const values = this.props.values;
-
+    // debugger;
     return (
       <div>
         <div className="row">
           <form className="col s12">
+            {this.props.error && renderError(this.props.error)}
+            {this.props.loading && (
+              <div className="progress">
+                <div className="indeterminate" />
+              </div>
+            )}
             <div className="row">
               <div className="input-field col s12">
                 <input
@@ -162,37 +253,15 @@ export class UserFields extends React.Component {
                 )}
               </div>
             </div>
-            <div className="row">
-              <div className="input-field col s12">
-                <input
-                  id="username"
-                  type="text"
-                  value={this.state.username}
-                  className={
-                    this.state.username_error_text != null ? "invalid" : ""
-                  }
-                  onChange={e => this.changeValue(e, "username")}
-                />
-                <label
-                  htmlFor="username"
-                  className={this.state.username != null ? "active" : ""}
-                >
-                  Username*
-                </label>
-                {this.state.username_error_text && (
-                  <div className="error--text">
-                    {this.state.username_error_text}
-                  </div>
-                )}
-              </div>
-            </div>
 
             <div className="row">
               <div className="input-field col s6">
                 <input
                   id="firstName"
                   type="text"
-                  value={this.state.firstName}
+                  value={
+                    this.state.firstName == null ? "" : this.state.firstName
+                  }
                   className={
                     this.state.firstName_error_text != null ? "invalid" : ""
                   }
@@ -214,7 +283,7 @@ export class UserFields extends React.Component {
                 <input
                   id="surName"
                   type="text"
-                  value={this.state.surName}
+                  value={this.state.surName == null ? "" : this.state.surName}
                   className={
                     this.state.surName_error_text != null ? "invalid" : ""
                   }
@@ -245,9 +314,7 @@ export class UserFields extends React.Component {
                       className="filled-in"
                       checked={this.state.gender == null ? "checked" : ""}
                       onChange={e => {
-                        this.setState({
-                          gender: null
-                        });
+                        this.changeGenderValue(null);
                       }}
                     />
                     <span>Unspecified</span>
@@ -260,9 +327,7 @@ export class UserFields extends React.Component {
                       className="filled-in"
                       checked={this.state.gender == true ? "checked" : ""}
                       onChange={e => {
-                        this.setState({
-                          gender: true
-                        });
+                        this.changeGenderValue(true);
                       }}
                     />
                     <span>Male</span>
@@ -275,9 +340,7 @@ export class UserFields extends React.Component {
                       className="filled-in"
                       checked={this.state.gender == false ? "checked" : ""}
                       onChange={e => {
-                        this.setState({
-                          gender: false
-                        });
+                        this.changeGenderValue(false);
                       }}
                     />
                     <span>Female</span>

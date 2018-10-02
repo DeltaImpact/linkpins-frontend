@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import { dataActions, boardActions, pinActions } from "../actions";
 import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
 import { Card } from "./Card";
+import {  parseJSON, processErrorResponse, dateInWordsToNow } from "../utils/misc";
 // import { authActions } from "../../actions";
 // import "./../../static/styles/PinPage.css";
 // import { UserFields } from "./UserFields";
@@ -26,20 +27,6 @@ class PinPage extends React.Component {
     }
 
     // this.props.addPin("name", "description", "img", false);
-  }
-
-  ConvertUTCTimeToLocalTime(UTCDateString) {
-    var convertdLocalTime = new Date(UTCDateString);
-
-    var hourOffset = convertdLocalTime.getTimezoneOffset() / 60;
-
-    convertdLocalTime.setHours(convertdLocalTime.getHours() - hourOffset);
-
-    return convertdLocalTime;
-  }
-
-  dateInWordsToNow(date) {
-    return distanceInWordsToNow(this.ConvertUTCTimeToLocalTime(date));
   }
 
   renderBoards() {
@@ -125,12 +112,12 @@ class PinPage extends React.Component {
                     <h6 className="left-align card-title card__title">
                       Modified:
                       {"  " + this.props.pin.pin.modified != null
-                        ? this.dateInWordsToNow(this.props.pin.pin.modified)
+                        ? dateInWordsToNow(this.props.pin.pin.modified)
                         : " never"}
                     </h6>
                     <h6 className="left-align card-title card__title">
                       Created:
-                      {" " + this.dateInWordsToNow(this.props.pin.pin.created)}
+                      {" " + dateInWordsToNow(this.props.pin.pin.created)}
                     </h6>
                   </div>
 

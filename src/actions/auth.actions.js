@@ -83,12 +83,10 @@ export function registerUserRequest(user) {
   };
 }
 
-export function registerUserSuccess(token) {
+export function registerUserSuccess(user) {
   return {
     type: userConstants.REGISTER_USER_SUCCESS,
-    payload: {
-      token
-    }
+    payload: user
   };
 }
 

@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
-
+import { CardFace } from "./CardFace";
+import {  parseJSON, processErrorResponse, dateInWordsToNow, renderError } from "../../utils/misc";
 export class Card extends React.Component {
   constructor(props) {
     super(props);
@@ -52,20 +53,6 @@ export class Card extends React.Component {
     );
   }
 
-  ConvertUTCTimeToLocalTime(UTCDateString) {
-    var convertLocalTime = new Date(UTCDateString);
-
-    var hourOffset = convertLocalTime.getTimezoneOffset() / 60;
-
-    convertLocalTime.setHours(convertLocalTime.getHours() - hourOffset);
-
-    return convertLocalTime;
-  }
-
-  dateInWordsToNow(date) {
-    return distanceInWordsToNow(this.ConvertUTCTimeToLocalTime(date));
-  }
-
   renderCard(board) {
     let link;
     if (this.state.contentType == "board") {
@@ -114,8 +101,8 @@ export class Card extends React.Component {
             <p className="board__misc">
               Last change
               {board.modified
-                ? " " + this.dateInWordsToNow(board.modified)
-                : " " + this.dateInWordsToNow(board.created)}
+                ? " " + dateInWordsToNow(board.modified)
+                : " " + dateInWordsToNow(board.created)}
             </p>
           </div>
         </div>
@@ -230,69 +217,6 @@ export class Card extends React.Component {
     );
   }
 
-  renderEditCardError() {
-    let array = [];
-    if (this.props.error.messages) {
-      if (this.props.error.messages.Name) {
-        array.push(this.props.error.messages.Name);
-      }
-      if (this.props.error.messages.Description) {
-        array.push(this.props.error.messages.Description);
-      }
-    }
-
-    if (this.props.error.message) {
-      array.push(this.props.error.message);
-    }
-    // debugger;
-    return (
-      <div className="error--container">
-        {array
-          .map((error, i) => {
-            return (
-              <div className="error error--text alert alert-info">{error}</div>
-            );
-          })
-          .filter(n => n)}
-      </div>
-    );
-
-    // if (this.props.error.messages) {
-    //   return Object.values(this.props.error.messages).forEach(value => {
-    //     return (
-    //       <div className="error--container">
-    //         <div className="error error--text alert alert-info">{value}</div>
-    //       </div>
-    //     );
-    //     //use value here
-    //   });
-
-    // return this.props.error.messages.map((error, i) => {
-    //   return (
-    //     <div className="error--container">
-    //       <div className="error error--text alert alert-info">{error}</div>
-    //     </div>
-    //   );
-    // });
-
-    //   <div className="error--container">
-    //   <div className="error error--text alert alert-info">
-    //     {this.props.error.message}
-    //   </div>
-    // </div>
-    // }
-
-    // return (
-    //   this.props.error && (
-    //     <div className="error--container">
-    //       <div className="error error--text alert alert-info">
-    //         {this.props.error.message}
-    //       </div>
-    //     </div>
-    //   )
-    // );
-  }
-
   renderEditCard(board) {
     let formTitle = "";
     let formImg = <i className="material-icons circle green">folder</i>;
@@ -323,7 +247,8 @@ export class Card extends React.Component {
           <img src={board.img} alt="" className="circle" />
         )} */}
         <div className="col m10">
-          {this.props.error && this.renderEditCardError()}
+          {/* {this.props.error && this.renderEditCardError()} */}
+          {this.props.error && renderError()}
           {/* <span className="title">{this.props.loading + []}</span> */}
 
           {this.props.loading && (
@@ -474,16 +399,23 @@ export class Card extends React.Component {
     // debugger;
     if (pin) {
       this.state.contentType = "pin";
-      return this.state.editMode == false
-        ? this.renderCard(pin)
-        : this.renderEditCard(pin);
+      return this.state.editMode == false ? (
+        // ? this.renderCard(board)
+        // <CardFace type="pin" values={pin} />
+         this.renderCard(pin)
+      ) : (
+        this.renderEditCard(pin)
+      );
     }
 
     if (board) {
       this.state.contentType = "board";
-      return this.state.editMode == false
-        ? this.renderCard(board)
-        : this.renderEditCard(board);
+      return this.state.editMode == false ? (
+       this.renderCard(board)
+        // <CardFace type="board" values={board} isEditMode={this.state.editMode}/>
+      ) : (
+        this.renderEditCard(board)
+      );
     }
 
     return this.state.editMode == false

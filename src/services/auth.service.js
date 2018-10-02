@@ -22,10 +22,10 @@ function login(email, password) {
     .then(
       response => {
         if (response.token) {
-          let tpm = jwtDecode(response.token);
+          // let tpm = jwtDecode(response.token);
           let user = {
-            username: tpm.unique_name,
-            email: tpm.email,
+            username: response.userName,
+            email: response.email,
             token: response.token
           };
           localStorage.setItem("user", JSON.stringify(user));
@@ -54,11 +54,10 @@ function register(email, username, password, firstName, surName) {
     .then(parseJSON)
     .then(
       response => {
-        debugger;
         if (response.token) {
           // let tpm = jwtDecode(response.token);
           let user = {
-            username: response.username,
+            username: response.userName,
             email: response.email,
             token: response.token
           };

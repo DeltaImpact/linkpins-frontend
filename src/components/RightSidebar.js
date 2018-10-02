@@ -162,9 +162,9 @@ class RightSidebar extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { auth } = state;
+    const { account } = state;
     return {
-        auth
+        account
     };
 }
 

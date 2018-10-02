@@ -48,12 +48,9 @@ function changePassword(oldPassword, newPassword) {
     .then(parseJSON)
     .then(
       response => {
-        debugger;
-
         return response;
       },
       error => {
-        debugger;
         return Promise.reject(processErrorResponse(error));
       }
     );
@@ -66,7 +63,6 @@ function editProfile(email, username, firstName, surName, gender) {
       {
         Username: username,
         Email: email,
-        Password: password,
         FirstName: firstName,
         Surname: surName,
         Gender: gender
@@ -81,11 +77,9 @@ function editProfile(email, username, firstName, surName, gender) {
     .then(parseJSON)
     .then(
       response => {
-        debugger;
         return response;
       },
       error => {
-        debugger;
         return Promise.reject(processErrorResponse(error));
       }
     );

@@ -11,7 +11,7 @@ class ProfilePage extends React.Component {
     super(props);
     const { dispatch } = this.props;
     this.state = {
-      mode: "profile",
+      mode: "profile"
       // mode: "changePassword"
     };
   }
@@ -22,26 +22,31 @@ class ProfilePage extends React.Component {
   }
 
   renderProfile() {
-    const { profile } = this.props;
+    const { account } = this.props;
     // debugger
     return (
       <div className="col s12 m8 l10 legacy-content">
         <div className="container card-panel s12">
           <h4 className="left-align card-title card__title">Profile</h4>
-          {profile.getProfileLoading && (
+          {account.profileGetLoading && (
             <div className="progress">
               <div className="indeterminate" />
             </div>
           )}
-          {profile.getProfileError && (
+          {account.profileGetError && (
             <div className="row error--container">
               <div className="error error--text alert alert-info">
-                {profile.getProfileError.message}
+                {account.profileGetError.message}
               </div>
             </div>
           )}
-          {profile.getProfileObject && (
-            <UserFields values={profile.getProfileObject} editProfile={this.props.editProfile}/>
+          {account.profileGetObject && (
+            <UserFields
+              values={account.profileGetObject}
+              editProfile={this.props.editProfile}
+              loading={account.profileChangeLoading}
+              error={account.profileChangeError}
+            />
           )}
         </div>
       </div>
@@ -49,26 +54,38 @@ class ProfilePage extends React.Component {
   }
 
   renderChangePassword() {
-    const { profile } = this.props;
+    const { account } = this.props;
 
     return (
       <div className="col s12 m8 l10 legacy-content">
         <div className="container card-panel s12">
           <h4 className="left-align card-title card__title">Change password</h4>
-          {profile.passwordChangeLoading && (
+          {account.passwordChangeLoading && (
             <div className="progress">
               <div className="indeterminate" />
             </div>
           )}
-          {profile.passwordChangeError && (
+          {account.passwordChangeError && (
             <div className="row error--container">
               <div className="error error--text alert alert-info">
-                {profile.passwordChangeError.message}
+                {account.passwordChangeError.message}
               </div>
             </div>
           )}
+          {account.passwordChangeStatusText && (
+            <div className="row ">
+              <div className="">{account.passwordChangeStatusText}</div>
+            </div>
+          )}
 
-          {<ChangePasswordForm changePassword={this.props.changePassword}/>}
+          {
+            <ChangePasswordForm
+              changePassword={this.props.changePassword}
+              loading={account.passwordChangeLoading}
+              error={account.passwordChangeError}
+              // successMessage={account.passwordChangeStatusText}
+            />
+          }
         </div>
       </div>
     );
@@ -80,34 +97,40 @@ class ProfilePage extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col m8 offset-m2">
-              <div className="col s12 m4 l2 card-panel legacy-sidebar">
-                <div
-                  className={
-                    this.state.mode == "profile"
-                      ? "s12 card-content list__title menu__item--active"
-                      : "s12 card-content list__title"
-                  }
-                  onClick={e => {
-                    this.setState({
-                      mode: "profile"
-                    });
-                  }}
-                >
-                  <h6 className="s12 left-align list__item ">Profile</h6>
-                </div>
-                <div
-                  className={
-                    this.state.mode == "changePassword"
-                      ? "s12 card-content list__title menu__item--active"
-                      : "s12 card-content list__title"
-                  }
-                  onClick={e => {
-                    this.setState({
-                      mode: "changePassword"
-                    });
-                  }}
-                >
-                  <h6 className="left-align list__item">Change Password</h6>
+              <div className="  col s12 m4 l2 card-panel legacy-sidebar menu__item__container">
+                <div className="menu__item__container">
+                  <div
+                    className={
+                      this.state.mode == "profile"
+                        ? "menu__item s12 card-content list__title  menu__item--active "
+                        : "menu__item s12 card-content list__title"
+                    }
+                    onClick={e => {
+                      this.setState({
+                        mode: "profile"
+                      });
+                    }}
+                  >
+                    <h6 className="s12 left-align list__item menu__item__text">
+                      Profile
+                    </h6>
+                  </div>
+                  <div
+                    className={
+                      this.state.mode == "changePassword"
+                        ? "s12 card-content list__title menu__item menu__item--active"
+                        : "s12 card-content list__title menu__item"
+                    }
+                    onClick={e => {
+                      this.setState({
+                        mode: "changePassword"
+                      });
+                    }}
+                  >
+                    <h6 className="left-align list__item menu__item__text">
+                      Change Password
+                    </h6>
+                  </div>
                 </div>
               </div>
 
@@ -123,10 +146,10 @@ class ProfilePage extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { profile } = state;
+  const { account } = state;
   // debugger
   return {
-    profile
+    account
   };
 }
 
