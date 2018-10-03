@@ -14,7 +14,7 @@ export const profileService = {
 
 function dataAboutUser() {
   return axios
-    .get("https://localhost:5001/account/user", {
+    .get(`${config.apiUrl}/account/user`, {
       // let tmp = axios.get('http://httpbin.org/post', {
       headers: {
         Authorization: authHeader()
@@ -32,9 +32,10 @@ function dataAboutUser() {
 }
 
 function changePassword(oldPassword, newPassword) {
+ 
   return axios
     .put(
-      "https://localhost:5001/account/changePassword",
+      `${config.apiUrl}/account/changePassword`,
       {
         oldPassword: oldPassword,
         newPassword: newPassword
@@ -59,7 +60,7 @@ function changePassword(oldPassword, newPassword) {
 function editProfile(email, username, firstName, surName, gender) {
   return axios
     .put(
-      "https://localhost:5001/account/editProfile",
+      `${config.apiUrl}/account/editProfile`,
       {
         Username: username,
         Email: email,

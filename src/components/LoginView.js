@@ -88,7 +88,7 @@ class LoginView extends React.Component {
     e.preventDefault();
     this.props.login(
       this.state.email,
-      this.state.password,
+         this.state.password,
       this.state.redirectTo
     );
   }
@@ -126,6 +126,7 @@ class LoginView extends React.Component {
                   {this.props.account.loginError &&
                     renderError(this.props.account.loginError)}
                   {/* {
+                                        this.props.account.loginError &&
                                         this.props.account.loginError &&
                                         <div className="row error--container">
                                             <div className="error error--text alert alert-info">

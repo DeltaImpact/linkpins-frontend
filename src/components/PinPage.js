@@ -5,7 +5,11 @@ import { bindActionCreators } from "redux";
 import { dataActions, boardActions, pinActions } from "../actions";
 import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
 import { Card } from "./Card";
-import {  parseJSON, processErrorResponse, dateInWordsToNow } from "../utils/misc";
+import {
+  parseJSON,
+  processErrorResponse,
+  dateInWordsToNow
+} from "../utils/misc";
 // import { authActions } from "../../actions";
 // import "./../../static/styles/PinPage.css";
 // import { UserFields } from "./UserFields";
@@ -43,7 +47,7 @@ class PinPage extends React.Component {
     return (
       <Card
         key={board.id}
-        board={board}
+        item={board}
         updateBoard={this.props.updateBoard}
         deleteBoard={this.props.deleteBoard}
         loading={this.props.board.updateBoardLoading}
@@ -98,42 +102,52 @@ class PinPage extends React.Component {
                   <div className="indeterminate" />
                 </div>
               )}
+              <ul className="collection">
+                {this.props.pin.pin && (
+                  <Card
+                    item={this.props.pin.pin}
+                    updateBoard={this.props.updateBoard}
+                    deleteBoard={this.props.deleteBoard}
+                    loading={this.props.board.updateBoardLoading}
+                    error={this.props.board.updateBoardError}
+                    typeOfElement="pin"
+                    cardType="full"
+                  />
+                  // <div className="card-panel s12">
+                  //   <h4 className="left-align card-title card__title title__wrap">
+                  //     {this.props.pin.pin.name}
+                  //   </h4>
+                  //   <h6 className="left-align card-title card__title">
+                  //     {this.props.pin.pin.description}
+                  //   </h6>
 
-              {this.props.pin.pin && (
-                <div className="card-panel s12">
-                  <h4 className="left-align card-title card__title title__wrap">
-                    {this.props.pin.pin.name}
-                  </h4>
-                  <h6 className="left-align card-title card__title">
-                    {this.props.pin.pin.description}
-                  </h6>
+                  //   <div className="left-align board__misc">
+                  //     <h6 className="left-align card-title card__title">
+                  //       Modified:
+                  //       {"  " + this.props.pin.pin.modified != null
+                  //         ? dateInWordsToNow(this.props.pin.pin.modified)
+                  //         : " never"}
+                  //     </h6>
+                  //     <h6 className="left-align card-title card__title">
+                  //       Created:
+                  //       {" " + dateInWordsToNow(this.props.pin.pin.created)}
+                  //     </h6>
+                  //   </div>
 
-                  <div className="left-align board__misc">
-                    <h6 className="left-align card-title card__title">
-                      Modified:
-                      {"  " + this.props.pin.pin.modified != null
-                        ? dateInWordsToNow(this.props.pin.pin.modified)
-                        : " never"}
-                    </h6>
-                    <h6 className="left-align card-title card__title">
-                      Created:
-                      {" " + dateInWordsToNow(this.props.pin.pin.created)}
-                    </h6>
-                  </div>
+                  //   <a
+                  //     className="left-align card-title card__title"
+                  //     href={this.props.pin.pin.link}
+                  //     className=""
+                  //   >
+                  //     <span className="board__misc board__card__text--short">
+                  //       {this.props.pin.pin.link}
+                  //     </span>
+                  //   </a>
 
-                  <a
-                    className="left-align card-title card__title"
-                    href={this.props.pin.pin.link}
-                    className=""
-                  >
-                    <span className="board__misc board__card__text">
-                      {this.props.pin.pin.link}
-                    </span>
-                  </a>
-
-                  {/* {JSON.stringify(this.props.pin.pin)} */}
-                </div>
-              )}
+                  //   {/* {JSON.stringify(this.props.pin.pin)} */}
+                  // </div>
+                )}
+              </ul>
             </div>
           </div>
         </div>
@@ -159,7 +173,6 @@ class PinPage extends React.Component {
             )}
           </div>
         </div>
-
       </div>
     );
   }

@@ -84,13 +84,13 @@ export class CardFace extends React.Component {
               ) : (
                 <img src={values.img} alt="" className="circle" />
               )}
-              <span className="title board__card__text">{values.name}</span>
-              <p className="board__card__text">{values.description}</p>
+              <span className="title board__card__text--short">{values.name}</span>
+              <p className="board__card__text--short">{values.description}</p>
               {/* <p className="">{board.description}</p> */}
             </Link>
             {values.link && (
               <a href={values.link} className="">
-                <span className="board__misc board__card__text">
+                <span className="board__misc board__card__text--short">
                   {values.link}
                 </span>
               </a>

@@ -14,7 +14,7 @@ export const authService = {
 
 function login(email, password) {
   return axios
-    .post("https://localhost:5001/account/token", {
+    .post(`${config.apiUrl}/account/token`, {
       Email: email,
       Password: password
     })
@@ -44,7 +44,7 @@ function login(email, password) {
 
 function register(email, username, password, firstName, surName) {
   return axios
-    .post("https://localhost:5001/account/register", {
+    .post(`${config.apiUrl}/account/register`, {
       Username: username,
       Email: email,
       Password: password,

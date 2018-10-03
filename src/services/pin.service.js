@@ -1,7 +1,7 @@
 import { authHeader } from "../helpers";
 import axios from "axios";
 import { parseJSON, processErrorResponse } from "../utils/misc";
-
+import config from "config";
 
 export const pinService = {
   addPin,
@@ -15,7 +15,7 @@ function updatePin(id, name, description) {
   // debugger
   return axios
     .post(
-      "https://localhost:5001/pin/updatePin",
+      `${config.apiUrl}/pin/updatePin`,
       {
         Id: id,
         Name: name,
@@ -45,7 +45,7 @@ function updatePin(id, name, description) {
 function addPin(name, description, img, Link, BoardId) {
   return axios
     .post(
-      "https://localhost:5001/pin/addPin",
+      `${config.apiUrl}/pin/addPin`,
       {
         Name: name,
         Description: description,
@@ -75,7 +75,7 @@ function getPins() {
   // axios.defaults.headers.common["Authorization"] = authHeader();
   return axios
     .post(
-      "https://localhost:5001/pin/getPins",
+      `${config.apiUrl}/pin/getPins`,
       {},
       {
         // .post("http://httpbin.org/post", {},  {
@@ -95,10 +95,9 @@ function getPins() {
 }
 
 function getPin(id) {
-  let url = 'https://localhost:5001/pin/' + id;
   return axios
     .get(
-      url,
+      `${config.apiUrl}/pin/${id}`,
       {
         headers: { Authorization: authHeader() }
       }
@@ -117,7 +116,7 @@ function getPin(id) {
 function deletePin(Id) {
   return axios
     .post(
-      "https://localhost:5001/pin/deletePin",
+      `${config.apiUrl}/pin/deletePin`,
       { Id: Id },
       {
         headers: {

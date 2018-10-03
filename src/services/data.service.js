@@ -1,15 +1,15 @@
 import axios from "axios";
 // import cheerio from "cheerio";
 import { parseJSON, processErrorResponse } from "../utils/misc";
+import config from "config";
 
 export const dataService = {
   parse
 };
 
 function parse(url) {
-    
   return axios
-    .post("https://localhost:5001/parse", {
+    .post(`${config.apiUrl}/parse`, {
       url: url
     })
     .then(parseJSON)

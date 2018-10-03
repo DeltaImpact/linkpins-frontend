@@ -37,7 +37,7 @@ module.exports = {
                 })
             },
             {
-                test: /\.jpe?g$|\.ico$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
+                test: newFunction(),
                 exclude: /node_modules/,
                 loader: 'file-loader?name=img/[path][name].[ext]&context=./assets'
                 // loader: 'file-loader?name=[name].[ext]'  // <-- retain original file name
@@ -68,8 +68,11 @@ module.exports = {
     externals: {
         // global app config object
         config: JSON.stringify({
-            // apiUrl: 'http://localhost:4000'
-            apiUrl: 'http://localhost:4000'
+            apiUrl: 'https://localhost:5001',
         })
     }
+}
+
+function newFunction() {
+    return /\.jpe?g$|\.ico$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/;
 }

@@ -14,7 +14,7 @@ export const boardService = {
 function addBoard(name, description, img, isPrivate) {
   return axios
     .post(
-      "https://localhost:5001/board/addBoard",
+      `${config.apiUrl}/board/addBoard`,
       {
         Name: name,
         Description: description,
@@ -43,7 +43,7 @@ function getBoards() {
   // axios.defaults.headers.common["Authorization"] = authHeader();
   return axios
     .post(
-      "https://localhost:5001/board/getBoards",
+      `${config.apiUrl}/board/getBoards`,
       {},
       {
         // .post("http://httpbin.org/post", {},  {
@@ -63,12 +63,9 @@ function getBoards() {
 }
 
 function getBoard(id) {
-  let url = 'https://localhost:5001/board/' + id;
-  // let as = "{0}{1}".format("{1}", "{0}");
-  // debugger
   return axios
     .get(
-      url,
+      `${config.apiUrl}/board/${id}`,
       // {},
       {
         // .post("http://httpbin.org/post", {},  {
@@ -91,7 +88,7 @@ function getBoard(id) {
 function deleteBoard(Id) {
   return axios
     .post(
-      "https://localhost:5001/board/deleteBoard",
+      `${config.apiUrl}/board/deleteBoard`,
       { Id: Id },
       {
         headers: {
@@ -115,7 +112,7 @@ function updateBoard(id, name, description, isPrivate) {
   // debugger
   return axios
     .post(
-      "https://localhost:5001/board/updateBoard",
+      `${config.apiUrl}/board/updateBoard`,
       {
         Id: id,
         Name: name,

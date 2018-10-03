@@ -150,11 +150,12 @@ body {
   cursor: pointer;
 } */
 
-.board__card__text {
+.board__card__text--short {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 90%;
+  cursor: pointer;
 }
 
 .board__card__button {
@@ -220,6 +221,53 @@ body {
   color: #8e8e8e;
 }
 
+.board__misc__item--lock:before {
+  content: "\e899";
+  vertical-align: top;
+  display: inline-block;
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 15px;
+  margin: 0 5px 0 2px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.board__misc__item--time:before {
+  content: "\e192";
+  vertical-align: top;
+  display: inline-block;
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 15px;
+  margin: 0 5px 0 2px;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+
+
+/* .board__misc__item:before {
+  content: "\e899";
+  vertical-align: top;
+  display: inline-block;
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 15px;
+  margin: 0 5px 0 2px;
+  -webkit-font-smoothing: antialiased;
+} */
+
+/* .board__misc__item:first-child:before {
+  display: none;
+} */
+
+.board__misc__item {
+  padding-right: 10px;
+}
+
 .board__page__title {
   display: inline-flex;
   /* color: #8e8e8e; */
@@ -247,10 +295,8 @@ body {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-
-
 .menu__item__container {
-  padding: 0!important;
+  padding: 0 !important;
 }
 
 .menu__item {
@@ -260,11 +306,11 @@ body {
 }
 
 .menu__item:hover {
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
-.menu__item--active:hover{
-  background-color: rgba(0,0,0,0.2);
+.menu__item--active:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .menu__item__text {

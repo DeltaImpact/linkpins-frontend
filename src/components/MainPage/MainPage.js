@@ -55,10 +55,11 @@ class MainPage extends React.Component {
   }
 
   renderBoard(board) {
+    // debugger
     return (
       <Card
         key={board.id}
-        board={board}
+        item={board}
         updateBoard={this.props.updateBoard}
         deleteBoard={this.props.deleteBoard}
         loading={this.props.board.updateBoardLoading}
@@ -72,22 +73,14 @@ class MainPage extends React.Component {
   renderCreateNewBoardForm() {
     // debugger
     return (
-      // <ul className="collection-item avatar pin-content">
+      // <div></div>
       <Card
         addBoard={this.props.addBoard}
         loading={this.props.board.AddBoardLoading}
         error={this.props.board.AddBoardError}
-        typeOfElement="board"
+        typeOfElement="AddBoard"
       />
     );
-    {
-      /* {this.state.ShowNewBoardForm
-          ? this.renderCreateNewBoardFormEdit()
-          : this.renderCreateNewBoardFormPreview()} */
-    }
-    {
-      /* </ul> */
-    }
   }
 
   renderCreateNewBoardFormPreview() {
@@ -290,14 +283,16 @@ class MainPage extends React.Component {
     // debugger
     return (
       <div className="container">
-        <div className="row">
-          <div className="col m8 offset-m2">
+      <div className="row">
+         
+ <div className="col m8 offset-m2">
             <h4 className="left-align">Boards</h4>
             {this.props.board.getAllBoardsLoading && (
               <div className="progress">
                 <div className="indeterminate" />
               </div>
             )}
+
             {this.props.board.getAllBoardsError && (
               <div className="row error--container">
                 <div className="error error--text alert alert-info">
