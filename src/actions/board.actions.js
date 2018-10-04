@@ -6,7 +6,8 @@ export const boardActions = {
   deleteBoard,
   updateBoard,
   getBoards,
-  getBoard
+  getBoard,
+  getBoardPins,
 };
 
 function addBoard(name, description, img, isPrivate) {
@@ -197,6 +198,42 @@ export function deleteBoardSuccess(payload) {
 export function deleteBoardFailure(error) {
   return {
     type: boardConstants.DELETE_BOARD_FAILURE,
+    payload: error
+  };
+}
+
+
+
+function getBoardPins(id) {
+  return function(dispatch) {
+    dispatch(getBoardPinsRequest());
+    return boardService.getBoardPins(id).then(
+      response => {
+        dispatch(getBoardPinsSuccess(response));
+      },
+      error => {
+        dispatch(getBoardPinsFailure(error));
+      }
+    );
+  };
+}
+
+export function getBoardPinsRequest() {
+  return {
+    type: boardConstants.GET_BOARD_PINS_REQUEST
+  };
+}
+
+export function getBoardPinsSuccess(payload) {
+  return {
+    type: boardConstants.GET_BOARD_PINS_SUCCESS,
+    payload
+  };
+}
+
+export function getBoardPinsFailure(error) {
+  return {
+    type: boardConstants.GET_BOARD_PINS_FAILURE,
     payload: error
   };
 }

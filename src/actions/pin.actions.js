@@ -8,6 +8,10 @@ export const pinActions = {
   getPins,
   getPin,
   updatePin,
+  getBoardsWherePinSaved,
+  getBoardsWherePinNotSaved,
+  addPinToBoard,
+  deletePinFromBoard
 };
 
 function updatePin(id, name, description) {
@@ -15,7 +19,7 @@ function updatePin(id, name, description) {
     let boardParams = {
       id,
       name,
-      description,
+      description
     };
     // debugger
     dispatch(updatePinRequest(boardParams));
@@ -207,3 +211,164 @@ export function getPinFailure(error) {
     payload: error
   };
 }
+
+function getBoardsWherePinSaved(id) {
+  return function(dispatch) {
+    dispatch(getBoardsWherePinSavedRequest());
+    return pinService.getBoardsWherePinSaved(id).then(
+      response => {
+        dispatch(getBoardsWherePinSavedSuccess(response));
+      },
+      error => {
+        dispatch(getBoardsWherePinSavedFailure(error));
+      }
+    );
+  };
+}
+
+export function getBoardsWherePinSavedRequest() {
+  return {
+    type: pinConstants.GET_PIN_BOARDS_REQUEST
+  };
+}
+
+export function getBoardsWherePinSavedSuccess(payload) {
+  return {
+    type: pinConstants.GET_PIN_BOARDS_SUCCESS,
+    payload
+  };
+}
+
+export function getBoardsWherePinSavedFailure(error) {
+  return {
+    type: pinConstants.GET_PIN_BOARDS_FAILURE,
+    payload: error
+  };
+}
+
+function getBoardsWherePinNotSaved(id) {
+  return function(dispatch) {
+    dispatch(getBoardsWherePinNotSavedRequest());
+    return pinService.getBoardsWherePinNotSaved(id).then(
+      response => {
+        dispatch(getBoardsWherePinNotSavedSuccess(response));
+      },
+      error => {
+        dispatch(getBoardsWherePinNotSavedFailure(error));
+      }
+    );
+  };
+}
+
+export function getBoardsWherePinNotSavedRequest() {
+  return {
+    type: pinConstants.GET_PIN_AVALIABE_BOARDS_REQUEST
+  };
+}
+
+export function getBoardsWherePinNotSavedSuccess(payload) {
+  return {
+    type: pinConstants.GET_PIN_AVALIABE_BOARDS_SUCCESS,
+    payload
+  };
+}
+
+export function getBoardsWherePinNotSavedFailure(error) {
+  return {
+    type: pinConstants.GET_PIN_AVALIABE_BOARDS_FAILURE,
+    payload: error
+  };
+}
+
+function addPinToBoard(pinId, boardId) {
+  // debugger
+  return function(dispatch) {
+    let pinParams = {
+      pinId,
+      boardId
+    };
+    dispatch(addPinToBoardRequest(pinParams));
+    return pinService.addPinToBoard(pinId, boardId).then(
+      response => {
+        dispatch(addPinToBoardSuccess(response));
+        // let pinAddress = "/pin/" + response.id;
+        // history.push(pinAddress);
+      },
+      error => {
+        dispatch(addPinToBoardFailure(error));
+      }
+    );
+  };
+}
+
+export function addPinToBoardRequest(tmp) {
+  // debugger
+  return {
+    type: pinConstants.ADD_PIN_TO_BOARD_REQUEST,
+    payload: {
+      tmp
+    }
+  };
+}
+
+export function addPinToBoardSuccess(payload) {
+  // debugger
+  return {
+    type: pinConstants.ADD_PIN_TO_BOARD_SUCCESS,
+    payload
+  };
+}
+
+export function addPinToBoardFailure(error) {
+  return {
+    type: pinConstants.ADD_PIN_TO_BOARD_FAILURE,
+    payload: error
+  };
+}
+
+function deletePinFromBoard(pinId, boardId) {
+  // debugger
+  return function(dispatch) {
+    let pinParams = {
+      pinId,
+      boardId
+    };
+    dispatch(deletePinFromBoardRequest(pinParams));
+    return pinService.deletePinFromBoard(pinId, boardId).then(
+      response => {
+        dispatch(deletePinFromBoardSuccess(response));
+        // let pinAddress = "/pin/" + response.id;
+        // history.push(pinAddress);
+      },
+      error => {
+        dispatch(deletePinFromBoardFailure(error));
+      }
+    );
+  };
+}
+
+export function deletePinFromBoardRequest(tmp) {
+  // debugger
+  return {
+    type: pinConstants.DELETE_PIN_FROM_BOARD_REQUEST,
+    payload: {
+      tmp
+    }
+  };
+}
+
+export function deletePinFromBoardSuccess(payload) {
+  // debugger
+  return {
+    type: pinConstants.DELETE_PIN_FROM_BOARD_SUCCESS,
+    payload
+  };
+}
+
+export function deletePinFromBoardFailure(error) {
+  return {
+    type: pinConstants.DELETE_PIN_FROM_BOARD_FAILURE,
+    payload: error
+  };
+}
+

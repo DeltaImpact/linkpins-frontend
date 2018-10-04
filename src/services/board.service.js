@@ -9,7 +9,28 @@ export const boardService = {
   updateBoard,
   getBoards,
   getBoard,
+  getBoardPins,
 };
+
+function getBoardPins(id) {
+  return axios
+    .get(
+      `${config.apiUrl}/board/getBoardPins`,
+      { boardId: id },
+      {
+        headers: { Authorization: authHeader() }
+      }
+    )
+    .then(parseJSON)
+    .then(
+      user => {
+        return user;
+      },
+      error => {
+        return Promise.reject(processErrorResponse(error));
+      }
+    );
+}
 
 function addBoard(name, description, img, isPrivate) {
   return axios

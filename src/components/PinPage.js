@@ -28,6 +28,8 @@ class PinPage extends React.Component {
     if (this.props.match.params.id != null) {
       let pinId = this.props.match.params.id;
       this.props.getPin(pinId);
+      this.props.getBoardsWherePinNotSaved(pinId);
+      this.props.getBoardsWherePinSaved(pinId);
     }
 
     // this.props.addPin("name", "description", "img", false);
