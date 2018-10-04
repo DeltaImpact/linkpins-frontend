@@ -14,7 +14,11 @@ import {
   GETALL_BOARD_FAILURE,
   GET_BOARD_REQUEST,
   GET_BOARD_SUCCESS,
-  GET_BOARD_FAILURE
+  GET_BOARD_FAILURE,
+  GET_BOARD_PINS_REQUEST,
+  GET_BOARD_PINS_SUCCESS,
+  GET_BOARD_PINS_FAILURE,
+
 } from "../constants/board.constants";
 
 const reducerInitialState = {
@@ -34,6 +38,9 @@ const reducerInitialState = {
   updateBoardLoading: null,
   updateBoardId: null,
   updateBoardError: null,
+  getBoardPins: null,
+  getBoardPinsError: null,
+  getBoardPinsLoading: null,
 };
 
 export default createReducer(reducerInitialState, {
@@ -129,5 +136,21 @@ export default createReducer(reducerInitialState, {
       getBoardLoading: false,
       getBoard: null,
       getBoardError: payload
-    })
+    }),
+    GET_BOARD_PINS_REQUEST: state =>
+    Object.assign({}, state, {
+      getBoardPinsLoading: true,
+      getBoardPinsError: null
+    }),
+  GET_BOARD_PINS_SUCCESS: (state, payload) =>
+    Object.assign({}, state, {
+      getBoardPinsLoading: false,
+      getBoardPins: payload
+    }),
+  GET_BOARD_PINS_FAILURE: (state, payload) =>
+    Object.assign({}, state, {
+      getBoardPinsLoading: false,
+      getBoardPins: null,
+      getBoardPinsError: payload
+    }),
 });

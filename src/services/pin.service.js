@@ -12,7 +12,7 @@ export const pinService = {
   getBoardsWherePinSaved,
   getBoardsWherePinNotSaved,
   addPinToBoard,
-  deletePinFromBoard
+  deletePinFromBoard,
 };
 
 function updatePin(id, name, description) {

@@ -36,22 +36,17 @@ body {
   padding-right: 0.75rem;
 }
 
-.square {
-  width: 100%;
-  vertical-align: middle;
-  /* height: 100%; */
-  /* float: left;
+.square-container {
+  float: left;
   position: relative;
   width: 10%;
-  height: 0;
   padding-bottom: 10%;
-  /* width: 10%; */
-  /* width: 30%; */
-  /* padding-bottom: 30%; */
-  /* margin: 1.66%; 
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover; */
+  height: 0;
+  vertical-align: middle;
+}
+
+.square-container-active {
+  background-color: cadetblue;
 }
 
 .square-container:hover .square {
@@ -63,28 +58,11 @@ body {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
 }
 
-.square-container {
-  float: left;
-  position: relative;
-  width: 10%;
-  padding-bottom: 10%;
-  /* width: 50%;
-  padding-bottom: 50%; */
-  height: 0;
-  /* width: 10%; */
-  /* width: 30%; */
-  /* padding-bottom: 30%; */
-  /* margin: 1.66%; */
-  /* background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover; */
-  /* background-color: azure; */
+.square {
+  width: 100%;
   vertical-align: middle;
 }
 
-.square-container-active {
-  background-color: cadetblue;
-}
 .square-active {
   -webkit-transform: scale(0.9);
   transform: scale(0.9);
@@ -94,21 +72,19 @@ body {
   background-color: #fff;
 }
 
-.description-container:hover {
-  /* -webkit-transform: scale(0.9); */
-  /* transform: scale(0.9); */
+.description__container:hover {
   -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23),
     0 3px 10px rgba(0, 0, 0, 0.16);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
   cursor: pointer;
 }
 
-.description-container-active {
+.description__container--active {
   border: 3px solid cadetblue !important;
   padding: 5px;
 }
 
-.description-container {
+.description__container {
   padding: 8px;
 }
 
@@ -137,19 +113,6 @@ body {
   color: #26a69a;
 }
 
-/* .board__card__content:link {
-  color: #313131;
-}
-
-.board__card__content:visited {
-  color: #313131;
-}
-
-.board__card__content:hover {
-  color: #26a69a;
-  cursor: pointer;
-} */
-
 .board__card__text--short {
   white-space: nowrap;
   overflow: hidden;
@@ -162,62 +125,11 @@ body {
   cursor: pointer;
   border-radius: 50%;
   background-color: #f4f4f6;
-  /* filter: grayscale(100%); */
-  /* border: solid 5px tomato; */
   border: 5px solid #f4f4f6;
   margin-left: 6px;
 }
 
-/* 
-.board__card__link:hover {
-} */
-
-.tooltip {
-  position: relative;
-  /* display: inline-block; */
-  /* border-bottom: 1px dotted black; */
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  position: absolute;
-  width: 120px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  /* padding: 5px 0; */
-  border-radius: 6px;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.tooltip-bottom {
-  top: 0%;
-  /* left: 50%; */
-  left: 10px;
-  margin-left: -60px;
-}
-
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-  transform: rotate(180deg);
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
-}
-
 .board__misc {
-  /* display: inline-flex; */
   color: #8e8e8e;
 }
 
@@ -245,51 +157,13 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-
-
-
-/* .board__misc__item:before {
-  content: "\e899";
-  vertical-align: top;
-  display: inline-block;
-  font-family: "Material Icons";
-  font-weight: normal;
-  font-style: normal;
-  font-size: 15px;
-  margin: 0 5px 0 2px;
-  -webkit-font-smoothing: antialiased;
-} */
-
-/* .board__misc__item:first-child:before {
-  display: none;
-} */
-
-.board__misc__item {
-  padding-right: 10px;
-}
-
 .board__page__title {
   display: inline-flex;
-  /* color: #8e8e8e; */
 }
 
 .title__wrap {
   word-break: break-all;
 }
-
-/* .board__misc h6:after {
-  content: ".";
-  padding-left: 4px;
-  padding-right: 4px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-  transform: rotate(180deg);
-}
-
-.board__misc h6:last-child:after  {
-  display: none; */
-/* } */
 
 .menu__item--active {
   background-color: rgba(0, 0, 0, 0.1);
@@ -317,10 +191,3 @@ body {
   padding: 15px;
   margin: 0;
 }
-/* profileButtns
-.list__item {
-    padding: 10px 10px;
-    margin: 0px;
-    height: 55px;
-    cursor: pointer;
-} */

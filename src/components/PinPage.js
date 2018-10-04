@@ -99,7 +99,13 @@ class PinPage extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col l8 offset-l2 m8 l9 legacy-content">
-              {this.props.pin.loading && (
+              {this.props.pin.getPinLoading && (
+                <div className="progress">
+                  <div className="indeterminate" />
+                </div>
+              )}
+              asd
+              {this.props.pin.getAllPinsLoading && (
                 <div className="progress">
                   <div className="indeterminate" />
                 </div>

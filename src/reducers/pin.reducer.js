@@ -8,17 +8,23 @@ import {
   DELETE_PIN_FAILURE,
   GETALL_PIN_REQUEST,
   GETALL_PIN_SUCCESS,
-  GETALL_PIN_FAILURE
+  GETALL_PIN_FAILURE,
+  ADD_PIN_TO_BOARD_REQUEST,
+  ADD_PIN_TO_BOARD_SUCCESS,
+  ADD_PIN_TO_BOARD_FAILURE,
+  DELETE_PIN_FROM_BOARD_REQUEST,
+  DELETE_PIN_FROM_BOARD_SUCCESS,
+  DELETE_PIN_FROM_BOARD_FAILURE
 } from "../constants/pin.constants";
 
 const reducerInitialState = {
   pins: null,
   pin: null,
-  statusText: null,
-  loading: null,
-  getAllPinsError: null,
-  getPinError: null,
+  getPinLoading: null,
   AddPinError: null,
+  loading: null,
+  getAllPinsLoading: null,
+  getAllPinsError: null,
   AddPinLoading: null,
   AddPinRedirectTo: null,
   deletePinError: null,
@@ -26,32 +32,31 @@ const reducerInitialState = {
   updatePinLoading: null,
   updatePinError: null,
   updatePinId: null,
+  AddPinToBoardLoading: null,
+  AddPinToBoard: null,
+  AddPinToBoardError: null,
+  DeletePinFromBoardLoading: null,
+  DeletePinFromBoard: null,
+  DeletePinFromBoardError: null,
 };
-// debugger
 
 export default createReducer(reducerInitialState, {
   ADD_PIN_REQUEST: state =>
     Object.assign({}, state, {
-      statusText: null,
       AddPinLoading: true,
-      AddPinRedirectTo: null
+      AddPinRedirectTo: null,
+      AddPinError: payload,
     }),
   ADD_PIN_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
-      // statusText: 'You have been successfully logged in.',
       AddPinLoading: false,
       AddPinRedirectTo: payload.id
-      // pins: [
-      //   ...state.pins,
-      //   payload.pin
-      // ]
     }),
   ADD_PIN_FAILURE: (state, payload) =>
     Object.assign({}, state, {
-      // statusText: payload.statusText,
       AddPinLoading: false,
       pin: null,
-      AddPinError: payload
+      AddPinError: payload,
     }),
   UPDATE_PIN_REQUEST: (state, payload) =>
     Object.assign({}, state, {
@@ -63,9 +68,6 @@ export default createReducer(reducerInitialState, {
   UPDATE_PIN_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
       updatePinLoading: false
-      // boards: state.boards.map(function(item) {
-      //   return item.id == payload.board.id ? payload.board : item;
-      // })
     }),
   UPDATE_PIN_FAILURE: (state, payload) =>
     Object.assign({}, state, {
@@ -75,54 +77,83 @@ export default createReducer(reducerInitialState, {
     }),
   DELETE_PIN_REQUEST: state =>
     Object.assign({}, state, {
-      statusText: null,
-      deletePinLoading: true
+      deletePinLoading: true,
+      deletePinError: true,
     }),
   DELETE_PIN_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
-      // statusText: 'You have been successfully logged in.',
       deletePinLoading: false,
       pin: payload,
       pins: state.pins.filter(t => t.id != payload.pin.id)
     }),
   DELETE_PIN_FAILURE: (state, payload) =>
     Object.assign({}, state, {
-      statusText: payload.statusText,
       deletePinLoading: false,
       pin: null,
       deletePinError: payload
     }),
   GETALL_PIN_REQUEST: state =>
     Object.assign({}, state, {
-      loading: true,
+      getAllPinsLoading: true,
       getAllPinsError: null
     }),
   GETALL_PIN_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
-      loading: false,
+      getAllPinsLoading: false,
       pins: payload
     }),
   GETALL_PIN_FAILURE: (state, payload) =>
     Object.assign({}, state, {
-      statusText: payload.statusText,
-      loading: false,
+      getAllPinsLoading: false,
       pins: null,
       getAllPinsError: payload
     }),
   GET_PIN_REQUEST: state =>
     Object.assign({}, state, {
-      loading: true,
+      getPinLoading: true,
       getPinError: null
     }),
   GET_PIN_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
-      loading: false,
+      getPinLoading: false,
       pin: payload
     }),
   GET_PIN_FAILURE: (state, payload) =>
     Object.assign({}, state, {
-      loading: false,
+      getPinLoading: false,
       pin: null,
       getPinError: payload
+    }),
+  ADD_PIN_TO_BOARD_REQUEST: state =>
+    Object.assign({}, state, {
+      AddPinToBoardLoading: true,
+      AddPinToBoardError: null
+    }),
+  ADD_PIN_TO_BOARD_SUCCESS: (state, payload) =>
+    Object.assign({}, state, {
+      AddPinToBoardLoading: false,
+      AddPinToBoard: payload
+    }),
+  ADD_PIN_TO_BOARD_FAILURE: (state, payload) =>
+    Object.assign({}, state, {
+      AddPinToBoardLoading: false,
+      AddPinToBoard: null,
+      AddPinToBoardError: payload
+    }),
+  DELETE_PIN_FROM_BOARD_REQUEST: state =>
+    Object.assign({}, state, {
+      DeletePinFromBoardLoading: true,
+      DeletePinFromBoardError: null
+    }),
+  DELETE_PIN_FROM_BOARD_SUCCESS: (state, payload) =>
+    Object.assign({}, state, {
+      DeletePinFromBoardLoading: false,
+      DeletePinFromBoard: payload
+    }),
+  DELETE_PIN_FROM_BOARD_FAILURE: (state, payload) =>
+    Object.assign({}, state, {
+      DeletePinFromBoardLoading: false,
+      DeletePinFromBoard: null,
+      DeletePinFromBoardError: payload
     })
 });

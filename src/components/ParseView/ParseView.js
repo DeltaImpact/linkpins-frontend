@@ -196,8 +196,8 @@ class ParseView extends React.Component {
             key={i}
             className={
               this.state.previewDescription == text
-                ? "description-container-active description-container"
-                : "description-container"
+                ? "description__container--active description__container"
+                : "description__container"
             }
             // className="collection-item avatar pin-content"
             onClick={() => this.choosePossibleDescription(text)}
