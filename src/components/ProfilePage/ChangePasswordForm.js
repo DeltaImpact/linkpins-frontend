@@ -64,7 +64,6 @@ class ChangePasswordForm extends React.Component {
 
   changePassword(e) {
     e.preventDefault();
-    debugger
     this.props.changePassword(
       this.state.passwordOld,
       this.state.password,
@@ -120,7 +119,7 @@ class ChangePasswordForm extends React.Component {
 
   changePassword(e) {
     e.preventDefault();
-    // debugger
+  
     this.props.changePassword(
       this.state.passwordOld,
       this.state.password,
@@ -217,7 +216,7 @@ class ChangePasswordForm extends React.Component {
 
 function mapStateToProps(state) {
   const { account } = state;
-  // debugger
+
   return {
     account
   };

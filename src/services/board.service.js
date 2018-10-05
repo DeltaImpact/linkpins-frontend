@@ -51,7 +51,7 @@ function addBoard(name, description, img, isPrivate) {
     .then(parseJSON)
     .then(
       response => {
-        // debugger;
+      ;
         return response;
       },
       error => {
@@ -97,7 +97,7 @@ function getBoard(id) {
     .then(
       user => {
         // console.log(user)
-        // debugger
+      
         return user;
       },
       error => {
@@ -120,7 +120,7 @@ function deleteBoard(Id) {
     .then(parseJSON)
     .then(
       response => {
-        // debugger;
+      ;
         return response;
       },
       error => {
@@ -130,7 +130,7 @@ function deleteBoard(Id) {
 }
 
 function updateBoard(id, name, description, isPrivate) {
-  // debugger
+
   return axios
     .post(
       `${config.apiUrl}/board/updateBoard`,
@@ -149,11 +149,11 @@ function updateBoard(id, name, description, isPrivate) {
     .then(parseJSON)
     .then(
       response => {
-        // debugger;
+      ;
         return response;
       },
       error => {
-        // debugger;
+      ;
         return Promise.reject(processErrorResponse(error));
       }
     );

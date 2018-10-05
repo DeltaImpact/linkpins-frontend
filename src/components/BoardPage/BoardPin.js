@@ -18,7 +18,6 @@ export class BoardPin extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    debugger
     if (
       this.props.board !== nextProps.board ||
       this.props.data !== nextProps.data
@@ -29,7 +28,7 @@ export class BoardPin extends React.Component {
   }
   
   handleHover() {
-    // debugger
+  
     // let asd = this.state;
     this.setState({
       isHovered: !this.state.isHovered
@@ -37,7 +36,7 @@ export class BoardPin extends React.Component {
   }
 
   renderCard(pin) {
-    // debugger
+  
 
     return (
       <li
@@ -80,7 +79,7 @@ export class BoardPin extends React.Component {
               className="material-icons board__card__button"
               onClick={e => {
                 e.preventDefault;
-                // debugger
+              
                 this.setState({
                   editTitle: pin.name,
                   editDescription: pin.description,
@@ -99,7 +98,7 @@ export class BoardPin extends React.Component {
               onClick={e => {
                 e.preventDefault;
                 // let tmp = board.name;
-                // debugger;
+              ;
                 this.props.deleteBoard(board.id);
               }}
             >
@@ -125,7 +124,7 @@ export class BoardPin extends React.Component {
     let editTitle_is_valid = false;
     let boardDescription_is_valid = false;
     if (this.state.editTitle === "" || this.state.editTitle === null) {
-      // debugger;
+    ;
       this.setState({
         editTitle_error_text: null
       });
@@ -156,7 +155,7 @@ export class BoardPin extends React.Component {
   }
 
   renderEditCard(pin) {
-    // debugger
+  
     return (
       <li
         key={pin.id}
@@ -260,7 +259,7 @@ export class BoardPin extends React.Component {
               onClick={e => {
                 e.preventDefault;
                 // let asd = this.state;
-                // debugger;
+              ;
                 if (this.state.isDisabled)
                   this.props.updateBoard(
                     pin.id,
@@ -283,7 +282,7 @@ export class BoardPin extends React.Component {
   }
 
   renderPin(pin) {
-    // debugger
+  
     // return (
     //   <li key={pin.id} className="collection-item avatar pin-content">
     //     <Link key={pin.id} to={"/pin/" + pin.id}>
@@ -307,7 +306,7 @@ export class BoardPin extends React.Component {
     //       className="secondary-content"
     //       onClick={e => {
     //         e.preventDefault;
-    //         // debugger
+    //       
     //         this.props.deletePin(pin.id);
     //       }}
     //     >
@@ -319,11 +318,11 @@ export class BoardPin extends React.Component {
 
   render() {
     let { pin } = this.props;
-    // debugger
+  
     return this.state.editMode == false
       ? this.renderCard(pin)
       : this.renderEditCard(pin);
-    // debugger
+  
     // let { pins } = this.props;
     // return <ul className="collection">{this.renderPins(pins)}</ul>;
   }

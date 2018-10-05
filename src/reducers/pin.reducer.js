@@ -9,6 +9,12 @@ import {
   GETALL_PIN_REQUEST,
   GETALL_PIN_SUCCESS,
   GETALL_PIN_FAILURE,
+  GET_PIN_BOARDS_REQUEST,
+  GET_PIN_BOARDS_SUCCESS,
+  GET_PIN_BOARDS_FAILURE,
+  GET_PIN_AVALIABE_BOARDS_REQUEST,
+  GET_PIN_AVALIABE_BOARDS_SUCCESS,
+  GET_PIN_AVALIABE_BOARDS_FAILURE,
   ADD_PIN_TO_BOARD_REQUEST,
   ADD_PIN_TO_BOARD_SUCCESS,
   ADD_PIN_TO_BOARD_FAILURE,
@@ -38,6 +44,12 @@ const reducerInitialState = {
   DeletePinFromBoardLoading: null,
   DeletePinFromBoard: null,
   DeletePinFromBoardError: null,
+  GetPinBoardsLoading: null,
+  GetPinBoards: null,
+  GetPinBoardsError: null,
+  GetPinAvaliableBoardsLoading: null,
+  GetPinAvaliableBoards: null,
+  GetPinAvaliableBoardsError: null
 };
 
 export default createReducer(reducerInitialState, {
@@ -45,7 +57,7 @@ export default createReducer(reducerInitialState, {
     Object.assign({}, state, {
       AddPinLoading: true,
       AddPinRedirectTo: null,
-      AddPinError: payload,
+      AddPinError: payload
     }),
   ADD_PIN_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
@@ -56,7 +68,7 @@ export default createReducer(reducerInitialState, {
     Object.assign({}, state, {
       AddPinLoading: false,
       pin: null,
-      AddPinError: payload,
+      AddPinError: payload
     }),
   UPDATE_PIN_REQUEST: (state, payload) =>
     Object.assign({}, state, {
@@ -78,13 +90,13 @@ export default createReducer(reducerInitialState, {
   DELETE_PIN_REQUEST: state =>
     Object.assign({}, state, {
       deletePinLoading: true,
-      deletePinError: true,
+      deletePinError: true
     }),
   DELETE_PIN_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
       deletePinLoading: false,
-      pin: payload,
-      pins: state.pins.filter(t => t.id != payload.pin.id)
+      pin: payload
+      // pins: state.pins.filter(t => t.id != payload.pin.id)
     }),
   DELETE_PIN_FAILURE: (state, payload) =>
     Object.assign({}, state, {
@@ -132,7 +144,10 @@ export default createReducer(reducerInitialState, {
   ADD_PIN_TO_BOARD_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
       AddPinToBoardLoading: false,
-      AddPinToBoard: payload
+      GetPinBoards: [...state.GetPinBoards, payload],
+      GetPinAvaliableBoards: state.GetPinAvaliableBoards.filter(
+        t => t.id != payload.id
+      )
     }),
   ADD_PIN_TO_BOARD_FAILURE: (state, payload) =>
     Object.assign({}, state, {
@@ -148,12 +163,45 @@ export default createReducer(reducerInitialState, {
   DELETE_PIN_FROM_BOARD_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
       DeletePinFromBoardLoading: false,
-      DeletePinFromBoard: payload
+      GetPinAvaliableBoards: [...state.GetPinAvaliableBoards, payload],
+      GetPinBoards: state.GetPinBoards.filter(t => t.id != payload.id)
     }),
   DELETE_PIN_FROM_BOARD_FAILURE: (state, payload) =>
     Object.assign({}, state, {
       DeletePinFromBoardLoading: false,
       DeletePinFromBoard: null,
+      DeletePinFromBoardError: payload
+    }),
+  GET_PIN_BOARDS_REQUEST: state =>
+    Object.assign({}, state, {
+      GetPinBoardsLoading: true,
+      GetPinBoardsError: null
+    }),
+  GET_PIN_BOARDS_SUCCESS: (state, payload) =>
+    Object.assign({}, state, {
+      GetPinBoardsLoading: false,
+      GetPinBoards: payload
+    }),
+  GET_PIN_BOARDS_FAILURE: (state, payload) =>
+    Object.assign({}, state, {
+      GetPinBoardsLoading: false,
+      GetPinBoards: null,
+      GetPinBoardsError: payload
+    }),
+  GET_PIN_AVALIABE_BOARDS_REQUEST: state =>
+    Object.assign({}, state, {
+      GetPinAvaliableBoardsLoading: true,
+      GetPinAvaliableBoardsError: null
+    }),
+  GET_PIN_AVALIABE_BOARDS_SUCCESS: (state, payload) =>
+    Object.assign({}, state, {
+      GetPinAvaliableBoardsLoading: false,
+      GetPinAvaliableBoards: payload
+    }),
+  GET_PIN_AVALIABE_BOARDS_FAILURE: (state, payload) =>
+    Object.assign({}, state, {
+      GetPinAvaliableBoardsLoading: false,
+      GetPinAvaliableBoards: null,
       DeletePinFromBoardError: payload
     })
 });

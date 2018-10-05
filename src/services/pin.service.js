@@ -2,6 +2,7 @@ import { authHeader } from "../helpers";
 import axios from "axios";
 import { parseJSON, processErrorResponse } from "../utils/misc";
 import config from "config";
+import { history } from "../helpers";
 
 export const pinService = {
   addPin,
@@ -12,11 +13,10 @@ export const pinService = {
   getBoardsWherePinSaved,
   getBoardsWherePinNotSaved,
   addPinToBoard,
-  deletePinFromBoard,
+  deletePinFromBoard
 };
 
 function updatePin(id, name, description) {
-  // debugger
   return axios
     .post(
       `${config.apiUrl}/pin/updatePin`,
@@ -34,11 +34,9 @@ function updatePin(id, name, description) {
     .then(parseJSON)
     .then(
       response => {
-        // debugger;
         return response;
       },
       error => {
-        // debugger;
         return Promise.reject(processErrorResponse(error));
       }
     );
@@ -64,7 +62,6 @@ function addPin(name, description, img, Link, BoardId) {
     .then(parseJSON)
     .then(
       response => {
-        // debugger;
         return response;
       },
       error => {
@@ -74,20 +71,17 @@ function addPin(name, description, img, Link, BoardId) {
 }
 
 function getPins() {
-  // axios.defaults.headers.common["Authorization"] = authHeader();
   return axios
     .post(
       `${config.apiUrl}/pin/getPins`,
       {},
       {
-        // .post("http://httpbin.org/post", {},  {
         headers: { Authorization: authHeader() }
       }
     )
     .then(parseJSON)
     .then(
       user => {
-        // console.log(user)
         return user;
       },
       error => {
@@ -112,26 +106,17 @@ function getPin(id) {
     );
 }
 
-function deletePin(Id) {
+function deletePin(id) {
+  axios.defaults.headers.common["Authorization"] = authHeader();
   return axios
-    .post(
-      `${config.apiUrl}/pin/deletePin`,
-      { Id: Id },
-      {
-        headers: {
-          Authorization: authHeader()
-        }
-      }
-    )
+    .delete(`${config.apiUrl}/pin/deletePin`, { params: { pinId: id } })
     .then(parseJSON)
     .then(
       response => {
-        // debugger;
+        window.location.reload();
         return response;
       },
       error => {
-        debugger;
-
         return Promise.reject(processErrorResponse(error));
       }
     );
@@ -139,13 +124,9 @@ function deletePin(Id) {
 
 function getBoardsWherePinSaved(id) {
   return axios
-    .get(
-      `${config.apiUrl}/pin/getBoardsWherePinSaved?pinId=${id}`,
-      { pinId: id },
-      {
-        headers: { Authorization: authHeader() }
-      }
-    )
+    .get(`${config.apiUrl}/pin/getBoardsWherePinSaved?pinId=${id}`, {
+      headers: { Authorization: authHeader() }
+    })
     .then(parseJSON)
     .then(
       user => {
@@ -159,17 +140,12 @@ function getBoardsWherePinSaved(id) {
 
 function getBoardsWherePinNotSaved(id) {
   return axios
-    .get(
-      `${config.apiUrl}/pin/getBoardsWherePinNotSaved?pinId=${id}`,
-      // { pinId: id },
-      {
-        headers: { Authorization: authHeader() }
-      }
-    )
+    .get(`${config.apiUrl}/pin/getBoardsWherePinNotSaved?pinId=${id}`, {
+      headers: { Authorization: authHeader() }
+    })
     .then(parseJSON)
     .then(
       user => {
-        debugger;
         return user;
       },
       error => {
@@ -190,6 +166,7 @@ function addPinToBoard(pinId, boardId) {
     .then(parseJSON)
     .then(
       user => {
+        
         return user;
       },
       error => {
@@ -199,21 +176,22 @@ function addPinToBoard(pinId, boardId) {
 }
 
 function deletePinFromBoard(pinId, boardId) {
-  return axios
-    .delete(
-      `${config.apiUrl}/pin/deletePinFromBoard`,
-      { PinId: pinId, BoardId: boardId },
-      {
-        headers: { Authorization: authHeader() }
-      }
-    )
-    .then(parseJSON)
-    .then(
-      user => {
-        return user;
-      },
-      error => {
-        return Promise.reject(processErrorResponse(error));
-      }
-    );
+  return (
+    axios({
+      url: `${config.apiUrl}/pin/deletePinFromBoard`,
+      method: "delete",
+      data: { PinId: pinId, BoardId: boardId },
+      headers: { Authorization: authHeader() }
+    })
+      .then(parseJSON)
+      .then(
+        user => {
+          if (user.isLast) history.push("/");
+          return user;
+        },
+        error => {
+          return Promise.reject(processErrorResponse(error));
+        }
+      )
+  );
 }

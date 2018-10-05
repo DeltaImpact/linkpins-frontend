@@ -78,7 +78,7 @@ class ParseView extends React.Component {
   savePin(id, name) {
     // this.state.previewBoardId = id;
     // this.state.previewBoardName = name;
-    // debugger;
+  ;
     this.props.addPin(
       this.state.previewTitle,
       this.state.previewDescription,
@@ -86,30 +86,9 @@ class ParseView extends React.Component {
       this.props.parse.page.url,
       id
     );
-    // this.props.add(this.state.url, this.state.redirectTo);
-
-    // this.state.previewImage = null;
-    // this.state.previewTitle = null;
-    // this.state.previewDescription = null;
-
-    // this.props.parse(this.state.url, this.state.redirectTo);
   }
 
-  // componentDidReceiveProps() {
-  //   if (this.props.parse.page) {
-  //     this.state.previewImage = this.props.parse.page.images[0];
-  //     this.state.previewTitle = this.props.parse.page.possibleDescriptions[0];
-  //     this.state.previewDescription = this.props.parse.page.header;
-  //     debugger
-  //   } else {
-  //     this.state.previewImage = null;
-  //     this.state.previewTitle = null;
-  //     this.state.previewDescription = null;
-  //   }
-  // }
-
   componentWillReceiveProps(nextProps) {
-    // debugger
     if (
       this.props.board !== nextProps.board ||
       this.props.parse !== nextProps.parse
@@ -119,27 +98,12 @@ class ParseView extends React.Component {
   componentDidUpdate() {
     if (this.needsUpdate) {
       this.needsUpdate = false;
-      // debugger;
-      // let sda = this.props;
       if (this.props.parse.page) {
         this.state.previewImage = this.props.parse.page.images[0];
         this.state.previewDescription = this.props.parse.page.possibleDescriptions[0];
         this.state.previewTitle = this.props.parse.page.header;
       }
-      // alert(JSON.stringify(this.props))
     }
-  }
-
-  componentWillUpdate() {
-    // if (this.props.parse.page) {
-    //   this.state.previewImage = this.props.parse.page.images[0];
-    //   this.state.previewTitle = this.props.parse.page.possibleDescriptions[0];
-    //   this.state.previewDescription = this.props.parse.page.header;
-    // } else {
-    //   this.state.previewImage = null;
-    //   this.state.previewTitle = null;
-    //   this.state.previewDescription = null;
-    // }
   }
 
   submitClasses() {
@@ -151,8 +115,6 @@ class ParseView extends React.Component {
   renderImages() {
     if (this.state.previewImage == null)
       this.state.previewImage = this.props.parse.page.images[0];
-    // if (this.state.previewTitle==null) this.state.previewTitle = this.props.parse.page.possibleDescriptions[0];
-    // if (this.state.previewDescription==null) this.state.previewDescription = this.props.parse.page.header;
     return this.props.parse.page.images.map((img, i) => {
       return (
         <li
@@ -164,29 +126,18 @@ class ParseView extends React.Component {
           }
           onClick={() => this.chooseImage(img)}
         >
-          {/* <img src={img} className="circle" /> */}
           <img
             src={img}
-            //  className="square"
             className={
               this.state.previewImage == img ? "square square-active" : "square"
             }
           />
         </li>
-        // <ImageInList
-        //   id={i}
-        //   url={img}
-        //   clickHandler={() => this.chooseImage(img)}
-        //   {...img}
-        // />
       );
     });
   }
 
   renderPossibleDescriptions() {
-    // this.state.previewImage = this.props.parse.page.images[0];
-    // this.state.previewTitle = this.props.parse.page.possibleDescriptions[0];
-    // this.state.previewDescription = this.props.parse.page.header;
     if (this.state.previewDescription == null)
       this.state.previewDescription = this.props.parse.page.possibleDescriptions[0];
     return this.props.parse.page.possibleDescriptions.map((text, i) => {
@@ -199,7 +150,6 @@ class ParseView extends React.Component {
                 ? "description__container--active description__container"
                 : "description__container"
             }
-            // className="collection-item avatar pin-content"
             onClick={() => this.choosePossibleDescription(text)}
           >
             <div className={this.state.previewDescription == text ? "" : ""}>
@@ -267,7 +217,6 @@ class ParseView extends React.Component {
               ? this.props.parse.page.possibleDescriptions[0]
               : this.state.previewDescription
           }
-          // item={this.props.parse.page}
         />
       </div>
     );
@@ -285,69 +234,75 @@ class ParseView extends React.Component {
     });
   }
 
+  renderParseForm() {
+    return (
+      <div className="col hg22 offset-hg1">
+        <h2 className="center-align">Page parse</h2>
+        {this.props.parse.loading && (
+          <div className="progress">
+            <div className="indeterminate" />
+          </div>
+        )}
+        <div className="row">
+          <form className="col s12">
+            {this.props.parse.error && (
+              <div className="row error--container">
+                <div className="error error--text alert alert-info">
+                  {this.props.parse.error.errorMessage}
+                </div>
+              </div>
+            )}
+            <div className="row">
+              <div className="input-field col s12">
+                <input
+                  id="url"
+                  type="text"
+                  value={this.state.url}
+                  onChange={e => this.changeValue(e, "url")}
+                />
+                <label
+                  htmlFor="url"
+                  className={this.state.url != null ? "active" : ""}
+                >
+                  Site url
+                </label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col m12">
+                <div className="col s10  offset-s1">
+                  <button
+                    className={this.submitClasses()}
+                    type="button"
+                    name="action"
+                    onClick={e => this.parse(e)}
+                  >
+                    Parse
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  renderBoardsNotFound() {
+    return (
+      <div className="col hg22 offset-hg1">
+        <h4 className="center-align">Please, create any board, to start.</h4>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div>
         <div className="container">
           <div className="row">
             <div className="col m4 offset-m4 z-depth-3 card-panel">
-              <div className="col hg22 offset-hg1">
-                <h2 className="center-align">Page parse</h2>
-                {/* <h2 className="center-align">{this.state.previewImage}</h2> */}
-                {this.props.parse.loading && (
-                  <div className="progress">
-                    <div className="indeterminate" />
-                  </div>
-                )}
-                <div className="row">
-                  <form className="col s12">
-                    {this.props.parse.error && (
-                      <div className="row error--container">
-                        <div className="error error--text alert alert-info">
-                          {this.props.parse.error.errorMessage}
-                        </div>
-                      </div>
-                    )}
-                    <div className="row">
-                      <div className="input-field col s12">
-                        <input
-                          id="url"
-                          type="text"
-                          value={this.state.url}
-                          // className={this.emailClasses()}
-                          onChange={e => this.changeValue(e, "url")}
-                        />
-                        <label
-                          htmlFor="url"
-                          className={this.state.url != null ? "active" : ""}
-                        >
-                          Site url
-                        </label>
-                        {/* {
-                                            this.state.email_error_text &&
-                                            <div className="error--text">
-                                                {this.state.email_error_text}
-                                            </div>
-                                        } */}
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col m12">
-                        <div className="col s10  offset-s1">
-                          <button
-                            className={this.submitClasses()}
-                            type="button"
-                            name="action"
-                            onClick={e => this.parse(e)}
-                          >
-                            Parse
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
+              {this.props.board.boards != null ? this.renderParseForm() : this.renderBoardsNotFound()}
             </div>
           </div>
         </div>
@@ -355,46 +310,7 @@ class ParseView extends React.Component {
         {this.props.parse.page && (
           <div className="container">
             <div className="row ">
-              {/* <ul className="tabs z-depth-1">
-                <li className="tab">
-                  <a
-                    // href=""
-                    onClick={e =>
-                      this.setState({
-                        mode: "preview"
-                      })
-                    }
-                    className={
-                      this.state.mode == "preview"
-                        ? "tab__container tab__container--active black-text"
-                        : "tab__container black-text"
-                    }
-                  >
-                    Preview
-                  </a>
-                </li>
-                <li
-                  className="tab"
-                  onClick={e =>
-                    this.setState({
-                      mode: "edit"
-                    })
-                  }
-                >
-                  <a
-                    className={
-                      this.state.mode == "edit"
-                        ? "tab__container tab__container--active black-text"
-                        : "tab__container black-text"
-                    }
-                  >
-                    Manual editing
-                  </a>
-                </li>
-              </ul> */}
-
               {this.state.mode == "preview" && this.renderRecordPreview()}
-              {/* {this.state.mode == "edit" && this.renderManualEdit()} */}
             </div>
           </div>
         )}
@@ -414,25 +330,6 @@ class ParseView extends React.Component {
             </div>
           </div>
         </div>
-
-        {/* {this.props.parse.page && (
-          <div className="container">
-            <div className="row">
-              <div className="card-panel">
-                <button
-                  className={this.submitClasses()}
-                  type="button"
-                  name="action"
-                  // onClick={e => this.parse(e)}
-                >
-                  Save
-                </button>
-              </div>
-            </div>
-          </div>
-        )} */}
-
-        {/* <div className="col m4 offset-m4 z-depth-3 card-panel"></div> */}
 
         <div className="container">
           <div className="row">
@@ -455,10 +352,6 @@ class ParseView extends React.Component {
             )}
           </div>
         </div>
-        {/* <ul>{this.props.parse.page && this.renderImages()}</ul> */}
-        {/* <div className="z-depth-3">
-          {this.props.parse.page && JSON.stringify(this.props.parse.page.images)}
-        </div> */}
       </div>
     );
   }
@@ -466,7 +359,6 @@ class ParseView extends React.Component {
 
 function mapStateToProps(state) {
   const { parse, board } = state;
-  //   debugger
   return {
     parse,
     board
@@ -480,12 +372,8 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-ParseView.propTypes = {
-  // register: React.PropTypes.func,
-  // registerError: React.PropTypes.string,
-};
+ParseView.propTypes = {};
 
-// const connectedRegisterPage = connect(mapStateToProps)(ParseView);
 const connectedRegisterPage = connect(
   mapStateToProps,
   mapDispatchToProps

@@ -18,7 +18,7 @@ export class UserFields extends React.Component {
       disabled: false,
       // disabled: true
     };
-    // debugger
+  
   }
   // componentWillMount() {}
 
@@ -27,7 +27,7 @@ export class UserFields extends React.Component {
       disabled: true
     });
 
-    // debugger;
+  ;
     if (nextProps.values !== this.props.values) {
       // this.needsUpdate = true;
       this.setState({
@@ -42,7 +42,7 @@ export class UserFields extends React.Component {
   // componentDidUpdate() {
   //   if (this.needsUpdate) {
   //     this.needsUpdate = false;
-  //     // debugger;
+  //   ;
   //     // let sda = this.props;
   //     if (this.props.parse.page) {
   //       this.state.previewImage = this.props.parse.page.images[0];
@@ -162,7 +162,7 @@ export class UserFields extends React.Component {
     //   values_changed = true;
     // }
 
-    // debugger;
+  ;
     if (
       email_is_valid &&
       username_is_valid &&
@@ -193,7 +193,7 @@ export class UserFields extends React.Component {
 
   render() {
     const values = this.props.values;
-    // debugger;
+  ;
     return (
       <div>
         <div className="row">

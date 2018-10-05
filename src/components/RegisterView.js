@@ -19,10 +19,10 @@ class RegisterView extends React.Component {
     super(props);
     const redirectRoute = "/";
     this.state = {
-      email: "user@yandex.ru",
-      username: "user",
-      password: "123456",
-      passwordConf: "123456",
+      email: "",
+      username: "",
+      password: "",
+      passwordConf: "",
       firstName: "",
       surName: "",
       email_error_text: null,

@@ -17,13 +17,13 @@ class ProfilePage extends React.Component {
   }
 
   componentDidMount() {
-    // debugger
+  
     this.props.dataAboutUser();
   }
 
   renderProfile() {
     const { account } = this.props;
-    // debugger
+  
     return (
       <div className="col s12 m8 l10 legacy-content">
         <div className="container card-panel s12">
@@ -147,7 +147,7 @@ class ProfilePage extends React.Component {
 
 function mapStateToProps(state) {
   const { account } = state;
-  // debugger
+
   return {
     account
   };

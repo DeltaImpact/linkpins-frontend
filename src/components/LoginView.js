@@ -12,8 +12,8 @@ class LoginView extends React.Component {
     super(props);
     const redirectRoute = "/";
     this.state = {
-      email: "user123@yandex.ru",
-      password: "123123",
+      email: "",
+      password: "",
       email_error_text: null,
       password_error_text: null,
       redirectTo: redirectRoute,
@@ -108,8 +108,6 @@ class LoginView extends React.Component {
   }
 
   render() {
-    // debugger
-    // this.props.account.loginError
     return (
       <div className="container">
         <div className="row">
@@ -125,15 +123,6 @@ class LoginView extends React.Component {
                 <form className="col s12">
                   {this.props.account.loginError &&
                     renderError(this.props.account.loginError)}
-                  {/* {
-                                        this.props.account.loginError &&
-                                        this.props.account.loginError &&
-                                        <div className="row error--container">
-                                            <div className="error error--text alert alert-info">
-                                                {this.props.account.loginError}
-                                            </div>
-                                        </div>
-                                    } */}
                   <div className="row">
                     <div className="input-field col s12">
                       <input

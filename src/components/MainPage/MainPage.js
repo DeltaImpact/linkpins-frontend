@@ -10,12 +10,8 @@ class MainPage extends React.Component {
     super(props);
     this.state = {
       ShowNewBoardForm: false,
-      // ShowNewBoardForm: true,
-      // boardTitle: null,
       boardTitle: "123",
       boardDescription: null,
-      // boardTitle: "Title",
-      // boardDescription: "Description",
       isBoardPrivate: false,
       boardTitle_error_text: null,
       boardDescription_error_text: null,
@@ -28,10 +24,9 @@ class MainPage extends React.Component {
   }
 
   renderPublicBoards() {
-    // debugger
+  
     return this.props.board.boards
       .map((board, i) => {
-        // return this.renderBoard(board);
         if (board.isPrivate == false) return this.renderBoard(board);
       })
       .filter(n => n);
@@ -55,7 +50,7 @@ class MainPage extends React.Component {
   }
 
   renderBoard(board) {
-    // debugger
+  
     return (
       <Card
         key={board.id}
@@ -71,7 +66,7 @@ class MainPage extends React.Component {
   }
 
   renderCreateNewBoardForm() {
-    // debugger
+  
     return (
       // <div></div>
       <Card
@@ -215,47 +210,26 @@ class MainPage extends React.Component {
     let boardTitle_is_valid = false;
     let boardDescription_is_valid = false;
     if (this.state.boardTitle === "" || this.state.boardTitle === null) {
-      // this.setState({
-      //   boardTitle_error_text: null
-      // });
     } else if (
       this.state.boardTitle.length > 3 &&
       this.state.boardTitle.length < 500
     ) {
-      debugger;
-
       boardTitle_is_valid = true;
-      // this.setState({
-      //   boardTitle_error_text: null
-      // });
     } else {
       boardTitle_is_valid = false;
-      // this.setState({
-      //   boardTitle_error_text: "Title length should be between 3 and 256."
-      // });
     }
 
     if (
       this.state.boardDescription === "" ||
       this.state.boardDescription === null
     ) {
-      debugger;
-      // this.setState({
-      //   boardTitle_error_text: null
-      // });
     } else if (
       this.state.boardDescription.length > 0 &&
       this.state.boardDescription.length < 500
     ) {
       boardDescription_is_valid = true;
-      // this.setState({
-      //   boardTitle_error_text: null
-      // });
     } else {
       boardDescription_is_valid = false;
-      // this.setState({
-      //   boardTitle_error_text: "Title length should be between 3 and 256."
-      // });
     }
 
     if (boardTitle_is_valid) {
@@ -280,7 +254,7 @@ class MainPage extends React.Component {
   }
 
   render() {
-    // debugger
+  
     return (
       <div className="container">
       <div className="row">

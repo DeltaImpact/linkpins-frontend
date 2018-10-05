@@ -1,19 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
-import { CardFace } from "./CardFace";
-import config from "config";
-// debugger
 import {
-  parseJSON,
-  processErrorResponse,
   dateInWordsToNow,
   renderError
 } from "../../utils/misc";
 export class Card extends React.Component {
   constructor(props) {
     super(props);
-    // debugger;
+  ;
     this.state = {
       isHovered: false,
       mode: "preview",
@@ -51,7 +45,7 @@ export class Card extends React.Component {
     let editTitle_is_valid = false;
     let boardDescription_is_valid = false;
     if (this.state.editTitle === "" || this.state.editTitle === null) {
-      // debugger;
+    ;
       // this.setState({
       //   editTitle_error_text: null
       // });
@@ -79,7 +73,7 @@ export class Card extends React.Component {
       boardDescription_is_valid = false;
     }
 
-    // debugger;
+  ;
     if (editTitle_is_valid && boardDescription_is_valid) {
       this.setState({
         disabled: false
@@ -93,7 +87,7 @@ export class Card extends React.Component {
 
   renderCharacterCounter(string, minLength, maxLength) {
     let length = string != null ? string.length : 0;
-    // debugger
+  
     return (
       <span className="character-counter">
         <span className={length < minLength ? "error--text" : ""}>
@@ -111,14 +105,14 @@ export class Card extends React.Component {
     if (typeOfElement == "AddBoard") {
       return <i className="material-icons circle green">add</i>;
     }
-    // debugger
+  
     if (item.img == null)
       return <i className="material-icons circle green">folder</i>;
     return <img src={item.img} alt="" className="circle" />;
   }
 
   renderEditCard(item, typeOfElement) {
-    // debugger
+  
     return (
       <div>
         {this.renderCardImage(item, typeOfElement)}
@@ -211,12 +205,12 @@ export class Card extends React.Component {
   }
 
   renderRegularCard(item, typeOfElement) {
-    // debugger
+  
     if (typeOfElement == "AddBoard")
       return (
         <div
           onClick={() => {
-            // debugger;
+          ;
             this.setState({
               editIsPrivateBoard: false,
               // editTitle: "12345",
@@ -235,10 +229,6 @@ export class Card extends React.Component {
       <div>
         <Link to={"/" + typeOfElement + "/" + item.id}>
           {this.renderCardImage(item, typeOfElement)}
-          {/* <div className="title board__card__text--short">{item.name}</div>
-
-          <p className="board__card__text--short">{item.description}</p> */}
-
           <div
             className={
               this.props.cardType == "full"
@@ -305,43 +295,19 @@ export class Card extends React.Component {
   }
 
   renderConfirmDelete(item, typeOfElement) {
-    // debugger;
-    // if (this.props.deleteBoard) this.props.deleteBoard(item.id);
-    // if (this.props.deletePin) this.props.deletePin(item.id);
     let deleteCompletelyButton;
     if (this.props.deleteBoard || this.props.deletePin) {
       deleteCompletelyButton = (
         <a
           onClick={e => {
             e.preventDefault;
-            // this.setState({
-            //   mode: "confirmDelete"
-            // });
-            // let tmp = board.name;
+          ;
             if (this.props.deleteBoard) this.props.deleteBoard(item.id);
             if (this.props.deletePin) this.props.deletePin(item.id);
-            // debugger;
           }}
-          class="waves-effect waves-light btn"
+          className="waves-effect waves-light btn"
         >
           Delete {typeOfElement} completely
-        </a>
-      );
-    }
-
-    let deleteRelationButton;
-    if (typeOfElement == "pin") {
-      deleteRelationButton = (
-        <a
-          onClick={e => {
-            e.preventDefault;
-            debugger;
-            // if (this.props.deleteBoard) this.props.deleteBoard(item.id);
-            // if (this.props.deletePin) this.props.deletePin(item.id);
-          }}
-          class="waves-effect waves-light btn"
-        >
-          Delete pin on board
         </a>
       );
     }
@@ -354,18 +320,12 @@ export class Card extends React.Component {
         }.` //`
         }
 
-        <div class="card-action">
-          {deleteCompletelyButton}
-          {deleteRelationButton}
-        </div>
+        <div className="card-action">{deleteCompletelyButton}</div>
       </div>
     );
   }
 
   renderCardActions(item, typeOfElement, isHovered) {
-    // debugger
-    // if (typeOfElement == "AddBoard" || isHovered)
-
     if (this.state.mode == "edit")
       return (
         <div
@@ -390,12 +350,9 @@ export class Card extends React.Component {
                 ? "material-icons board__card__button grey-text"
                 : "material-icons board__card__button"
             }
-            // className="material-icons board__card__button"
             onClick={e => {
               e.preventDefault;
-              // let asd = this.state;
               if (!this.state.disabled) {
-                // debugger;
                 if (this.props.updateBoard) {
                   this.props.updateBoard(
                     item.id,
@@ -430,10 +387,7 @@ export class Card extends React.Component {
 
     if (this.state.mode == "confirmDelete")
       return (
-        <div
-          // to="#!"
-          className="secondary-content"
-        >
+        <div className="secondary-content">
           <i
             className="material-icons board__card__button"
             onClick={e => {
@@ -450,17 +404,12 @@ export class Card extends React.Component {
       );
 
     if (isHovered && typeOfElement != "AddBoard")
-      // debugger
       return (
-        <div
-          // to="#!"
-          className="secondary-content"
-        >
+        <div className="secondary-content">
           <i
             className="material-icons board__card__button"
             onClick={e => {
               e.preventDefault;
-              // debugger;
               this.setState({
                 editTitle: item ? item.name : "",
                 editDescription: item ? item.description : "",
@@ -469,10 +418,6 @@ export class Card extends React.Component {
                 editTitle_error_text: null,
                 disabled: false
               });
-              // if (typeOfElement == "board")
-              //   this.setState({
-              //     editIsPrivateBoard: item.isPrivate
-              //   });
               this.setState({
                 mode: "edit"
               });
@@ -487,14 +432,32 @@ export class Card extends React.Component {
               this.setState({
                 mode: "confirmDelete"
               });
-              // let tmp = board.name;
-              // if (this.props.deleteBoard) this.props.deleteBoard(item.id);
-              // if (this.props.deletePin) this.props.deletePin(item.id);
-              // debugger;
             }}
           >
             delete
           </i>
+          {this.props.pinAction && (
+            <i
+              className="material-icons board__card__button"
+              onClick={e => {
+                e.preventDefault;
+                this.props.pinAction(this.props.pinId, this.props.item.id);
+              }}
+            >
+              playlist_add
+            </i>
+          )}
+          {this.props.unpinAction && (
+            <i
+              className="material-icons board__card__button"
+              onClick={e => {
+                e.preventDefault;
+                this.props.unpinAction(this.props.pinId, this.props.item.id);
+              }}
+            >
+              playlist_add_check
+            </i>
+          )}
         </div>
       );
   }
@@ -502,7 +465,7 @@ export class Card extends React.Component {
   render() {
     const { item, typeOfElement } = this.props;
     this.state.contentType = typeOfElement;
-    // debugger;
+  ;
     let cardContent;
     switch (this.state.mode) {
       case "preview":

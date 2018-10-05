@@ -20,7 +20,7 @@ class BoardPage extends React.Component {
   }
 
   componentWillMount() {
-    // debugger;
+  ;
     if (this.props.match.params.id != null) {
       let boardId = this.props.match.params.id;
       this.props.getBoard(boardId);
@@ -34,7 +34,7 @@ class BoardPage extends React.Component {
   }
 
   renderPin(pin) {
-    // debugger
+  
     return (
       <Card
         key={pin.id}
@@ -45,19 +45,11 @@ class BoardPage extends React.Component {
         loading={this.props.pin.updatePinLoading}
         error={this.props.pin.updatePinError}
         typeOfElement="pin"
-        // loading={this.props.pin}
-        // error={this.props.board.updateBoardError}
-        // objectWithErrorId={this.props.board.updateBoardId}
       />
     );
   }
 
   render() {
-    // if (this.props.board.getBoard) {
-    //   let asd = distanceInWordsToNow(this.props.board.getBoard.modified);
-    //   debugger;
-    // }
-
     return (
       <div>
         <div className="container">
@@ -69,8 +61,8 @@ class BoardPage extends React.Component {
                   <div className="indeterminate" />
                 </div>
               )}
-              <ul className="collection">
-                {this.props.board.getBoard && (
+              {this.props.board.getBoard && (
+                <ul className="collection">
                   <Card
                     item={this.props.board.getBoard}
                     updateBoard={this.props.updateBoard}
@@ -80,8 +72,8 @@ class BoardPage extends React.Component {
                     typeOfElement="board"
                     cardType="full"
                   />
-                )}
-              </ul>
+                </ul>
+              )}
             </div>
           </div>
         </div>

@@ -56,11 +56,11 @@ function convertUTCTimeToLocalTime(UTCDateString) {
 }
 
 export function dateInWordsToNow(date) {
-  return distanceInWordsToNow(convertUTCTimeToLocalTime(date));
+  return date == null ? null : distanceInWordsToNow(convertUTCTimeToLocalTime(date));
 }
 
 export function renderError(error) {
-  // debugger;
+;
   let array = [];
   if (error.messages) {
     if (error.messages.Name) {
@@ -81,7 +81,13 @@ export function renderError(error) {
   if (error.message) {
     array.push(error.message);
   }
-  // debugger;
+
+  if (error.response) {
+    if (error.response.statusText && array.length == 0) {
+      array.push(error.response.statusText);
+    }
+  }
+
   return (
     <div className="error--container">
       {array

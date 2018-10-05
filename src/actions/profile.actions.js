@@ -58,7 +58,6 @@ function editProfile(email, username, firstName, surName, gender) {
       .then(
         user => {
           dispatch(editProfileSuccess(user));
-          // history.push("/");
         },
         error => {
           dispatch(editProfileFailure(error));
@@ -98,7 +97,6 @@ function changePassword(email, password) {
     return profileService.changePassword(email, password).then(
       user => {
         dispatch(changePasswordSuccess(user));
-        // history.push("/");
       },
       error => {
         dispatch(changePasswordFailure(error));

@@ -91,7 +91,6 @@ export function registerUserSuccess(user) {
 }
 
 export function registerUserFailure(error) {
-  // localStorage.removeItem('token');
   return {
     type: userConstants.REGISTER_USER_FAILURE,
     payload: error,
@@ -103,7 +102,6 @@ function logout() {
   return dispatch => {
     dispatch(logoutUserExecution());
     authService.logout();
-    // history.push('/');
   };
 }
 

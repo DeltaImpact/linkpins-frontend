@@ -21,7 +21,6 @@ function updatePin(id, name, description) {
       name,
       description
     };
-    // debugger
     dispatch(updatePinRequest(boardParams));
     return pinService.updatePin(id, name, description).then(
       response => {
@@ -56,7 +55,6 @@ export function updatePinFailure(error) {
 }
 
 function addPin(name, description, img, Link, id) {
-  // debugger
   return function(dispatch) {
     let pinParams = {
       name,
@@ -80,7 +78,7 @@ function addPin(name, description, img, Link, id) {
 }
 
 export function addPinRequest(tmp) {
-  // debugger
+
   return {
     type: pinConstants.ADD_PIN_REQUEST,
     payload: {
@@ -90,7 +88,7 @@ export function addPinRequest(tmp) {
 }
 
 export function addPinSuccess(payload) {
-  // debugger
+
   return {
     type: pinConstants.ADD_PIN_SUCCESS,
     payload
@@ -281,7 +279,6 @@ export function getBoardsWherePinNotSavedFailure(error) {
 }
 
 function addPinToBoard(pinId, boardId) {
-  // debugger
   return function(dispatch) {
     let pinParams = {
       pinId,
@@ -291,8 +288,6 @@ function addPinToBoard(pinId, boardId) {
     return pinService.addPinToBoard(pinId, boardId).then(
       response => {
         dispatch(addPinToBoardSuccess(response));
-        // let pinAddress = "/pin/" + response.id;
-        // history.push(pinAddress);
       },
       error => {
         dispatch(addPinToBoardFailure(error));
@@ -302,7 +297,6 @@ function addPinToBoard(pinId, boardId) {
 }
 
 export function addPinToBoardRequest(tmp) {
-  // debugger
   return {
     type: pinConstants.ADD_PIN_TO_BOARD_REQUEST,
     payload: {
@@ -312,7 +306,6 @@ export function addPinToBoardRequest(tmp) {
 }
 
 export function addPinToBoardSuccess(payload) {
-  // debugger
   return {
     type: pinConstants.ADD_PIN_TO_BOARD_SUCCESS,
     payload
@@ -327,7 +320,6 @@ export function addPinToBoardFailure(error) {
 }
 
 function deletePinFromBoard(pinId, boardId) {
-  // debugger
   return function(dispatch) {
     let pinParams = {
       pinId,
@@ -337,8 +329,6 @@ function deletePinFromBoard(pinId, boardId) {
     return pinService.deletePinFromBoard(pinId, boardId).then(
       response => {
         dispatch(deletePinFromBoardSuccess(response));
-        // let pinAddress = "/pin/" + response.id;
-        // history.push(pinAddress);
       },
       error => {
         dispatch(deletePinFromBoardFailure(error));
@@ -348,7 +338,7 @@ function deletePinFromBoard(pinId, boardId) {
 }
 
 export function deletePinFromBoardRequest(tmp) {
-  // debugger
+
   return {
     type: pinConstants.DELETE_PIN_FROM_BOARD_REQUEST,
     payload: {
@@ -358,7 +348,7 @@ export function deletePinFromBoardRequest(tmp) {
 }
 
 export function deletePinFromBoardSuccess(payload) {
-  // debugger
+
   return {
     type: pinConstants.DELETE_PIN_FROM_BOARD_SUCCESS,
     payload
