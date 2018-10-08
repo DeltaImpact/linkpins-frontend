@@ -63,7 +63,7 @@ function addBoard(name, description, img, isPrivate) {
 function getBoards() {
   // axios.defaults.headers.common["Authorization"] = authHeader();
   return axios
-    .post(
+    .get(
       `${config.apiUrl}/board/getBoards`,
       {},
       {
