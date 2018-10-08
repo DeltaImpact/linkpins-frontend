@@ -93,7 +93,7 @@ export function renderError(error) {
       {array
         .map((error, i) => {
           return (
-            <div className="error error--text alert alert-info">{error}</div>
+            <div key={i} className="error error--text alert alert-info">{error}</div>
           );
         })
         .filter(n => n)}
