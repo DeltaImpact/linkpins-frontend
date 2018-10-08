@@ -52,9 +52,9 @@ class App extends React.Component {
                     <div>
                         <MuiThemeProvider theme={muiTheme}>
                             <Layout>
-                                <Route exact path="/" component={MainPage} />
+                                <PrivateRoute exact path="/" component={MainPage} />
                                 <PrivateRoute path="/profile" component={ProfilePage} />
-                                <Route path="/parse" component={ParseView} />
+                                <PrivateRoute path="/parse" component={ParseView} />
                                 <Route path="/login" component={LoginView} />
                                 <Route path="/register" component={RegisterView} />
                                 <Route path="/board/:id" component={BoardPage} />

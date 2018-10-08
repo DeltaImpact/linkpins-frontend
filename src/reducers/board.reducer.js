@@ -55,7 +55,7 @@ export default createReducer(reducerInitialState, {
       // statusText: 'You have been successfully logged in.',
       AddBoardLoading: false,
       board: payload,
-      boards: [...state.boards, payload.board]
+      boards: [...state.boards, payload]
     }),
   ADD_BOARD_FAILURE: (state, payload) =>
     Object.assign({}, state, {
@@ -74,7 +74,7 @@ export default createReducer(reducerInitialState, {
       // statusText: 'You have been successfully logged in.',
       deleteBoardLoading: false,
       board: payload,
-      boards: state.boards.filter(t => t.id != payload.board.id)
+      boards: state.boards.filter(t => t.id != payload.id)
     }),
   DELETE_BOARD_FAILURE: (state, payload) =>
     Object.assign({}, state, {
@@ -93,7 +93,7 @@ export default createReducer(reducerInitialState, {
   UPDATE_BOARD_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
       updateBoardLoading: false,
-      boards: state.boards.map(function(item) { return item.id == payload.board.id ? payload.board : item }),
+      boards: state.boards.map(function(item) { return item.id == payload.id ? payload : item }),
     }),
   UPDATE_BOARD_FAILURE: (state, payload) =>
     Object.assign({}, state, {

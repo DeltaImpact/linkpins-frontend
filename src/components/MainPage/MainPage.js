@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { boardActions } from "../../actions";
 import { Card } from "../Card/Card";
+import { dateInWordsToNow, renderError } from "../../utils/misc";
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -24,7 +25,6 @@ class MainPage extends React.Component {
   }
 
   renderPublicBoards() {
-  
     return this.props.board.boards
       .map((board, i) => {
         if (board.isPrivate == false) return this.renderBoard(board);
@@ -50,7 +50,6 @@ class MainPage extends React.Component {
   }
 
   renderBoard(board) {
-  
     return (
       <Card
         key={board.id}
@@ -66,7 +65,6 @@ class MainPage extends React.Component {
   }
 
   renderCreateNewBoardForm() {
-  
     return (
       // <div></div>
       <Card
@@ -254,26 +252,17 @@ class MainPage extends React.Component {
   }
 
   render() {
-  
     return (
       <div className="container">
-      <div className="row">
-         
- <div className="col m8 offset-m2">
+        <div className="row">
+          <div className="col m8 offset-m2">
             <h4 className="left-align">Boards</h4>
             {this.props.board.getAllBoardsLoading && (
               <div className="progress">
                 <div className="indeterminate" />
               </div>
             )}
-
-            {this.props.board.getAllBoardsError && (
-              <div className="row error--container">
-                <div className="error error--text alert alert-info">
-                  {this.props.board.getAllBoardsError.message}
-                </div>
-              </div>
-            )}
+            {this.props.board.getAllBoardsError && renderError(this.props.board.getAllBoardsError)}
 
             <ul className="collection">
               {this.renderCreateNewBoardForm()}

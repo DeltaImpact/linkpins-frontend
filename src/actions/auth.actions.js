@@ -102,6 +102,7 @@ function logout() {
   return dispatch => {
     dispatch(logoutUserExecution());
     authService.logout();
+    window.location.reload();
   };
 }
 
