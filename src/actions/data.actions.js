@@ -12,7 +12,7 @@ function parse(url) {
             url: url,
         }
         dispatch(dataUserRequest(link));
-        return dataService.parse(url)
+        return dataService.parsing(url)
             .then(
                 user => {
                     

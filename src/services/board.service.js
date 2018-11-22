@@ -65,7 +65,6 @@ function getBoards() {
   return axios
     .get(
       `${config.apiUrl}/board/getBoards`,
-      {},
       {
         // .post("http://httpbin.org/post", {},  {
         headers: { Authorization: authHeader() }

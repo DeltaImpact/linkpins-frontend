@@ -10,6 +10,7 @@
     "start": "webpack-dev-server --open"
   },
   "dependencies": {
+    "@aspnet/signalr": "^1.0.4",
     "@material-ui/core": "^3.0.3",
     "axios": "^0.18.0",
     "casperjs": "^1.1.4",
@@ -17,6 +18,7 @@
     "date-fns": "^1.29.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "history": "^4.6.3",
+    "jquery": "^3.3.1",
     "jwt-decode": "^2.2.0",
     "material-ui": "^0.20.2",
     "mdi-material-ui": "^5.4.0",
@@ -29,7 +31,9 @@
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "styled-components": "^3.4.5"
+    "signalr-client-react": "^0.2.0",
+    "styled-components": "^3.4.5",
+    "tslib": "^1.9.3"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",

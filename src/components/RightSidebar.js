@@ -1,8 +1,6 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import { authActions } from "../actions";
 import { validateEmail } from "../utils/misc";
 

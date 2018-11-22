@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import account from './account.reducer';
-import parse from './parse.reducer';
+import parsing from './parse.reducer';
 import board from './board.reducer';
 import pin from './pin.reducer';
 import { alert } from './alert.reducer';
@@ -12,7 +12,7 @@ import { alert } from './alert.reducer';
 
 const rootReducer = combineReducers({
   account,
-  parse,
+  parsing,
   board,
   pin,
   alert,

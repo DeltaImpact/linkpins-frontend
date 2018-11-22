@@ -4,10 +4,10 @@ import { parseJSON, processErrorResponse } from "../utils/misc";
 import config from "config";
 
 export const dataService = {
-  parse
+  parsing
 };
 
-function parse(url) {
+function parsing(url) {
   return axios
     .post(`${config.apiUrl}/parse`, {
       url: url
