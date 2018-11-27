@@ -34,17 +34,45 @@ class NavMenuRight extends Component {
             </li>
             <li
               className={
-                this.props.history.location.pathname == "/profile"
+                this.props.history.location.pathname.startsWith("/profile")
                   ? "active"
                   : ""
               }
             >
               <Link
-                to={"/profile"}
+                to={"/profile/" + user.username}
                 className="pagenav__option--inline black-text"
               >
                 <i className="large material-icons">perm_identity</i>
                 {user.username}
+              </Link>
+            </li>
+            <li
+              className={
+                this.props.history.location.pathname == "/messages"
+                  ? "active"
+                  : ""
+              }
+            >
+              <Link
+                to={"/messages"}
+                className="pagenav__option--inline black-text"
+              >
+                <i className="large material-icons">message</i>
+              </Link>
+            </li>
+            <li
+              className={
+                this.props.history.location.pathname == "/settings"
+                  ? "active"
+                  : ""
+              }
+            >
+              <Link
+                to={"/settings"}
+                className="pagenav__option--inline black-text"
+              >
+                <i className="large material-icons">settings</i>
               </Link>
             </li>
             <li>

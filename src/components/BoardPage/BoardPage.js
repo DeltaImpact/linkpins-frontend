@@ -20,7 +20,6 @@ class BoardPage extends React.Component {
   }
 
   componentWillMount() {
-  ;
     if (this.props.match.params.id != null) {
       let boardId = this.props.match.params.id;
       this.props.getBoard(boardId);
@@ -34,7 +33,6 @@ class BoardPage extends React.Component {
   }
 
   renderPin(pin) {
-  
     return (
       <Card
         key={pin.id}

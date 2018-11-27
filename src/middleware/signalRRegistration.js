@@ -6,54 +6,64 @@ import {
   IConnection,
   IHubConnectionOptions
 } from "@aspnet/signalr";
-import { authHeader } from "../helpers";
+import { authToken } from "../helpers";
 import config from "config";
 const signalR = require("@aspnet/signalr");
 
 export function signalRRegistration(store) {
-  if (authHeader() == {}) {
-    debugger;
-  }
-  let asd = authHeader();
-  let asdasd = `${config.apiUrl}`;
-  //   console.log(authHeader());
-
   let connection = new signalR.HubConnectionBuilder()
     .withUrl(`${config.apiUrl}/chatHub`, {
-      accessTokenFactory: () => {return authHeader()}
+      // accessTokenFactory: () => {return authHeader()}
+      accessTokenFactory: () => authToken()
     })
     .build();
-  // .done(function() {
-  //     debugger;
-  //   console.log("Now connected, connection ID=" + signalRConnection.id);
-  // })
-  // .fail(function() {
-  //     debugger;
-  //   console.log("Could not connect");
-  //   window.alert("Unable to start signalR connection...");
-  // });
-  connection
-    .start()
-    .then(e => {
-      let asd = connection;
-      // sendMessage("daggot");
-      sendMessage1("daggot1");
-      // debugger
-      // for (let index = 0; index < 5; index++) {
-      //   debugger
-      //   sendMessage1("daggot1");
-      // }
-      //   debugger;
-    })
-    .catch(e => {
-      //   debugger;
+
+  if (authToken() != undefined) {
+    connection.start().then(e => {
+      // isOnline(124);
+      // let asd = connection;
+      // connection
+      //   .then(e => {
+      //     isOnline(124);
+      //     // debugger;
+      //   })
+      //   .catch(err => {
+      //     // console.error(err, "red");
+      //     // debugger;
+      //   });
     });
+  }
+
+  function isOnline(message) {
+    connection
+      .invoke("IsOnline", message)
+      .catch(err => {
+        console.error(err, "red");
+        // debugger;
+      })
+      .then(e => {
+        debugger;
+      });
+  }
+
+  // sendMessage("daggot");
+  // sendMessage1("daggot1");
+  // debugger
+  // for (let index = 0; index < 5; index++) {
+  //   debugger
+  //   sendMessage1("daggot1");
+  // }
+  // debugger;
+  // })
+  // .catch(e => {
+  //   console.warn("signalR Error: ".red + e.message);
+  //   // console.log("Could not connect");
+  //   // debugger;
+  // });
 
   connection.on("SendAction", data => {
     // debugger;
     console.log("Now connected, connection ID=" + connection.id);
-   
-    // console.log(data);
   });
 
   connection.on("MessageSend", message => {
@@ -63,17 +73,18 @@ export function signalRRegistration(store) {
 
   function sendMessage(message) {
     connection.invoke("AddMessage", message).catch(err => {
-      console.error(err, 'red');
+      console.error(err, "red");
       // debugger;
     });
   }
 
   function sendMessage1(message) {
     connection.invoke("AddMessage1", message).catch(err => {
-      console.error(err, 'red');
+      console.error(err, "red");
       // debugger;
     });
   }
+
   //   // getting the hub proxy
   //   var notificationHubProxy = signalRConnection.createHubProxy(
   //     "signalRNotificationHub"

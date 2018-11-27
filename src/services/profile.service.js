@@ -12,14 +12,16 @@ export const profileService = {
   editProfile
 };
 
-function dataAboutUser() {
+function dataAboutUser(nickname) {
+  // debugger;
   return axios
-    .get(`${config.apiUrl}/account/user`, {
-      // let tmp = axios.get('http://httpbin.org/post', {
-      headers: {
-        Authorization: authHeader()
+    .get(
+      `${config.apiUrl}/account/user?userNickname=${nickname}`,
+      // { userNickname: nickname },
+      {
+        headers: { Authorization: authHeader() }
       }
-    })
+    )
     .then(parseJSON)
     .then(
       user => {
@@ -32,7 +34,6 @@ function dataAboutUser() {
 }
 
 function changePassword(oldPassword, newPassword) {
- 
   return axios
     .put(
       `${config.apiUrl}/account/changePassword`,

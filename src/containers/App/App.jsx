@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { history } from '../../helpers';
 import { alertActions } from '../../actions';
 import { PrivateRoute } from '../../components/PrivateRoute';
+import { SettingsPage } from '../../components/SettingsPage';
 import { ProfilePage } from '../../components/ProfilePage';
 import { BoardPage } from '../../components/BoardPage';
 import { PinPage } from '../../components/PinPage';
@@ -28,19 +29,19 @@ class App extends React.Component {
     }
 
     render() {
-        const muiTheme = createMuiTheme({
-            // palette: {
-            //     primary1Color: '#21c14c',
-            //     primary2Color: '#21c14c',
-            //     primary3Color: '#21c14c',
-            //     primary: {
-            //         main: '#f4f4f6',
-            //     },
-            //     secondary: {
-            //         main: '#f4f4f6',
-            //     },
-            // },
-        });
+        // const muiTheme = createMuiTheme({
+        //     // palette: {
+        //     //     primary1Color: '#21c14c',
+        //     //     primary2Color: '#21c14c',
+        //     //     primary3Color: '#21c14c',
+        //     //     primary: {
+        //     //         main: '#f4f4f6',
+        //     //     },
+        //     //     secondary: {
+        //     //         main: '#f4f4f6',
+        //     //     },
+        //     // },
+        // });
 
         const { alert } = this.props;
         return (
@@ -50,18 +51,19 @@ class App extends React.Component {
                 }
                 <Router history={history}>
                     <div>
-                        <MuiThemeProvider theme={muiTheme}>
+                        {/* <MuiThemeProvider theme={muiTheme}> */}
                             <Layout>
                                 <PrivateRoute exact path="/" component={MainPage} />
-                                <PrivateRoute path="/profile" component={ProfilePage} />
+                                <PrivateRoute path="/settings" component={SettingsPage} />
                                 <PrivateRoute path="/parse" component={ParseView} />
+                                <Route path="/profile/:nickname" component={ProfilePage} />
                                 <Route path="/login" component={LoginView} />
                                 <Route path="/register" component={RegisterView} />
                                 <Route path="/board/:id" component={BoardPage} />
                                 <Route path="/pin/:id" component={PinPage} />
                                 {/* <Route component={MainPage} /> */}
                             </Layout>
-                        </MuiThemeProvider>
+                        {/* </MuiThemeProvider> */}
                     </div>
                 </Router>
             </div>

@@ -6,7 +6,7 @@ import "./../../static/styles/ProfilePage.css";
 import { UserFields } from "./UserFields";
 import { ChangePasswordForm } from "./ChangePasswordForm";
 
-class ProfilePage extends React.Component {
+class SettingsPage extends React.Component {
   constructor(props) {
     super(props);
     const { dispatch } = this.props;
@@ -16,25 +16,14 @@ class ProfilePage extends React.Component {
     };
   }
 
-  componentWillMount() {
-    if (this.props.match.params.nickname != null) {
-      let profileNickname = this.props.match.params.nickname;
-      this.props.dataAboutUser(profileNickname);
-      // this.props.getBoard(boardId);
-    }
-    let asd = this.props;
-    // debugger
+  componentDidMount() {
+  
+    this.props.dataAboutUser();
   }
-
-
-  // componentDidMount() {
-  //   // debugger
-  //   this.props.dataAboutUser();
-  // }
 
   renderProfile() {
     const { account } = this.props;
-
+  
     return (
       <div className="col s12 m8 l10 legacy-content">
         <div className="container card-panel s12">
@@ -171,5 +160,5 @@ function mapDispatchToProps(dispatch) {
 const connectedProfilePage = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ProfilePage);
-export { connectedProfilePage as ProfilePage };
+)(SettingsPage);
+export { connectedProfilePage as SettingsPage };

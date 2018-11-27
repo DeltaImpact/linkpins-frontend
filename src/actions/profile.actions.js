@@ -9,10 +9,11 @@ export const profileActions = {
   editProfile
 };
 
-function dataAboutUser() {
+function dataAboutUser(nickname) {
+  // debugger
   return dispatch => {
     dispatch(profileUserRequest());
-    profileService.dataAboutUser().then(
+    profileService.dataAboutUser(nickname).then(
       user => {
         dispatch(profileUserSuccess(user));
       },

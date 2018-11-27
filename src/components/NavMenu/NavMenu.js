@@ -6,9 +6,6 @@ import { withRouter } from "react-router";
 import { NavMenuRight } from "./NavMenuRight";
 
 import "./../../static/styles/NavMenu.css";
-// import { Dropdown, NavItem, Button } from 'react-materialize';
-// import Dropdown from "react-dropdown";
-// import "react-dropdown/style.css";
 
 class NavMenu extends Component {
   constructor(props) {
