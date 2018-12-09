@@ -94,10 +94,11 @@ export function updateBoardFailure(error) {
   };
 }
 
-function getBoards() {
+function getBoards(nickname) {
+  // debugger
   return function(dispatch) {
     dispatch(getBoardsRequest());
-    return boardService.getBoards().then(
+    return boardService.getBoards(nickname).then(
       response => {
         dispatch(getBoardsSuccess(response));
       },

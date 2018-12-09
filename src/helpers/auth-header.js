@@ -16,3 +16,13 @@ export function authToken() {
         return undefined;
     }
 }
+
+export function userNickname() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    // debugger
+    if (user && user.username) {
+        return user.username;
+    } else {
+        return undefined;
+    }
+}

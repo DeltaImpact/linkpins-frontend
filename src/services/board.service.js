@@ -9,7 +9,7 @@ export const boardService = {
   updateBoard,
   getBoards,
   getBoard,
-  getBoardPins,
+  getBoardPins
 };
 
 function getBoardPins(id) {
@@ -51,7 +51,6 @@ function addBoard(name, description, img, isPrivate) {
     .then(parseJSON)
     .then(
       response => {
-      ;
         return response;
       },
       error => {
@@ -60,16 +59,18 @@ function addBoard(name, description, img, isPrivate) {
     );
 }
 
-function getBoards() {
+function getBoards(nickname) {
+  let requestUrl = `${config.apiUrl}/board/getBoards?userNickname=${nickname}`;
+  if (nickname == undefined) {
+    requestUrl = `${config.apiUrl}/board/getBoards`;
+  }
+  // debugger;
   // axios.defaults.headers.common["Authorization"] = authHeader();
   return axios
-    .get(
-      `${config.apiUrl}/board/getBoards`,
-      {
-        // .post("http://httpbin.org/post", {},  {
-        headers: { Authorization: authHeader() }
-      }
-    )
+    .get(requestUrl, {
+      // .post("http://httpbin.org/post", {},  {
+      headers: { Authorization: authHeader() }
+    })
     .then(parseJSON)
     .then(
       user => {
@@ -96,7 +97,7 @@ function getBoard(id) {
     .then(
       user => {
         // console.log(user)
-      
+
         return user;
       },
       error => {
@@ -119,7 +120,6 @@ function deleteBoard(Id) {
     .then(parseJSON)
     .then(
       response => {
-      ;
         return response;
       },
       error => {
@@ -129,7 +129,6 @@ function deleteBoard(Id) {
 }
 
 function updateBoard(id, name, description, isPrivate) {
-
   return axios
     .post(
       `${config.apiUrl}/board/updateBoard`,
@@ -148,11 +147,9 @@ function updateBoard(id, name, description, isPrivate) {
     .then(parseJSON)
     .then(
       response => {
-      ;
         return response;
       },
       error => {
-      ;
         return Promise.reject(processErrorResponse(error));
       }
     );

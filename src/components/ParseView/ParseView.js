@@ -76,7 +76,7 @@ class ParseView extends React.Component {
   savePin(id, name) {
     // this.state.previewBoardId = id;
     // this.state.previewBoardName = name;
-  ;
+    // debugger;
     this.props.addPin(
       this.state.previewTitle,
       this.state.previewDescription,
@@ -90,7 +90,7 @@ class ParseView extends React.Component {
     if (
       this.props.board !== nextProps.board ||
       this.props.parsing !== nextProps.parsing
-    ){
+    ) {
       this.needsUpdate = true;
     }
   }
@@ -302,7 +302,9 @@ class ParseView extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col m4 offset-m4 z-depth-3 card-panel">
-              {this.props.board.boards != null ? this.renderParseForm() : this.renderBoardsNotFound()}
+              {this.props.board.boards != null
+                ? this.renderParseForm()
+                : this.renderBoardsNotFound()}
             </div>
           </div>
         </div>

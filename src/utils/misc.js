@@ -1,6 +1,7 @@
 /* eslint max-len: 0, no-param-reassign: 0 */
 import React from "react";
 import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
+var ruLocale = require("date-fns/locale/ru");
 
 export function createConstants(...constants) {
   return constants.reduce((acc, constant) => {
@@ -56,11 +57,16 @@ function convertUTCTimeToLocalTime(UTCDateString) {
 }
 
 export function dateInWordsToNow(date) {
-  return date == null ? null : distanceInWordsToNow(convertUTCTimeToLocalTime(date));
+  return date == null
+    ? null
+    : distanceInWordsToNow(convertUTCTimeToLocalTime(date), 
+    // {
+    //     locale: ruLocale
+    //   }
+      );
 }
 
 export function renderError(error) {
-;
   let array = [];
   if (error.messages) {
     if (error.messages.Name) {
@@ -93,7 +99,9 @@ export function renderError(error) {
       {array
         .map((error, i) => {
           return (
-            <div key={i} className="error error--text alert alert-info">{error}</div>
+            <div key={i} className="error error--text alert alert-info">
+              {error}
+            </div>
           );
         })
         .filter(n => n)}

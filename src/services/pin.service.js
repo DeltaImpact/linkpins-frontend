@@ -43,6 +43,7 @@ function updatePin(id, name, description) {
 }
 
 function addPin(name, description, img, Link, BoardId) {
+  debugger
   return axios
     .post(
       `${config.apiUrl}/pin/addPin`,

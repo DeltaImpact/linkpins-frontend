@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { boardActions } from "../../actions";
 import { Card } from "../Card/Card";
 import { dateInWordsToNow, renderError } from "../../utils/misc";
+import { userNickname } from "../../helpers/auth-header";
+
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -20,8 +22,9 @@ class MainPage extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.props.getBoards();
+  componentWillMount() {
+    // debugger
+    this.props.getBoards(this.props.UserNickname);
   }
 
   renderPublicBoards() {
@@ -65,8 +68,8 @@ class MainPage extends React.Component {
   }
 
   renderCreateNewBoardForm() {
+    if (this.props.UserNickname == userNickname() || this.props.UserNickname == undefined)
     return (
-      // <div></div>
       <Card
         addBoard={this.props.addBoard}
         loading={this.props.board.AddBoardLoading}
@@ -79,7 +82,6 @@ class MainPage extends React.Component {
   renderCreateNewBoardFormPreview() {
     return (
       <div>
-        {/* <div className="col m2"> */}
         <i
           className="material-icons circle green"
           onClick={() =>
@@ -116,7 +118,6 @@ class MainPage extends React.Component {
         </i>
         <div className="col m12">
           <span className="title">Create a board</span>
-          {/* <p className="">Create a board</p> */}
         </div>
         <div className="row">
           {this.props.board.AddBoardError && (
@@ -265,6 +266,7 @@ class MainPage extends React.Component {
             {this.props.board.getAllBoardsError && renderError(this.props.board.getAllBoardsError)}
 
             <ul className="collection">
+              {/* {this.props.UserNickname == userNickname() && this.renderCreateNewBoardForm()} */}
               {this.renderCreateNewBoardForm()}
               {this.props.board.boards && this.renderPublicBoards()}
             </ul>

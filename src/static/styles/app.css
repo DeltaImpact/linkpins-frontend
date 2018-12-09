@@ -157,6 +157,42 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.board__misc__item--save:before {
+  content: "\e161";
+  vertical-align: top;
+  display: inline-block;
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 12px;
+  margin: 0 5px 0 2px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.board__misc__item--radio_button_checked:before {
+  content: "\e837";
+  vertical-align: top;
+  display: inline-block;
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 12px;
+  margin: 0 5px 0 2px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.board__misc__item--radio_button_unchecked:before {
+  content: "\e836";
+  vertical-align: top;
+  display: inline-block;
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 12px;
+  margin: 0 5px 0 2px;
+  -webkit-font-smoothing: antialiased;
+}
+
 .board__page__title {
   display: inline-flex;
 }

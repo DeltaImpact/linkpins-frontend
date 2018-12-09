@@ -53,7 +53,7 @@ const reducerInitialState = {
 };
 
 export default createReducer(reducerInitialState, {
-  ADD_PIN_REQUEST: state =>
+  ADD_PIN_REQUEST: (state, payload) =>
     Object.assign({}, state, {
       AddPinLoading: true,
       AddPinRedirectTo: null,
@@ -87,7 +87,7 @@ export default createReducer(reducerInitialState, {
       // updatePin: null,
       updatePinError: payload
     }),
-  DELETE_PIN_REQUEST: state =>
+  DELETE_PIN_REQUEST: (state, payload) =>
     Object.assign({}, state, {
       deletePinLoading: true,
       deletePinError: true

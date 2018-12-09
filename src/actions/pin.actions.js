@@ -63,6 +63,7 @@ function addPin(name, description, img, Link, id) {
       Link,
       id
     };
+    debugger
     dispatch(addPinRequest(pinParams));
     return pinService.addPin(name, description, img, Link, id).then(
       response => {

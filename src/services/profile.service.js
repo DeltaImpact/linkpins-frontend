@@ -13,11 +13,15 @@ export const profileService = {
 };
 
 function dataAboutUser(nickname) {
-  // debugger;
+  let requestUrl = `${config.apiUrl}/account/user?userNickname=${nickname}`;
+  if (nickname== undefined){
+    requestUrl = `${config.apiUrl}/account/user`;
+  }
+
+
   return axios
     .get(
-      `${config.apiUrl}/account/user?userNickname=${nickname}`,
-      // { userNickname: nickname },
+      requestUrl,
       {
         headers: { Authorization: authHeader() }
       }
