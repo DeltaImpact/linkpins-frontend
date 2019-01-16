@@ -20,7 +20,10 @@ import {
   ADD_PIN_TO_BOARD_FAILURE,
   DELETE_PIN_FROM_BOARD_REQUEST,
   DELETE_PIN_FROM_BOARD_SUCCESS,
-  DELETE_PIN_FROM_BOARD_FAILURE
+  DELETE_PIN_FROM_BOARD_FAILURE,
+  GET_PIN_MAIN_PAGE_REQUEST,
+  GET_PIN_MAIN_PAGE_SUCCESS,
+  GET_PIN_MAIN_PAGE_FAILURE
 } from "../constants/pin.constants";
 
 const reducerInitialState = {
@@ -49,10 +52,29 @@ const reducerInitialState = {
   GetPinBoardsError: null,
   GetPinAvaliableBoardsLoading: null,
   GetPinAvaliableBoards: null,
-  GetPinAvaliableBoardsError: null
+  GetPinAvaliableBoardsError: null,
+  getMainPageLoading: null,
+  getMainPage: null,
+  getMainPageError: null
 };
 
 export default createReducer(reducerInitialState, {
+  GET_PIN_MAIN_PAGE_REQUEST: (state, payload) =>
+    Object.assign({}, state, {
+      // updatePin: null,
+      getMainPageLoading: true,
+      updatePinError: null,
+    }),
+  GET_PIN_MAIN_PAGE_SUCCESS: (state, payload) =>
+    Object.assign({}, state, {
+      getMainPageLoading: false,
+      getMainPage: payload
+    }),
+  GET_PIN_MAIN_PAGE_FAILURE: (state, payload) =>
+    Object.assign({}, state, {
+      getMainPageLoading: false,
+      getMainPageError: payload
+    }),
   ADD_PIN_REQUEST: (state, payload) =>
     Object.assign({}, state, {
       AddPinLoading: true,

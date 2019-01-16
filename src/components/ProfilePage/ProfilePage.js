@@ -7,7 +7,7 @@ import "./../../static/styles/ProfilePage.css";
 import { UserFields } from "./UserFields";
 import { ChangePasswordForm } from "./ChangePasswordForm";
 import { Card } from "../Card/Card";
-import { MainPage } from "../MainPage";
+import { BoardsContainer } from "../BoardsContainer";
 class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
@@ -66,7 +66,7 @@ class ProfilePage extends React.Component {
           </div>
         </div>
         {this.props.match.params.nickname && (
-          <MainPage UserNickname={this.props.match.params.nickname} />
+          <BoardsContainer UserNickname={this.props.match.params.nickname} />
         )}
       </div>
     );

@@ -109,8 +109,8 @@ export class Card extends React.Component {
     //   return <i className="material-icons circle green">folder</i>;
     // debugger
     if (item.img != null)
-      return <i className="material-icons circle green">folder</i>;
-    // return <img src={item.img} alt="" className="circle" />;
+      return <img src={item.img} alt="" className="circle" />;
+    return <i className="material-icons circle green">folder</i>;
   }
 
   renderEditCard(item, typeOfElement) {
@@ -212,6 +212,7 @@ export class Card extends React.Component {
   }
 
   renderCardFacePinOrBoard(item, typeOfElement) {
+    // debugger
     return (
       <div>
         <Link to={"/" + typeOfElement + "/" + item.id}>
@@ -400,6 +401,7 @@ export class Card extends React.Component {
   }
 
   renderCardActionsConfirmDelete(item, typeOfElement) {
+    // debugger
     let deleteCompletelyButton;
     if (this.props.deleteBoard || this.props.deletePin) {
       deleteCompletelyButton = (
@@ -491,7 +493,6 @@ export class Card extends React.Component {
           className="material-icons board__card__button"
           onClick={e => {
             e.preventDefault;
-
             this.setState({
               mode: "preview"
             });
@@ -504,62 +505,64 @@ export class Card extends React.Component {
   }
 
   renderCardActionsPinOrBoard(item, typeOfElement, isHovered) {
-    return (
-      <div className="secondary-content">
-        <i
-          className="material-icons board__card__button"
-          onClick={e => {
-            e.preventDefault;
-            this.setState({
-              editTitle: item ? item.name : "",
-              editDescription: item ? item.description : "",
-              editIsPrivateBoard:
-                item && item.isPrivate ? item.isPrivate : null,
-              editTitle_error_text: null,
-              disabled: false
-            });
-            this.setState({
-              mode: "edit"
-            });
-          }}
-        >
-          edit
-        </i>
-        <i
-          className="material-icons board__card__button"
-          onClick={e => {
-            e.preventDefault;
-            this.setState({
-              mode: "confirmDelete"
-            });
-          }}
-        >
-          delete
-        </i>
-        {this.props.pinAction && (
+    // debugger
+    if (this.props.editable != "false")
+      return (
+        <div className="secondary-content">
           <i
             className="material-icons board__card__button"
             onClick={e => {
               e.preventDefault;
-              this.props.pinAction(this.props.pinId, this.props.item.id);
+              this.setState({
+                editTitle: item ? item.name : "",
+                editDescription: item ? item.description : "",
+                editIsPrivateBoard:
+                  item && item.isPrivate ? item.isPrivate : null,
+                editTitle_error_text: null,
+                disabled: false
+              });
+              this.setState({
+                mode: "edit"
+              });
             }}
           >
-            playlist_add
+            edit
           </i>
-        )}
-        {this.props.unpinAction && (
           <i
             className="material-icons board__card__button"
             onClick={e => {
               e.preventDefault;
-              this.props.unpinAction(this.props.pinId, this.props.item.id);
+              this.setState({
+                mode: "confirmDelete"
+              });
             }}
           >
-            playlist_add_check
+            delete
           </i>
-        )}
-      </div>
-    );
+          {this.props.pinAction && (
+            <i
+              className="material-icons board__card__button"
+              onClick={e => {
+                e.preventDefault;
+                this.props.pinAction(this.props.pinId, this.props.item.id);
+              }}
+            >
+              playlist_add
+            </i>
+          )}
+          {this.props.unpinAction && (
+            <i
+              className="material-icons board__card__button"
+              onClick={e => {
+                e.preventDefault;
+                this.props.unpinAction(this.props.pinId, this.props.item.id);
+              }}
+            >
+              playlist_add_check
+            </i>
+          )}
+        </div>
+      );
   }
 
   renderCardActionsUserCard(item, typeOfElement, isHovered) {
@@ -586,8 +589,8 @@ export class Card extends React.Component {
         isHovered
       );
 
-    if (this.state.mode == "preview" && typeOfElement == "UserCard")
-      return this.renderCardActionsUserCard(item, typeOfElement, isHovered);
+    // if (this.state.mode == "preview" && typeOfElement == "UserCard")
+    //   return this.renderCardActionsUserCard(item, typeOfElement, isHovered);
 
     if (isHovered && typeOfElement != "AddBoard" && typeOfElement != "UserCard")
       return this.renderCardActionsPinOrBoard(item, typeOfElement, isHovered);
@@ -597,6 +600,7 @@ export class Card extends React.Component {
     const { item, typeOfElement } = this.props;
     this.state.contentType = typeOfElement;
     let cardContent;
+    // debugger
     switch (this.state.mode) {
       case "preview":
         cardContent = this.renderCardFace(item, typeOfElement);
@@ -613,7 +617,18 @@ export class Card extends React.Component {
 
     return (
       <li
-        className="collection-item avatar pin-content board__card"
+        className={
+          this.state.isHovered
+            ? "collection-item avatar pin-content board__card board__card__container--active"
+            : "collection-item avatar pin-content board__card"
+        }
+        // className={"collection-item avatar pin-content board__card board__card__container--active"}
+        // className={
+        //   "collection-item avatar pin-content board__card" +
+        //   this.state.isHovered
+        //     ? " board__card__container--active"
+        //     : ""
+        // }
         onMouseEnter={() =>
           this.setState({
             isHovered: true

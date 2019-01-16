@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { dataActions, boardActions, pinActions } from "../../actions";
-import { BoardPin } from "./BoardPin";
 import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
 import { Card } from "../Card";
 import {

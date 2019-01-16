@@ -11,7 +11,8 @@ export const pinActions = {
   getBoardsWherePinSaved,
   getBoardsWherePinNotSaved,
   addPinToBoard,
-  deletePinFromBoard
+  deletePinFromBoard,
+  getMainPage
 };
 
 function updatePin(id, name, description) {
@@ -63,12 +64,16 @@ function addPin(name, description, img, Link, id) {
       Link,
       id
     };
-    debugger
     dispatch(addPinRequest(pinParams));
     return pinService.addPin(name, description, img, Link, id).then(
       response => {
         dispatch(addPinSuccess(response));
-        let pinAddress = "/pin/" + response.id;
+        // debugger
+        // let pinAddress = "/pin/" + response.id;
+        let user = JSON.parse(localStorage.getItem('user'));
+    // debugger
+    
+        let pinAddress = "/profile/" + user.username ;
         history.push(pinAddress);
       },
       error => {
@@ -363,3 +368,36 @@ export function deletePinFromBoardFailure(error) {
   };
 }
 
+function getMainPage() {
+  return function(dispatch) {
+    dispatch(getMainPageRequest());
+    return pinService.getMainPage().then(
+      response => {
+        dispatch(getMainPageSuccess(response));
+      },
+      error => {
+        dispatch(getMainPageFailure(error));
+      }
+    );
+  };
+}
+
+export function getMainPageRequest() {
+  return {
+    type: pinConstants.GET_PIN_MAIN_PAGE_REQUEST
+  };
+}
+
+export function getMainPageSuccess(payload) {
+  return {
+    type: pinConstants.GET_PIN_MAIN_PAGE_SUCCESS,
+    payload
+  };
+}
+
+export function getMainPageFailure(error) {
+  return {
+    type: pinConstants.GET_PIN_MAIN_PAGE_FAILURE,
+    payload: error
+  };
+}

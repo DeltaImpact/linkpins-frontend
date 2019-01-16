@@ -12,6 +12,7 @@ import { PinPage } from '../../components/PinPage';
 import { ParseView } from '../../components/ParseView';
 
 import { Layout } from '../../components/Layout';
+import { BoardsContainer } from '../../components/BoardsContainer';
 import { MainPage } from '../../components/MainPage';
 import { RegisterView } from '../../components/RegisterView';
 import { LoginView } from '../../components/LoginView';

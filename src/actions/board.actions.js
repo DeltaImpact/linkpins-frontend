@@ -95,7 +95,6 @@ export function updateBoardFailure(error) {
 }
 
 function getBoards(nickname) {
-  // debugger
   return function(dispatch) {
     dispatch(getBoardsRequest());
     return boardService.getBoards(nickname).then(

@@ -13,7 +13,8 @@ export const pinService = {
   getBoardsWherePinSaved,
   getBoardsWherePinNotSaved,
   addPinToBoard,
-  deletePinFromBoard
+  deletePinFromBoard,
+  getMainPage
 };
 
 function updatePin(id, name, description) {
@@ -43,7 +44,7 @@ function updatePin(id, name, description) {
 }
 
 function addPin(name, description, img, Link, BoardId) {
-  debugger
+  // debugger
   return axios
     .post(
       `${config.apiUrl}/pin/addPin`,
@@ -195,4 +196,24 @@ function deletePinFromBoard(pinId, boardId) {
         }
       )
   );
+}
+
+function getMainPage() {
+  return axios
+    .get(
+      `${config.apiUrl}/pin/getMainPage`,
+      {},
+      {
+        headers: { Authorization: authHeader() }
+      }
+    )
+    .then(parseJSON)
+    .then(
+      object => {
+        return object;
+      },
+      error => {
+        return Promise.reject(processErrorResponse(error));
+      }
+    );
 }

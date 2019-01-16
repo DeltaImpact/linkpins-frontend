@@ -19,6 +19,11 @@ body {
   text-align: left;
 }
 
+.pin-content:hover {
+  border: 3px solid cadetblue !important;
+  padding: 5px;
+}
+
 .error {
   padding-top: 0.65rem;
   padding-bottom: 0.65rem;
@@ -127,6 +132,11 @@ body {
   background-color: #f4f4f6;
   border: 5px solid #f4f4f6;
   margin-left: 6px;
+}
+
+.board__card__container--active {
+  border: 3px solid cadetblue !important;
+  padding: 5px;
 }
 
 .board__misc {

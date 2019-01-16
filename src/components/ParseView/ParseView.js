@@ -20,7 +20,8 @@ class ParseView extends React.Component {
     this.state = {
       //   url: "http://casperjs.org/",
       // url: "http://joyreactor.cc/",
-      url: "https://habr.com",
+      // url: "https://habr.com",
+      url: "",
       url_error_text: null,
       redirectTo: redirectRoute,
       disabled: false,
@@ -39,7 +40,7 @@ class ParseView extends React.Component {
     this.state.previewDescription = null;
 
     this.props.getBoards();
-    this.props.parse(this.state.url, this.state.redirectTo);
+    // this.props.parse(this.state.url, this.state.redirectTo);
   }
 
   isDisabled() {

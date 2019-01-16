@@ -18,7 +18,6 @@ function dataAboutUser(nickname) {
     requestUrl = `${config.apiUrl}/account/user`;
   }
 
-
   return axios
     .get(
       requestUrl,
