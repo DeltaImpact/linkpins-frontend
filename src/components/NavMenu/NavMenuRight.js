@@ -47,7 +47,7 @@ class NavMenuRight extends Component {
                 {user.username}
               </Link>
             </li>
-            {/* <li
+            <li
               className={
                 this.props.history.location.pathname == "/messages"
                   ? "active"
@@ -60,7 +60,7 @@ class NavMenuRight extends Component {
               >
                 <i className="large material-icons">message</i>
               </Link>
-            </li> */}
+            </li>
             <li
               className={
                 this.props.history.location.pathname == "/settings"

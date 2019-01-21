@@ -589,8 +589,8 @@ export class Card extends React.Component {
         isHovered
       );
 
-    // if (this.state.mode == "preview" && typeOfElement == "UserCard")
-    //   return this.renderCardActionsUserCard(item, typeOfElement, isHovered);
+    if (this.state.mode == "preview" && typeOfElement == "UserCard")
+      return this.renderCardActionsUserCard(item, typeOfElement, isHovered);
 
     if (isHovered && typeOfElement != "AddBoard" && typeOfElement != "UserCard")
       return this.renderCardActionsPinOrBoard(item, typeOfElement, isHovered);
