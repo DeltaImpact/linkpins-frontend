@@ -4,6 +4,7 @@ import account from './account.reducer';
 import parsing from './parse.reducer';
 import board from './board.reducer';
 import pin from './pin.reducer';
+import chat from './chat.reducer';
 import { alert } from './alert.reducer';
 
 // var myExports = require('./auth.reducer');
@@ -16,5 +17,6 @@ const rootReducer = combineReducers({
   board,
   pin,
   alert,
+  chat,
 });
 export default rootReducer;

@@ -3,3 +3,4 @@ export * from './user.constants';
 export * from './data.constants';
 export * from './pin.constants';
 export * from './board.constants';
+export * from './chat.constants';
