@@ -6,6 +6,7 @@ import { history } from '../../helpers';
 import { alertActions } from '../../actions';
 import { PrivateRoute } from '../../components/PrivateRoute';
 import { SettingsPage } from '../../components/SettingsPage';
+import { DialogsPage } from '../../components/DialogsPage';
 import { ProfilePage } from '../../components/ProfilePage';
 import { BoardPage } from '../../components/BoardPage';
 import { PinPage } from '../../components/PinPage';
@@ -55,11 +56,12 @@ class App extends React.Component {
                         {/* <MuiThemeProvider theme={muiTheme}> */}
                             <Layout>
                                 <PrivateRoute exact path="/" component={MainPage} />
-                                <PrivateRoute path="/settings" component={SettingsPage} />
                                 <PrivateRoute path="/parse" component={ParseView} />
-                                <Route path="/profile/:nickname" component={ProfilePage} />
+                                <PrivateRoute path="/settings" component={SettingsPage} />
+                                <PrivateRoute path="/messages" component={DialogsPage} />
                                 <Route path="/login" component={LoginView} />
                                 <Route path="/register" component={RegisterView} />
+                                <Route path="/profile/:nickname" component={ProfilePage} />
                                 <Route path="/board/:id" component={BoardPage} />
                                 <Route path="/pin/:id" component={PinPage} />
                                 {/* <Route component={MainPage} /> */}
