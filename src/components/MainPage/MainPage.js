@@ -43,7 +43,7 @@ class MainPage extends React.Component {
         // loading={this.props.pin.updatePinLoading}
         // error={this.props.pin.updatePinError}
         typeOfElement="pin"
-        editable = "false"
+        editable="false"
       />
     );
   }
@@ -55,6 +55,20 @@ class MainPage extends React.Component {
           <div className="row">
             <div className="col l8 offset-l2 m8 l9 legacy-content">
               {/* <h4 className="left-align">Pins on board</h4> */}
+
+              {this.props.pin.getMainPageLoading && (
+                <div className="progress">
+                  <div className="indeterminate" />
+                </div>
+              )}
+              {this.props.pin.getMainPageError && (
+                <div className="row error--container">
+                  <div className="error error--text alert alert-info">
+                    {this.props.pin.getMainPageError.message}
+                  </div>
+                </div>
+              )}
+
               <ul className="collection">
                 {this.props.pin.getMainPage && this.renderPins()}
               </ul>
