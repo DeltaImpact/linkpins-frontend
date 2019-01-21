@@ -63,7 +63,6 @@ class PinPage extends React.Component {
   }
 
   render() {
-  
     return (
       <div>
         <div className="container">
@@ -89,6 +88,17 @@ class PinPage extends React.Component {
                   />
                 )}
               </ul>
+              {this.props.pin.pin && (
+                <div class="card-content grey lighten-3">
+                  User{" "}
+                  <Link to={"/profile/" + this.props.pin.pin.lastAction.userName}>
+                    {this.props.pin.pin.lastAction.userName}
+                  </Link>{" "}
+                  saved this pin to the <Link to={"/board/" + this.props.pin.pin.lastAction.boardId}>
+                    {this.props.pin.pin.lastAction.boardName}
+                  </Link> board.
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -103,13 +113,12 @@ class PinPage extends React.Component {
                   <div className="indeterminate" />
                 </div>
               )}
-              {this.props.pin.pin &&
-                this.props.pin.GetPinBoards && (
-                  <div>
-                    <h4 className="left-align">Saved to</h4>
-                    <ul className="collection">{this.renderBoards()}</ul>
-                  </div>
-                )}
+              {this.props.pin.pin && this.props.pin.GetPinBoards && (
+                <div>
+                  <h4 className="left-align">Saved to</h4>
+                  <ul className="collection">{this.renderBoards()}</ul>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -125,13 +134,12 @@ class PinPage extends React.Component {
                 </div>
               )}
 
-              {this.props.pin.pin &&
-                this.props.pin.GetPinAvaliableBoards && (
-                  <div>
-                    <h4 className="left-align">Save to</h4>
-                    <ul className="collection">{this.renderBoardsToSave()}</ul>
-                  </div>
-                )}
+              {this.props.pin.pin && this.props.pin.GetPinAvaliableBoards && (
+                <div>
+                  <h4 className="left-align">Save to</h4>
+                  <ul className="collection">{this.renderBoardsToSave()}</ul>
+                </div>
+              )}
             </div>
           </div>
         </div>
