@@ -21,7 +21,7 @@ body {
 
 .pin-content:hover {
   border: 3px solid cadetblue !important;
-  padding: 5px;
+  /* padding: 5px; */
 }
 
 .error {
@@ -236,4 +236,8 @@ body {
 .menu__item__text {
   padding: 15px;
   margin: 0;
+}
+
+.pm__menu {
+  min-height: 800px;
 }

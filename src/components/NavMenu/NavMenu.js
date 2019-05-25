@@ -33,7 +33,7 @@ class NavMenu extends Component {
                   <i className="black-text material-icons hide-on-med-and-down">
                     broken_image
                   </i>
-                  Linkpinss
+                  Linkpins
                 </Link>
                 <NavMenuRight />
               </div>

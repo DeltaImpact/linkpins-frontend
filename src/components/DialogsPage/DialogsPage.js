@@ -19,6 +19,7 @@ class DialogsPage extends React.Component {
 
   componentDidMount() {
     this.props.getDialogs();
+
   }
 
   renderDialogs() {
@@ -26,7 +27,7 @@ class DialogsPage extends React.Component {
     // debugger
     return (
       // <div className="col s12 m8 l10 legacy-content">
-        <div className="card-panel s12">
+        <div className="card-panel s12 pm__menu">
           <h4 className="left-align card-title card__title">Dialogs</h4>
           {chat.GetDialogsLoading && (
             <div className="progress">
@@ -46,12 +47,15 @@ class DialogsPage extends React.Component {
   }
 
   renderDialog() {
+    let userNickname = this.props.history.location.pathname.replace("/messages/", "");
+    
     const { chat } = this.props;
     // debugger
     return (
       // <div className="col s12 m8 l10 legacy-content">
-        <div className="card-panel s12">
-          <h4 className="left-align card-title card__title">Dialog</h4>
+        <div className="card-panel s12 pm__menu">
+          {/* <h4 className="left-align card-title card__title">Dialog</h4> */}
+          <h4 className="left-align card-title card__title">{this.props.history.location.pathname.replace("/messages/", "")}</h4>
           {chat.GetDialogsLoading && (
             <div className="progress">
               <div className="indeterminate" />
@@ -71,7 +75,6 @@ class DialogsPage extends React.Component {
 
   render() {
     return (
-      <div>
         <div className="container">
           <div className="row">
             <div className="col m4">
@@ -120,7 +123,6 @@ class DialogsPage extends React.Component {
             <div className="col m8">{this.renderDialog()}</div>
           </div>
         </div>
-      </div>
     );
   }
 }

@@ -14,10 +14,8 @@ export const chatService = {
 
 function getDialogs() {
   return axios
-    .post(
-      `${config.apiUrl}/chat/getDialog`,
-      {},
-      {
+    .get(
+      `${config.apiUrl}/chat/getDialogs`, {
         headers: { Authorization: authHeader() }
       }
     )

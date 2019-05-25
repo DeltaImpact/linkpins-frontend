@@ -68,12 +68,7 @@ function addPin(name, description, img, Link, id) {
     return pinService.addPin(name, description, img, Link, id).then(
       response => {
         dispatch(addPinSuccess(response));
-        // debugger
-        // let pinAddress = "/pin/" + response.id;
-        let user = JSON.parse(localStorage.getItem('user'));
-    // debugger
-    
-        let pinAddress = "/profile/" + user.username ;
+        let pinAddress = "/pin/" + response ;
         history.push(pinAddress);
       },
       error => {
