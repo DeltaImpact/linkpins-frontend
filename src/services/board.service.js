@@ -12,24 +12,37 @@ export const boardService = {
   getBoardPins
 };
 
-function getBoardPins(id) {
-  return axios
-    .get(
-      `${config.apiUrl}/board/getBoardPins`,
-      { boardId: id },
-      {
-        headers: { Authorization: authHeader() }
-      }
-    )
-    .then(parseJSON)
-    .then(
-      user => {
-        return user;
-      },
-      error => {
-        return Promise.reject(processErrorResponse(error));
-      }
-    );
+function getBoardPins(id, offset, take) {
+  return (
+    axios
+      .get(
+        `${
+          config.apiUrl
+        }/board/getBoardPins?boardId=${id}&Offset=${offset}&Take=${take}`,
+        {
+          headers: { Authorization: authHeader() }
+        }
+      )
+      // return axios
+      //   .get(
+      //     // `${config.apiUrl}/board/getBoardPins`,
+      //     // { boardId: id },
+      //     `${config.apiUrl}/board/getBoardPins?boardId=${id}&Offset=${offset}&Take=${take}`,
+      //     {},
+      //     {
+      //       headers: { Authorization: authHeader() }
+      //     }
+      // )
+      .then(parseJSON)
+      .then(
+        user => {
+          return user;
+        },
+        error => {
+          return Promise.reject(processErrorResponse(error));
+        }
+      )
+  );
 }
 
 function addBoard(name, description, img, isPrivate) {

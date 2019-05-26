@@ -241,3 +241,21 @@ body {
 .pm__menu {
   min-height: 800px;
 }
+
+.pagination__button {
+  width: 42px;
+  height: 42px;
+  font-size: 30px;
+  line-height: 42px;
+  color: #fff;
+  text-align: center;
+}
+
+.pagination span {
+  padding: 0px 10px;
+}
+
+.pagination .pagination__button--disabled {
+  background-color: #9f9f9f !important;
+  cursor: default;
+}

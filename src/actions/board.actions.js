@@ -204,10 +204,10 @@ export function deleteBoardFailure(error) {
 
 
 
-function getBoardPins(id) {
+function getBoardPins(id, offset, take) {
   return function(dispatch) {
-    dispatch(getBoardPinsRequest());
-    return boardService.getBoardPins(id).then(
+    dispatch(getBoardPinsRequest(offset, take));
+    return boardService.getBoardPins(id, offset, take).then(
       response => {
         dispatch(getBoardPinsSuccess(response));
       },

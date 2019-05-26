@@ -363,10 +363,10 @@ export function deletePinFromBoardFailure(error) {
   };
 }
 
-function getMainPage() {
+function getMainPage(offset, take) {
   return function(dispatch) {
-    dispatch(getMainPageRequest());
-    return pinService.getMainPage().then(
+    dispatch(getMainPageRequest(offset, take));
+    return pinService.getMainPage(offset, take).then(
       response => {
         dispatch(getMainPageSuccess(response));
       },

@@ -34,14 +34,14 @@ class App extends React.Component {
                     <div>
                         {/* <MuiThemeProvider theme={muiTheme}> */}
                             <Layout>
-                                <PrivateRoute exact path="/" component={MainPage} />
+                                <PrivateRoute exact path="/:offset?" component={MainPage} />
                                 <PrivateRoute path="/parse" component={ParseView} />
                                 <PrivateRoute path="/settings" component={SettingsPage} />
                                 <PrivateRoute path="/messages" component={DialogsPage} />
                                 <Route path="/login" component={LoginView} />
                                 <Route path="/register" component={RegisterView} />
                                 <Route path="/profile/:nickname" component={ProfilePage} />
-                                <Route path="/board/:id" component={BoardPage} />
+                                <Route path="/board/:id/:offset?" component={BoardPage} />
                                 <Route path="/pin/:id" component={PinPage} />
                                 {/* <Route component={MainPage} /> */}
                             </Layout>

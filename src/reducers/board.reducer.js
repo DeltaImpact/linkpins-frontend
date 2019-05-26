@@ -38,6 +38,7 @@ const reducerInitialState = {
   updateBoardLoading: null,
   updateBoardId: null,
   updateBoardError: null,
+  getBoardPinsTake: 15,
   getBoardPins: null,
   getBoardPinsError: null,
   getBoardPinsLoading: null,
@@ -145,7 +146,7 @@ export default createReducer(reducerInitialState, {
   GET_BOARD_PINS_SUCCESS: (state, payload) =>
     Object.assign({}, state, {
       getBoardPinsLoading: false,
-      getBoardPins: payload
+      getBoardPins: payload,
     }),
   GET_BOARD_PINS_FAILURE: (state, payload) =>
     Object.assign({}, state, {

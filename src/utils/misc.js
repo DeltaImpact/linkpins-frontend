@@ -34,7 +34,9 @@ export function processErrorResponse(error) {
     if (error.response.status === 400) {
       err.status = error.response.status;
       err.info = error.response.statusText;
-      err.message = error.response.data.message;
+      if (error.response.data.message)
+        err.message = error.response.data.message;
+      if (error.response.data[""]) err.message = error.response.data[""];
     }
 
     if (error.response.data) {
@@ -59,10 +61,11 @@ function convertUTCTimeToLocalTime(UTCDateString) {
 export function dateInWordsToNow(date) {
   return date == null
     ? null
-    : distanceInWordsToNow(convertUTCTimeToLocalTime(date), 
-    // {
-    //     locale: ruLocale
-    //   }
+    : distanceInWordsToNow(
+        convertUTCTimeToLocalTime(date)
+        // {
+        //     locale: ruLocale
+        //   }
       );
 }
 

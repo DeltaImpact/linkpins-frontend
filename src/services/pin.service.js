@@ -168,7 +168,6 @@ function addPinToBoard(pinId, boardId) {
     .then(parseJSON)
     .then(
       user => {
-        
         return user;
       },
       error => {
@@ -178,30 +177,28 @@ function addPinToBoard(pinId, boardId) {
 }
 
 function deletePinFromBoard(pinId, boardId) {
-  return (
-    axios({
-      url: `${config.apiUrl}/pin/deletePinFromBoard`,
-      method: "delete",
-      data: { PinId: pinId, BoardId: boardId },
-      headers: { Authorization: authHeader() }
-    })
-      .then(parseJSON)
-      .then(
-        user => {
-          if (user.isLast) history.push("/");
-          return user;
-        },
-        error => {
-          return Promise.reject(processErrorResponse(error));
-        }
-      )
-  );
+  return axios({
+    url: `${config.apiUrl}/pin/deletePinFromBoard`,
+    method: "delete",
+    data: { PinId: pinId, BoardId: boardId },
+    headers: { Authorization: authHeader() }
+  })
+    .then(parseJSON)
+    .then(
+      user => {
+        if (user.isLast) history.push("/");
+        return user;
+      },
+      error => {
+        return Promise.reject(processErrorResponse(error));
+      }
+    );
 }
 
-function getMainPage() {
+function getMainPage(offset, take) {
   return axios
     .get(
-      `${config.apiUrl}/pin/getMainPage`,
+      `${config.apiUrl}/pin/getMainPage?Offset=${offset}&Take=${take}`,
       {},
       {
         headers: { Authorization: authHeader() }

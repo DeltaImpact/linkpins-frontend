@@ -53,6 +53,7 @@ const reducerInitialState = {
   GetPinAvaliableBoardsLoading: null,
   GetPinAvaliableBoards: null,
   GetPinAvaliableBoardsError: null,
+  getMainPageTake: 15,
   getMainPageLoading: null,
   getMainPage: null,
   getMainPageError: null

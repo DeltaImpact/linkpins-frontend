@@ -20,13 +20,19 @@ class BoardPage extends React.Component {
 
   componentWillMount() {
     if (this.props.match.params.id != null) {
-      let boardId = this.props.match.params.id;
+      let boardId = +this.props.match.params.id;
       this.props.getBoard(boardId);
+      let currentOffset = +this.props.match.params.offset || 0;
+      this.props.getBoardPins(
+        boardId,
+        currentOffset,
+        this.props.board.getBoardPinsTake
+      );
     }
   }
 
   renderPins() {
-    return this.props.board.getBoard.pins.map((pin, i) => {
+    return this.props.board.getBoardPins.items.map((pin, i) => {
       return this.renderPin(pin);
     });
   }
@@ -46,6 +52,97 @@ class BoardPage extends React.Component {
     );
   }
 
+  renderPaginatorText() {
+    let currentOffset = +this.props.match.params.offset || 0;
+    // let hasPrew = currentOffset - this.props.pin.getBoardPinsTake > 0;
+    let hasPrew = currentOffset !== 0;
+    let hasNext =
+      currentOffset + this.props.board.getBoardPinsTake <
+        this.props.board.getBoardPins.count &&
+      currentOffset + this.props.board.getBoardPinsTake !==
+        this.props.board.getBoardPins.count;
+
+    let leftButtonsClasses =
+      "material-icons circle green pagination__button waves-effect waves-light";
+    if (!hasPrew) {
+      leftButtonsClasses += " pagination__button--disabled";
+    }
+
+    let rightButtonsClasses =
+      "material-icons circle green pagination__button waves-effect waves-light";
+    if (!hasNext) {
+      rightButtonsClasses += " pagination__button--disabled";
+    }
+
+    let leftOffset =
+      currentOffset - this.props.board.getBoardPinsTake > 0
+        ? currentOffset - this.props.board.getBoardPinsTake
+        : 0;
+    let rightOffset =
+      currentOffset + this.props.board.getBoardPinsTake >=
+      this.props.board.getBoardPins.count
+        ? this.props.board.getBoardPins.count
+        : currentOffset + this.props.board.getBoardPinsTake;
+
+    return (
+      <div className="pagination">
+        <i
+          className={leftButtonsClasses}
+          onClick={e => {
+            e.preventDefault;
+
+            if (hasPrew) {
+              this.props.history.push(
+                "/board/" + this.props.match.params.id + "/" + leftOffset
+              );
+
+              let boardId = +this.props.match.params.id;
+
+              this.props.getBoardPins(
+                boardId,
+                leftOffset,
+                this.props.board.getBoardPinsTake
+              );
+            }
+          }}
+        >
+          chevron_left
+        </i>
+        <span>
+          {Math.ceil(currentOffset / this.props.board.getBoardPinsTake) + 1}
+          {" from "}
+          {this.props.board.getBoardPins &&
+            Math.ceil(
+              this.props.board.getBoardPins.count /
+                this.props.board.getBoardPinsTake
+            )}
+        </span>
+        <i
+          className={rightButtonsClasses}
+          onClick={e => {
+            e.preventDefault;
+
+            if (hasNext) {
+              this.props.history.push(
+                "/board/" + this.props.match.params.id + "/" + rightOffset
+              );
+
+              let boardId = +this.props.match.params.id;
+
+              this.props.getBoardPins(
+                boardId,
+                rightOffset,
+                this.props.board.getBoardPinsTake
+              );
+            }
+          }}
+        >
+          chevron_right
+        </i>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div>
@@ -57,7 +154,7 @@ class BoardPage extends React.Component {
                 <div className="progress">
                   <div className="indeterminate" />
                 </div>
-              )}
+              )} 
               {this.props.board.getBoard && (
                 <ul className="collection">
                   <Card
@@ -78,9 +175,15 @@ class BoardPage extends React.Component {
           <div className="row">
             <div className="col l8 offset-l2 m8 l9 legacy-content">
               <h4 className="left-align">Pins on board</h4>
+              {this.props.board.getBoardPinsLoading && (
+                <div className="progress">
+                  <div className="indeterminate" />
+                </div>
+              )}
               <ul className="collection">
-                {this.props.board.getBoard && this.renderPins()}
+                {this.props.board.getBoardPins && this.renderPins()}
               </ul>
+              {this.props.board.getBoardPins && this.renderPaginatorText()}
             </div>
           </div>
         </div>
