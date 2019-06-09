@@ -29,9 +29,6 @@ class ProfilePage extends React.Component {
   }
 
   renderProfile(user) {
-    // let asd = this.props.UserId;
-    // let asd1 = this.props.account.profileGetObject;
-    // debugger
     return (
       <Card
         key={user.id}

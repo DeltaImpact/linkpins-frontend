@@ -89,7 +89,7 @@ class PinPage extends React.Component {
                 )}
               </ul>
               {this.props.pin.pin && (
-                <div class="card-content grey lighten-3">
+                <div className="card-content grey lighten-3">
                   User{" "}
                   <Link to={"/profile/" + this.props.pin.pin.lastAction.userName}>
                     {this.props.pin.pin.lastAction.userName}

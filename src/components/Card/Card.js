@@ -41,22 +41,13 @@ export class Card extends React.Component {
     let editTitle_is_valid = false;
     let boardDescription_is_valid = false;
     if (this.state.editTitle === "" || this.state.editTitle === null) {
-      // this.setState({
-      //   editTitle_error_text: null
-      // });
     } else if (
       this.state.editTitle.length > 3 &&
       this.state.editTitle.length < 256
     ) {
       editTitle_is_valid = true;
-      // this.setState({
-      //   editTitle_error_text: null
-      // });
     } else {
       editTitle_is_valid = false;
-      // this.setState({
-      //   editTitle_error_text: "Title length should be between 3 and 256."
-      // });
     }
 
     if (

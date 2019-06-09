@@ -128,6 +128,7 @@ class LoginView extends React.Component {
                       <input
                         id="email"
                         type="email"
+                        autoComplete="email"
                         value={this.state.email}
                         className={this.emailClasses()}
                         onChange={e => this.changeValue(e, "email")}
@@ -150,6 +151,7 @@ class LoginView extends React.Component {
                       <input
                         id="pass"
                         type="password"
+                        autoComplete="password" 
                         value={this.state.password}
                         className={this.passwordClasses()}
                         onChange={e => this.changeValue(e, "password")}

@@ -238,6 +238,7 @@ class ParseView extends React.Component {
     return (
       <div className="col hg22 offset-hg1">
         <h2 className="center-align">Page parse</h2>
+        <h6 className="center-align">Dynamic sites not supported. Please use chrome extension.</h6>
         {this.props.parsing.loading && (
           <div className="progress">
             <div className="indeterminate" />

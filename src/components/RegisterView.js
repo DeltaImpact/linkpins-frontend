@@ -142,7 +142,7 @@ class RegisterView extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col m4 offset-m4 z-depth-3 card-panel">
+          <div className="col m8 offset-m2 z-depth-3 card-panel">
             <div className="col hg22 offset-hg1">
               <h2 className="center-align">Register</h2>
               {this.props.account.registerLoading && (
@@ -150,25 +150,16 @@ class RegisterView extends React.Component {
                   <div className="indeterminate" />
                 </div>
               )}
-
               {this.props.account.registerError &&
                 renderError(this.props.account.registerError)}
-
               <div className="row">
                 <form className="col s12">
-                  {/* {this.props.account.registerError && (
-                    <div className="row error--container">
-                      <div className="error error--text alert alert-info">
-                        {this.props.account.registerError}
-                      </div>
-                    </div>
-                  )} */}
-
                   <div className="row">
                     <div className="input-field col s12">
                       <input
                         id="email"
                         type="email"
+                        autoComplete="email" 
                         value={this.state.email}
                         className={
                           this.state.email_error_text != null ? "invalid" : ""
@@ -193,6 +184,7 @@ class RegisterView extends React.Component {
                       <input
                         id="username"
                         type="text"
+                        autoComplete="username" 
                         value={this.state.username}
                         className={
                           this.state.username_error_text != null
@@ -219,6 +211,7 @@ class RegisterView extends React.Component {
                       <input
                         id="pass"
                         type="password"
+                        autoComplete="password" 
                         value={this.state.password}
                         className={
                           this.state.password_error_text != null

@@ -30,9 +30,9 @@ class NavMenu extends Component {
                   to={"/"}
                   className="left brand-logo nav__logo black-text "
                 >
-                  <i className="black-text material-icons hide-on-med-and-down">
+                  {/* <i className="black-text material-icons hide-on-med-and-down">
                     broken_image
-                  </i>
+                  </i> */}
                   Linkpins
                 </Link>
                 <NavMenuRight />
