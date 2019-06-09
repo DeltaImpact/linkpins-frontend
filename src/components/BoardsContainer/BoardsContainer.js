@@ -24,7 +24,7 @@ class BoardsContainer extends React.Component {
 
   componentWillMount() {
     // debugger
-    this.props.getMainPage();
+    // this.props.getMainPage();
     this.props.getBoards(this.props.UserNickname);
   }
 
