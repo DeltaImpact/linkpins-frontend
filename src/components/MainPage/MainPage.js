@@ -15,72 +15,95 @@ import {
 class MainPage extends React.Component {
   constructor(props) {
     super(props);
-    const { dispatch } = this.props;
   }
 
   componentWillMount() {
-    // debugger
     this.props.getMainPage(
-      this.props.match.params.offset || 0,
+      this.currentOffset(),
       this.props.pin.getMainPageTake
     );
-    // if (this.props.match.params.id != null) {
-    //   let boardId = this.props.match.params.id;
-    //   this.props.getBoard(boardId);
-    // }
   }
 
   renderPins() {
-    return this.props.pin.getMainPage.items.map((pin, i) => {
+    return this.props.pin.getMainPage.items.map(pin => {
       return this.renderPin(pin);
     });
   }
 
-  renderPaginatorText() {
-    let currentOffset = +this.props.match.params.offset || 0;
+  currentOffset() {
+    return +this.props.match.params.offset || 0;
+  }
 
-    // let hasPrew = currentOffset - this.props.pin.getMainPageTake > 0;
-    let hasPrew = currentOffset !== 0;
-    let hasNext =
-      currentOffset + this.props.pin.getMainPageTake <
+  hasPrew() {
+    return this.currentOffset() !== 0;
+  }
+
+  hasNext() {
+    return (
+      this.currentOffset() + this.props.pin.getMainPageTake <
         this.props.pin.getMainPage.count &&
-      currentOffset + this.props.pin.getMainPageTake !==
-        this.props.pin.getMainPage.count;
+      this.currentOffset() + this.props.pin.getMainPageTake !==
+        this.props.pin.getMainPage.count
+    );
+  }
 
+  leftOffset() {
+    return this.currentOffset() - this.props.pin.getMainPageTake > 0
+      ? this.currentOffset() - this.props.pin.getMainPageTake
+      : 0;
+  }
+
+  rightOffset() {
+    return this.currentOffset() + this.props.pin.getMainPageTake >=
+      this.props.pin.getMainPage.count
+      ? this.props.pin.getMainPage.count
+      : this.currentOffset() + this.props.pin.getMainPageTake;
+  }
+
+  leftButtonsClasses() {
     let leftButtonsClasses =
       "material-icons circle green pagination__button waves-effect waves-light";
-    if (!hasPrew) {
+    if (!this.hasPrew()) {
       leftButtonsClasses += " pagination__button--disabled";
     }
 
+    return leftButtonsClasses;
+  }
+
+  rightButtonsClasses() {
     let rightButtonsClasses =
       "material-icons circle green pagination__button waves-effect waves-light";
-    if (!hasNext) {
+    if (!this.hasNext()) {
       rightButtonsClasses += " pagination__button--disabled";
     }
 
-    let leftOffset =
-      currentOffset - this.props.pin.getMainPageTake > 0
-        ? currentOffset - this.props.pin.getMainPageTake
-        : 0;
-    let rightOffset =
-      currentOffset + this.props.pin.getMainPageTake >=
-      this.props.pin.getMainPage.count
-        ? this.props.pin.getMainPage.count
-        : currentOffset + this.props.pin.getMainPageTake;
+    return rightButtonsClasses;
+  }
 
+  paginatorText() {
+    return (
+      Math.ceil(this.currentOffset() / this.props.pin.getMainPageTake) +
+      1 +
+      " from " +
+      Math.ceil(
+        this.props.pin.getMainPage.count / this.props.pin.getMainPageTake
+      )
+    );
+  }
+
+  renderPaginator() {
     return (
       <div className="pagination">
         <i
-          className={leftButtonsClasses}
+          className={this.leftButtonsClasses()}
           onClick={e => {
             e.preventDefault;
 
-            if (hasPrew) {
-              this.props.history.push("/" + leftOffset);
+            if (this.hasPrew()) {
+              this.props.history.push("/" + this.leftOffset());
 
               this.props.getMainPage(
-                leftOffset,
+                this.leftOffset(),
                 this.props.pin.getMainPageTake
               );
             }
@@ -88,26 +111,17 @@ class MainPage extends React.Component {
         >
           chevron_left
         </i>
-        <span>
-          {Math.ceil(
-            this.props.match.params.offset / this.props.pin.getMainPageTake
-          ) + 1}
-          {" from "}
-          {this.props.pin.getMainPage &&
-            Math.ceil(
-              this.props.pin.getMainPage.count / this.props.pin.getMainPageTake
-            )}
-        </span>
+        <span>{this.props.pin.getMainPage && this.paginatorText()}</span>
         <i
-          className={rightButtonsClasses}
+          className={this.rightButtonsClasses()}
           onClick={e => {
             e.preventDefault;
 
-            if (hasNext) {
-              this.props.history.push("/" + rightOffset);
+            if (this.hasNext()) {
+              this.props.history.push("/" + this.rightOffset());
 
               this.props.getMainPage(
-                rightOffset,
+                this.rightOffset(),
                 this.props.pin.getMainPageTake
               );
             }
@@ -121,17 +135,7 @@ class MainPage extends React.Component {
 
   renderPin(pin) {
     return (
-      <Card
-        key={pin.id}
-        item={pin}
-        // updatePin={this.props.updatePin}
-        // deletePin={this.props.deletePin}
-        // deletePin={this.props.deletePin}
-        // loading={this.props.pin.updatePinLoading}
-        // error={this.props.pin.updatePinError}
-        typeOfElement="pin"
-        editable="false"
-      />
+      <Card key={pin.id} item={pin} typeOfElement="pin" editable="false" />
     );
   }
 
@@ -141,7 +145,6 @@ class MainPage extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col l8 offset-l2 m8 l9 legacy-content">
-              {/* <h4 className="left-align">Pins on board</h4> */}
               {this.props.pin.getMainPageLoading && (
                 <div className="progress">
                   <div className="indeterminate" />
@@ -157,7 +160,7 @@ class MainPage extends React.Component {
               <ul className="collection">
                 {this.props.pin.getMainPage && this.renderPins()}
               </ul>
-              {this.props.pin.getMainPage && this.renderPaginatorText()}
+              {this.props.pin.getMainPage && this.renderPaginator()}
             </div>
           </div>
         </div>
