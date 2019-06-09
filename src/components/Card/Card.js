@@ -369,7 +369,7 @@ export class Card extends React.Component {
   }
 
   renderMiscOfCardSmallUserCard(item, typeOfElement) {
-    // debugger
+    let offlineMessage = item.lastOnline ?   "seen " + dateInWordsToNow(item.lastOnline) + " ago"  : "Offline";
     return (
       <React.Fragment>
         {item.isOnline ? (
@@ -378,7 +378,7 @@ export class Card extends React.Component {
           </span>
         ) : (
           <span className="board__misc__item--radio_button_unchecked">
-            Offline
+            {offlineMessage}
           </span>
         )}
       </React.Fragment>
